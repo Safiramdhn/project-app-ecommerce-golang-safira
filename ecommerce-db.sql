@@ -34,6 +34,7 @@ CREATE TABLE products (
   rating DECIMAL(1, 2) CHECK (rating BETWEEN 1 AND 5),
   photo_url TEXT,
   is_new_product BOOLEAN GENERATED ALWAYS AS (created_at > NOW() - INTERVAL '30 days') STORED,
+  has_variations BOOLEAN DEFAULT FALSE,
   status status_enum DEFAULT 'active',
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP,
@@ -138,4 +139,21 @@ CREATE TABLE recommendations (
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP,
   deleted_at TIMESTAMP
+);
+
+CREATE TABLE variations (
+    id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES products(id) ON DELETE CASCADE,
+    attribute_name VARCHAR NOT NULL, -- E.g., Size, Color
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Table Variation_Options (only for products with variations)
+CREATE TABLE variation_options (
+    id SERIAL PRIMARY KEY,
+    variation_id INT REFERENCES variations(id) ON DELETE CASCADE,
+    option_value VARCHAR NOT NULL, -- E.g., Red, Large
+    additional_price DECIMAL(10, 2) DEFAULT 0,
+    stock INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
 );
