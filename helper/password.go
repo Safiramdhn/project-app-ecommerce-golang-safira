@@ -1,6 +1,8 @@
 package helper
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+)
 
 func EncodePassword(password string) (string, error) {
 	// encode password using bcrypt
@@ -11,11 +13,11 @@ func EncodePassword(password string) (string, error) {
 	return string(hashedPassword), nil
 }
 
-func ComparePassword(hashedPassword string, password string) bool {
+func ComparePassword(hashedPassword string, password string) (bool, error) {
 	// compare the given password with the hashed password
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
-	if err == nil {
-		return false
+	if err != nil {
+		return false, err
 	}
-	return true
+	return true, nil
 }

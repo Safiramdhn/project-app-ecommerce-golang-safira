@@ -7,20 +7,23 @@ import (
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
 	"github.com/google/uuid"
+	"go.uber.org/zap"
 )
 
 type UserService struct {
-	UserRepo repository.UserRepository
+	Repo   repository.MainRepository
+	Logger *zap.Logger
 }
 
-func NewUserService(userRepo repository.UserRepository) *UserService {
-	return &UserService{UserRepo: userRepo}
+func NewUserService(repo repository.MainRepository, log *zap.Logger) UserService {
+	return UserService{Repo: repo, Logger: log}
 }
 
 func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 	//encode password
 	passwordHashed, err := helper.EncodePassword(userInput.Password)
 	if err != nil {
+		s.Logger.Error("error encode password", zap.Error(err))
 		return "", err
 	}
 	newUserInput := model.User{
@@ -31,25 +34,28 @@ func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 		PhoneNumber:    sql.NullString{String: userInput.EmailOrPhoneNumber, Valid: true},
 	}
 
-	err = s.UserRepo.Create(newUserInput)
+	err = s.Repo.UserRepository.Create(newUserInput)
 	if err != nil {
+		s.Logger.Error("error creating user", zap.Error(err))
 		return "", err
 	}
 	return newUserInput.ID, nil
 }
 
 func (s *UserService) Login(userInput model.UserDTO) (*model.User, error) {
-	user, err := s.UserRepo.Login(userInput)
+	user, err := s.Repo.UserRepository.Login(userInput)
 	if err != nil {
-		return user, err
+		s.Logger.Error("error login user", zap.Error(err))
+		return nil, err
 	}
 
 	// compare password
 	if user.PasswordHashed != "" {
-		passwordValidation := helper.ComparePassword(user.PasswordHashed, userInput.Password)
+		passwordValidation, err := helper.ComparePassword(user.PasswordHashed, userInput.Password)
 		if !passwordValidation {
+			s.Logger.Error("password validation failed", zap.Error(err))
 			return nil, err
 		}
 	}
-	return user, nil
+	return &user, nil
 }

@@ -9,9 +9,9 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func InitLog() *zap.Logger {
+func InitLog(config Configuration) *zap.Logger {
 	// Ensure the log folder exists
-	logFolder := "log"
+	logFolder := config.Dir.Logs
 	if _, err := os.Stat(logFolder); os.IsNotExist(err) {
 		err := os.Mkdir(logFolder, os.ModePerm)
 		if err != nil {
@@ -32,6 +32,9 @@ func InitLog() *zap.Logger {
 	errorWS := zapcore.AddSync(errorLog)
 	debugWS := zapcore.AddSync(debugLog)
 
+	// Add a console output for debug logs
+	consoleDebugWS := zapcore.AddSync(os.Stdout)
+
 	// Set encoder configurations
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.TimeKey = "timestamp"
@@ -40,7 +43,12 @@ func InitLog() *zap.Logger {
 	// Create cores for each level
 	infoCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), infoWS, zapcore.InfoLevel)
 	errorCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), errorWS, zapcore.ErrorLevel)
-	debugCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), debugWS, zapcore.DebugLevel)
+
+	// Use Tee for debug logs to write to both file and console
+	debugCore := zapcore.NewTee(
+		zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), debugWS, zapcore.DebugLevel),
+		zapcore.NewCore(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig()), consoleDebugWS, zapcore.DebugLevel),
+	)
 
 	// Combine cores
 	core := zapcore.NewTee(infoCore, errorCore, debugCore)
