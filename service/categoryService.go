@@ -16,8 +16,11 @@ func NewCategoryService(repo repository.MainRepository, logger *zap.Logger) Cate
 }
 
 func (s *CategoryService) GetAllCategory(pagination model.Pagination) ([]model.Category, model.Pagination, error) {
-	if pagination.Page == 0 && pagination.PerPage == 0 {
+	if pagination.Page == 0 {
 		pagination.Page = 1
+	}
+
+	if pagination.PerPage == 0 {
 		pagination.PerPage = 5
 	}
 	return s.Repo.CategoryRepository.GetAll(pagination)

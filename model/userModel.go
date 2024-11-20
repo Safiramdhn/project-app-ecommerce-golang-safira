@@ -8,10 +8,7 @@ type User struct {
 	Email          sql.NullString `json:"email," validate:"email"`
 	PasswordHashed string         `json:"-"`
 	PhoneNumber    sql.NullString `json:"phone_number"`
-	Status         string         `json:"status,omitempty"`
-	CreatedAt      string         `json:"created_at,omitempty"`
-	UpdatedAt      sql.NullString `json:"updated_at,omitempty"`
-	DeletedAt      sql.NullString `json:"deleted_at,omitempty"`
+	Detail         `json:"-"`
 }
 
 type UserDTO struct {
