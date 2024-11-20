@@ -31,6 +31,8 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 	r.Route("/api", func(r chi.Router) {
 		r.Post("/register", handlers.UserHandler.RegisterHanlder)
 		r.Get("/login", handlers.UserHandler.LoginHandler)
+
+		r.Get("/categories", handlers.CategoryHandler.GetAllCategoryHandler)
 	})
 
 	return r, logger, config.Port, nil

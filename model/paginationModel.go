@@ -1,9 +1,7 @@
 package model
 
-type PaginatedResponse struct {
-	StandardResponse
-	Page       int `json:"page,omitempty"`
-	Limit      int `json:"limit,omitempty"`
-	TotalItems int `json:"total_items,omitempty"`
-	TotalPages int `json:"total_pages,omitempty"`
+type Pagination struct {
+	Page      int `json:"page,omitempty"`
+	PerPage   int `json:"per_page,omitempty"`
+	CountData int `json:"countData,omitempty"`
 }
