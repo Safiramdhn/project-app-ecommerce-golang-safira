@@ -24,7 +24,7 @@ func NewCategoryHandler(service service.MainService, log *zap.Logger, config uti
 func (h *CategoryHandler) GetAllCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error(errMessage)
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Category"), zap.String("function", "GetAllCategoryHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 		return
 	}
@@ -42,7 +42,7 @@ func (h *CategoryHandler) GetAllCategoryHandler(w http.ResponseWriter, r *http.R
 
 	categories, pagination, err := h.Service.CategoryService.GetAllCategory(paginationInput)
 	if err != nil {
-		h.Logger.Error(err.Error())
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "Category"), zap.String("function", "GetAllCategoryHandler"))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get all categories")
 		return
 	}

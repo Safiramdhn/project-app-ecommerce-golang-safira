@@ -37,7 +37,7 @@ func (s ProductService) GetProductByID(id int) (*model.Product, error) {
 	if product.HasVariant {
 		variant, err := s.Repo.VariantRepository.GetByProductId(product.ID)
 		if err != nil {
-			s.Logger.Error("Error retrieving variant", zap.Error(err))
+			s.Logger.Error("Error retrieving variant", zap.Error(err), zap.String("Service", "Product"), zap.String("Function", "GetProductByID"))
 			return nil, err
 		}
 

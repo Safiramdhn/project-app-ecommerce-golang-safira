@@ -23,7 +23,7 @@ func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 	//encode password
 	passwordHashed, err := helper.EncodePassword(userInput.Password)
 	if err != nil {
-		s.Logger.Error("error encode password", zap.Error(err))
+		s.Logger.Error("error encode password", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "CreateUser"))
 		return "", err
 	}
 	newUserInput := model.User{
@@ -36,7 +36,7 @@ func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 
 	err = s.Repo.UserRepository.Create(newUserInput)
 	if err != nil {
-		s.Logger.Error("error creating user", zap.Error(err))
+		s.Logger.Error("error creating user", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "CreateUser"))
 		return "", err
 	}
 	return newUserInput.ID, nil
@@ -45,15 +45,18 @@ func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 func (s *UserService) Login(userInput model.UserDTO) (*model.User, error) {
 	user, err := s.Repo.UserRepository.Login(userInput)
 	if err != nil {
-		s.Logger.Error("error login user", zap.Error(err))
+		s.Logger.Error("error login user", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
 		return nil, err
+	}
+	if user.ID == "" {
+		return nil, nil
 	}
 
 	// compare password
 	if user.PasswordHashed != "" {
 		passwordValidation, err := helper.ComparePassword(user.PasswordHashed, userInput.Password)
 		if !passwordValidation {
-			s.Logger.Error("password validation failed", zap.Error(err))
+			s.Logger.Error("password validation failed", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
 			return nil, err
 		}
 	}

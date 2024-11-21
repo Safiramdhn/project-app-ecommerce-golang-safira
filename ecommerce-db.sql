@@ -47,6 +47,7 @@ CREATE TABLE variations (
     id SERIAL PRIMARY KEY,
     product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
     attribute_name VARCHAR NOT NULL, -- E.g., Size, Color
+    status status_enum DEFAULT 'active',
     created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -57,6 +58,7 @@ CREATE TABLE variation_options (
     option_value VARCHAR NOT NULL, -- E.g., Red, Large
     additional_price DECIMAL(10, 2) DEFAULT 0,
     stock INT DEFAULT 0,
+    status status_enum DEFAULT 'active',
     created_at TIMESTAMP DEFAULT NOW()
 );
 

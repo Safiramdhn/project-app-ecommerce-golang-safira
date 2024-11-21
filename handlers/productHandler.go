@@ -25,7 +25,7 @@ func NewProductHandler(service service.MainService, log *zap.Logger, config util
 func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error(errMessage)
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Product"), zap.String("function", "GetAllProductHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 		return
 	}
@@ -55,7 +55,7 @@ func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Req
 
 	products, pagination, err := h.Service.ProductService.GetAllProduct(productFilter, paginationInput)
 	if err != nil {
-		h.Logger.Error(err.Error())
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "Product"), zap.String("function", "GetAllProductHandler"))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get products")
 		return
 	}
@@ -66,7 +66,7 @@ func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Req
 func (h *ProductHandler) GetProductByIdHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error(errMessage)
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Product"), zap.String("function", "GetProductByIdHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 		return
 	}
@@ -77,7 +77,7 @@ func (h *ProductHandler) GetProductByIdHandler(w http.ResponseWriter, r *http.Re
 		productId, _ := strconv.Atoi(id)
 		if productId <= 0 {
 			errMessage := fmt.Sprintf("Invalid product id %s", id)
-			h.Logger.Error(errMessage)
+			h.Logger.Error("Invalid requested product ID", zap.String("method", r.Method), zap.String("handler", "Product"), zap.String("function", "GetProductByIdHandler"))
 			JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 			return
 		}
@@ -85,7 +85,7 @@ func (h *ProductHandler) GetProductByIdHandler(w http.ResponseWriter, r *http.Re
 
 	product, err := h.Service.ProductService.GetProductByID(productId)
 	if err != nil {
-		h.Logger.Error(err.Error())
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "Product"), zap.String("function", "GetProductByIdHandler"))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get product")
 		return
 	}

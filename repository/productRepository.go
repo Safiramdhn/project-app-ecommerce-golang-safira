@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"go.uber.org/zap"
@@ -19,13 +20,24 @@ func NewProductRepository(db *sql.DB, logger *zap.Logger) ProductRepository {
 
 func (repo ProductRepository) GetByID(id int) (model.Product, error) {
 	var product model.Product
-	sqlStatement := `SELECT id, name, description, price, discount, rating, photo_url, has_variant FROM products WHERE id = $1`
+	sqlStatement := `SELECT id, name, description, price, discount, rating, photo_url, has_variant FROM products WHERE id = $1 AND status = 'active'`
+
+	repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
 	err := repo.DB.QueryRow(sqlStatement, id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.Discount, &product.Rating, &product.PhotoURL, &product.HasVariant)
 	if err == sql.ErrNoRows {
-		repo.Logger.Info("product not found", zap.Int("product id", id))
+		repo.Logger.Info("product not found",
+			zap.Int("product id", id),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetByID"),
+			zap.Duration("duration", time.Since(startTime)))
+
 		return product, nil
 	} else if err != nil {
-		repo.Logger.Error("error getting product by id", zap.Error(err))
+		repo.Logger.Error("error getting product by id",
+			zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetByID"),
+			zap.Duration("duration", time.Since(startTime)))
 		return product, err
 	}
 
@@ -40,7 +52,7 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 	sqlStatement := `
         SELECT id, name, description, price, discount, rating, photo_url, has_variant 
         FROM products
-        WHERE 1=1
+        WHERE status = 'active'
     `
 
 	// Add filters if provided
@@ -60,7 +72,8 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 
 	// Log SQL statement and parameters (be cautious with sensitive data in production)
 	repo.Logger.Info("Run Get All Products",
-		zap.String("Repository", "ProductRepository"),
+		zap.String("Repository", "Product"),
+		zap.String("function", "GetAllProducts"),
 		zap.String("statement", sqlStatement),
 		zap.Int("args_count", len(filterArgs)),
 		// Optionally, mask sensitive data in args for logging purposes
@@ -73,7 +86,11 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 		if err == sql.ErrNoRows {
 			return nil, pagination, nil
 		}
-		repo.Logger.Error("Error retrieving products", zap.Error(err))
+		repo.Logger.Error("Error retrieving products", zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetByID"),
+			zap.Duration("duration", time.Since(startTime)))
+
 		return nil, pagination, err
 	}
 	defer rows.Close()
@@ -91,22 +108,33 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 			&product.PhotoURL,
 			&product.HasVariant,
 		); err != nil {
-			repo.Logger.Error("Error scanning product", zap.Error(err))
+			repo.Logger.Error("Error scanning product", zap.Error(err),
+				zap.String("Repository", "Product"),
+				zap.String("Function", "GetAll"),
+				zap.Duration("duration", time.Since(startTime)))
+
 			return nil, pagination, err
 		}
+		isNewProduct, err := repo.GetNewProducts(product.ID)
+		if err != nil {
+			return nil, pagination, err
+		}
+		product.SpecialProduct.IsNewProduct = isNewProduct
 		products = append(products, product)
 	}
 
 	// Check for errors during rows iteration
 	if err := rows.Err(); err != nil {
-		repo.Logger.Error("Error during rows iteration", zap.Error(err))
+		repo.Logger.Error("Error during rows iteration", zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetAll"),
+			zap.Duration("duration", time.Since(startTime)))
 		return nil, pagination, err
 	}
 
 	// Get total product count
 	totalCount, err := repo.CountProducts(productFilter)
 	if err != nil {
-		repo.Logger.Error("Error retrieving product count", zap.Error(err))
 		return nil, pagination, err
 	}
 	pagination.CountData = totalCount
@@ -116,7 +144,7 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 
 func (repo ProductRepository) CountProducts(productFilter model.ProductDTO) (int, error) {
 	// Base query
-	countQuery := `SELECT COUNT(*) FROM products WHERE 1=1`
+	countQuery := `SELECT COUNT(*) FROM products WHERE status = 'active'`
 	countArgs := []interface{}{}
 	countArgIndex := 1
 
@@ -135,11 +163,36 @@ func (repo ProductRepository) CountProducts(productFilter model.ProductDTO) (int
 
 	// Execute count query
 	var totalCount int
+	repo.Logger.Info("Execute count query", zap.String("query", countQuery), zap.String("Repository", "Product"), zap.String("Function", "CountProducts"))
 	err := repo.DB.QueryRow(countQuery, countArgs...).Scan(&totalCount)
 	if err != nil {
-		repo.Logger.Error("Error counting products", zap.Error(err))
+		repo.Logger.Error("Error counting products", zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "CountProducts"),
+			zap.Duration("duration", time.Since(startTime)))
 		return 0, err
 	}
 
 	return totalCount, nil
+}
+
+func (repo ProductRepository) GetNewProducts(id int) (bool, error) {
+	sqlStatement := `SELECT(created_at > NOW() - INTERVAL '30 days') AS is_new_product FROM products WHERE id = $1 AND status = 'active';`
+	var isNewProduct bool
+
+	repo.Logger.Info("run sql statement", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetNewProduct"))
+	err := repo.DB.QueryRow(sqlStatement, id).Scan(&isNewProduct)
+
+	if err == sql.ErrNoRows {
+		return false, nil
+	} else if err != nil {
+		repo.Logger.Error("Error getting new product status", zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetNewProducts"),
+			zap.Int("id", id),
+			zap.Duration("duration", time.Since(startTime)))
+		return false, err
+	}
+
+	return isNewProduct, nil
 }
