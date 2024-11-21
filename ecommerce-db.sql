@@ -120,6 +120,44 @@ VALUES
 
 SELECT * FROM products
 
+-- -- Tabel recommendations
+CREATE TABLE recommendations (
+  id SERIAL PRIMARY KEY,
+  product_id INT REFERENCES products(id) ON DELETE CASCADE,
+  is_recommended BOOLEAN DEFAULT FALSE, -- New field for IsRecommended
+  set_in_banner BOOLEAN DEFAULT FALSE,  -- New field for SetInBanner
+  title VARCHAR NOT NULL,
+  subtitle VARCHAR NOT NULL,
+  photo_url TEXT,
+  status status_enum DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP,
+  deleted_at TIMESTAMP
+);
+
+INSERT INTO recommendations (
+  product_id, is_recommended, set_in_banner, title, subtitle, photo_url, status, created_at
+) VALUES
+-- Recommendation for Casual T-Shirt
+(1, TRUE, FALSE, 'Casual Comfort', 'Perfect for daily wear and casual outings.', 
+ 'https://example.com/tshirt.jpg', 'active', NOW()),
+
+-- Recommendation for Formal Shirt
+(2, TRUE, TRUE, 'Formal Elegance', 'Upgrade your wardrobe with sleek style.', 
+ 'https://example.com/shirt.jpg', 'active', NOW()),
+
+-- Recommendation for Stuffed Bear
+(3, TRUE, FALSE, 'Gift of Cuteness', 'An adorable gift for your loved ones.', 
+ 'https://example.com/bear.jpg', 'active', NOW()),
+
+-- Recommendation for Skin Care Kit
+(4, TRUE, TRUE, 'Skin Care Deluxe', 'Rejuvenate your skin with premium care.', 
+ 'https://example.com/skincare.jpg', 'active', NOW()),
+
+-- Recommendation for Wooden Chair
+(5, FALSE, FALSE, 'Elegant Wood Design', 'Perfect for your dining or working space.', 
+ 'https://example.com/chair.jpg', 'active', NOW());
+
 -- Tabel wishlist
 -- CREATE TABLE wishlist (
 --   id SERIAL PRIMARY KEY,
@@ -206,17 +244,3 @@ SELECT * FROM products
 --   updated_at TIMESTAMP,
 --   deleted_at TIMESTAMP
 -- );
-
--- -- Tabel recommendations
--- CREATE TABLE recommendations (
---   id SERIAL PRIMARY KEY,
---   product_id INT REFERENCES products(id) ON DELETE CASCADE,
---   title VARCHAR,
---   subtitle VARCHAR,
---   photo_url TEXT,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
-

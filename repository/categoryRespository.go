@@ -67,7 +67,7 @@ func (repo CategoryRepository) GetAll(pagination model.Pagination) ([]model.Cate
 
 func (repo CategoryRepository) CountCategories() (int, error) {
 	var totalCount int
-	countQuery := `SELECT COUNT(*) FROM categories`
+	countQuery := `SELECT COUNT(*) FROM categories WHERE status = 'active';`
 
 	repo.Logger.Info("running query", zap.String("query", countQuery), zap.String("Repository", "Category"), zap.String("Function", "CountCategories"))
 	err := repo.DB.QueryRow(countQuery).Scan(&totalCount)

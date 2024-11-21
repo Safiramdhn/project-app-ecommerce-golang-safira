@@ -7,7 +7,7 @@ import (
 
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/service"
-	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
+	// "github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
 	"github.com/go-chi/chi/v5"
 	"go.uber.org/zap"
 )
@@ -15,12 +15,14 @@ import (
 type ProductHandler struct {
 	Service service.MainService
 	Logger  *zap.Logger
-	Config  util.Configuration
+	// Config  util.Configuration
 }
 
-func NewProductHandler(service service.MainService, log *zap.Logger, config util.Configuration) ProductHandler {
-	return ProductHandler{Service: service, Logger: log, Config: config}
+func NewProductHandler(service service.MainService, log *zap.Logger) ProductHandler {
+	return ProductHandler{Service: service, Logger: log}
 }
+
+var TotalPage = 1
 
 func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
@@ -59,8 +61,10 @@ func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Req
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get products")
 		return
 	}
-	totalPage := pagination.CountData / pagination.PerPage
-	JsonResponse.SendPaginatedResponse(w, products, pagination.Page, pagination.PerPage, pagination.CountData, totalPage, "Products successfully retrieved")
+	if pagination.CountData/pagination.PerPage > 0 {
+		TotalPage = pagination.CountData / pagination.PerPage
+	}
+	JsonResponse.SendPaginatedResponse(w, products, pagination.Page, pagination.PerPage, pagination.CountData, TotalPage, "Products successfully retrieved")
 }
 
 func (h *ProductHandler) GetProductByIdHandler(w http.ResponseWriter, r *http.Request) {

@@ -37,7 +37,10 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 		r.Route("/products", func(r chi.Router) {
 			r.Get("/", handlers.ProductHandler.GetAllProductHandler)
 			r.Get("/{id}", handlers.ProductHandler.GetProductByIdHandler)
+			r.Get("/recommendation", handlers.RecommendationHandler.GetRecommendationsHandler)
+			r.Get("/banner", handlers.RecommendationHandler.GetBannerProduct)
 		})
+
 	})
 
 	return r, logger, config.Port, nil

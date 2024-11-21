@@ -7,18 +7,18 @@ import (
 
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/service"
-	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
+	// "github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
 	"go.uber.org/zap"
 )
 
 type CategoryHandler struct {
 	Service service.MainService
 	Logger  *zap.Logger
-	Config  util.Configuration
+	// Config  util.Configuration
 }
 
-func NewCategoryHandler(service service.MainService, log *zap.Logger, config util.Configuration) CategoryHandler {
-	return CategoryHandler{Service: service, Logger: log, Config: config}
+func NewCategoryHandler(service service.MainService, log *zap.Logger) CategoryHandler {
+	return CategoryHandler{Service: service, Logger: log}
 }
 
 func (h *CategoryHandler) GetAllCategoryHandler(w http.ResponseWriter, r *http.Request) {
@@ -46,6 +46,8 @@ func (h *CategoryHandler) GetAllCategoryHandler(w http.ResponseWriter, r *http.R
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get all categories")
 		return
 	}
-	totalPage := pagination.CountData / pagination.PerPage
-	JsonResponse.SendPaginatedResponse(w, categories, pagination.Page, pagination.PerPage, pagination.CountData, totalPage, "Categories successfully retrieved")
+	if pagination.CountData/pagination.PerPage > 0 {
+		TotalPage = pagination.CountData / pagination.PerPage
+	}
+	JsonResponse.SendPaginatedResponse(w, categories, pagination.Page, pagination.PerPage, pagination.CountData, TotalPage, "Categories successfully retrieved")
 }

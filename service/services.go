@@ -6,15 +6,17 @@ import (
 )
 
 type MainService struct {
-	UserService     UserService
-	CategoryService CategoryService
-	ProductService  ProductService
+	UserService           UserService
+	CategoryService       CategoryService
+	ProductService        ProductService
+	RecommendationService RecommendationService
 }
 
 func NewMainService(repo repository.MainRepository, log *zap.Logger) MainService {
 	return MainService{
-		UserService:     NewUserService(repo, log),
-		CategoryService: NewCategoryService(repo, log),
-		ProductService:  NewProductService(repo, log),
+		UserService:           NewUserService(repo, log),
+		CategoryService:       NewCategoryService(repo, log),
+		ProductService:        NewProductService(repo, log),
+		RecommendationService: NewRecommendationService(repo, log),
 	}
 }
