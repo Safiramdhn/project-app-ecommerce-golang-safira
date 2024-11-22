@@ -10,6 +10,7 @@ type MainService struct {
 	CategoryService       CategoryService
 	ProductService        ProductService
 	RecommendationService RecommendationService
+	WishlistService       WishlistService
 }
 
 func NewMainService(repo repository.MainRepository, log *zap.Logger) MainService {
@@ -18,5 +19,6 @@ func NewMainService(repo repository.MainRepository, log *zap.Logger) MainService
 		CategoryService:       NewCategoryService(repo, log),
 		ProductService:        NewProductService(repo, log),
 		RecommendationService: NewRecommendationService(repo, log),
+		WishlistService:       NewWishlistService(repo, log),
 	}
 }

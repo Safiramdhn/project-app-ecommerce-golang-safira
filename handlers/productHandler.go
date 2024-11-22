@@ -52,7 +52,6 @@ func (h *ProductHandler) GetAllProductHandler(w http.ResponseWriter, r *http.Req
 	categoryID := r.URL.Query().Get("categoryId")
 	if categoryID != "" {
 		productFilter.CategoryID, _ = strconv.Atoi(categoryID)
-
 	}
 
 	products, pagination, err := h.Service.ProductService.GetAllProduct(productFilter, paginationInput)

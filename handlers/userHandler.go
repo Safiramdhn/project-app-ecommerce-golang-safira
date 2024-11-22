@@ -111,11 +111,23 @@ func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	user, err := h.Service.UserService.Login(userInput)
 	if err != nil {
-		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "LoginHandler"))
+		h.Logger.Error("Authentication error",
+			zap.String("error", err.Error()),
+			zap.String("method", r.Method),
+			zap.String("handler", "User"),
+			zap.String("function", "LoginHandler"),
+		)
 		JsonResponse.SendError(w, http.StatusUnauthorized, "Invalid username or password")
 		return
-	} else if user == nil {
-		h.Logger.Error("User not found", zap.String("email_or_phone", userInput.EmailOrPhoneNumber), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "LoginHandler"))
+	}
+
+	if (user == model.User{}) {
+		h.Logger.Error("User not found",
+			zap.String("email_or_phone", userInput.EmailOrPhoneNumber),
+			zap.String("method", r.Method),
+			zap.String("handler", "User"),
+			zap.String("function", "LoginHandler"),
+		)
 		JsonResponse.SendError(w, http.StatusNotFound, "User not found")
 		return
 	}
@@ -126,14 +138,6 @@ func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to generate token")
 		return
 	}
-
-	// save user id in cookies
-	http.SetCookie(w, &http.Cookie{
-		Name:     "token",
-		Value:    token,
-		HttpOnly: true,
-		Path:     "/",
-	})
 
 	JsonResponse.SendSuccess(w, map[string]interface{}{
 		"token": token,

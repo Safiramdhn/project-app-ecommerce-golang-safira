@@ -42,14 +42,14 @@ func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) {
 	return newUserInput.ID, nil
 }
 
-func (s *UserService) Login(userInput model.UserDTO) (*model.User, error) {
+func (s *UserService) Login(userInput model.UserDTO) (model.User, error) {
 	user, err := s.Repo.UserRepository.Login(userInput)
 	if err != nil {
 		s.Logger.Error("error login user", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
-		return nil, err
+		return model.User{}, err
 	}
 	if user.ID == "" {
-		return nil, nil
+		return model.User{}, nil
 	}
 
 	// compare password
@@ -57,8 +57,8 @@ func (s *UserService) Login(userInput model.UserDTO) (*model.User, error) {
 		passwordValidation, err := helper.ComparePassword(user.PasswordHashed, userInput.Password)
 		if !passwordValidation {
 			s.Logger.Error("password validation failed", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
-			return nil, err
+			return model.User{}, err
 		}
 	}
-	return &user, nil
+	return user, nil
 }

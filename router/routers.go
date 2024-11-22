@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/database"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/handlers"
+	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/middleware"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/service"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
@@ -27,6 +28,7 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 	repositories := repository.NewMainRepository(db, logger)
 	services := service.NewMainService(repositories, logger)
 	handlers := handlers.NewMainHandler(services, logger, config)
+	middleware := middleware.NewMiddleware(logger, config)
 
 	r.Route("/api", func(r chi.Router) {
 		r.Post("/register", handlers.UserHandler.RegisterHanlder)
@@ -39,8 +41,21 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 			r.Get("/{id}", handlers.ProductHandler.GetProductByIdHandler)
 			r.Get("/recommendation", handlers.RecommendationHandler.GetRecommendationsHandler)
 			r.Get("/banner", handlers.RecommendationHandler.GetBannerProduct)
+			// r.Get("/weekly-promo")
 		})
 
+		r.With(middleware.AuthMiddleware).Route("/wishlist", func(r chi.Router) {
+			r.Post("/add", handlers.WishlistHandler.AddWishlistHandler)
+			r.Get("/", handlers.WishlistHandler.GetWishlistHandler)
+			r.Delete("/remove/{id}", handlers.WishlistHandler.RemoveProductFromWishlistHandler)
+		})
+
+		// r.Route("/orders", func(r chi.Router) {
+		//     r.Post("/", handlers.OrderHandler.CreateOrderHandler)
+		//     r.Get("/", handlers.OrderHandler.GetOrdersByUserIdHandler)
+		//     r.Get("/{id}", handlers.OrderHandler.GetOrderByIdHandler)
+		//     r.Get("/cart")
+		// })
 	})
 
 	return r, logger, config.Port, nil

@@ -12,6 +12,7 @@ type MainRepository struct {
 	ProductRepository        ProductRepository
 	VariantRepository        VariantRepository
 	RecommendationRepository RecommendationRepository
+	WishlistRepository       WishlistRepository
 }
 
 func NewMainRepository(db *sql.DB, log *zap.Logger) MainRepository {
@@ -21,5 +22,6 @@ func NewMainRepository(db *sql.DB, log *zap.Logger) MainRepository {
 		ProductRepository:        NewProductRepository(db, log),
 		VariantRepository:        NewVariantRepository(db, log),
 		RecommendationRepository: NewRecommendationRepository(db, log),
+		WishlistRepository:       NewWishlistRepository(db, log),
 	}
 }

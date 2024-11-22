@@ -159,15 +159,17 @@ INSERT INTO recommendations (
  'https://example.com/chair.jpg', 'active', NOW());
 
 -- Tabel wishlist
--- CREATE TABLE wishlist (
---   id SERIAL PRIMARY KEY,
---   user_id INT REFERENCES users(id) ON DELETE CASCADE,
---   product_id INT REFERENCES products(id) ON DELETE CASCADE,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+CREATE TABLE wishlist (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+  product_id INT REFERENCES products(id) ON DELETE CASCADE,
+  status status_enum DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP,
+  deleted_at TIMESTAMP
+);
+
+SELECT * FROM wishlist
 
 -- -- Tabel cart
 -- CREATE TABLE cart (

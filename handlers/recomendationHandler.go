@@ -52,6 +52,7 @@ func (h *RecommendationHandler) GetRecommendationsHandler(w http.ResponseWriter,
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get product recommendations")
 		return
 	}
+
 	if pagination.CountData/pagination.PerPage > 0 {
 		TotalPage = pagination.CountData / pagination.PerPage
 	}

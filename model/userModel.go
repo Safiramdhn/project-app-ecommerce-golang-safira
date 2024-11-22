@@ -8,7 +8,8 @@ type User struct {
 	Email          sql.NullString `json:"email"`
 	PasswordHashed string         `json:"-"`
 	PhoneNumber    sql.NullString `json:"phone_number"`
-	Detail         `json:"-"`
+	// Wishlist       Wishlist       `json:"wishlist,omitempty"`
+	Detail `json:"-"`
 }
 
 type UserDTO struct {

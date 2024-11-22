@@ -11,6 +11,7 @@ type Mainhandler struct {
 	CategoryHandler       CategoryHandler
 	ProductHandler        ProductHandler
 	RecommendationHandler RecommendationHandler
+	WishlistHandler       WishlistHandler
 }
 
 func NewMainHandler(service service.MainService, log *zap.Logger, config util.Configuration) Mainhandler {
@@ -19,5 +20,6 @@ func NewMainHandler(service service.MainService, log *zap.Logger, config util.Co
 		CategoryHandler:       NewCategoryHandler(service, log),
 		ProductHandler:        NewProductHandler(service, log),
 		RecommendationHandler: NewRecommendationHandler(service, log),
+		WishlistHandler:       NewWishlistHandler(service, log),
 	}
 }
