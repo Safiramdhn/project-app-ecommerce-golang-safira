@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
 	"go.uber.org/zap"
@@ -46,4 +47,33 @@ func (s ProductService) GetProductByID(id int) (*model.Product, error) {
 	}
 
 	return &product, nil
+}
+
+func (s ProductService) GetPromoWeekly(paginationInput model.Pagination) ([]model.WeeklyPromo, model.Pagination, error) {
+	if paginationInput.Page == 0 {
+		paginationInput.Page = 1
+	}
+
+	if paginationInput.PerPage == 0 {
+		paginationInput.PerPage = 5
+	}
+
+	weeklyPromo, pagination, err := s.Repo.ProductRepository.GetWeeklyPromo(paginationInput)
+	if err != nil {
+		return nil, paginationInput, err
+	}
+
+	var newWeeklyPromos []model.WeeklyPromo
+	for _, item := range weeklyPromo {
+		product, err := s.Repo.ProductRepository.GetByID(item.ProductID)
+		if err != nil {
+			s.Logger.Error("Error retrieving product", zap.Error(err), zap.String("Service", "Product"), zap.String("Function", "GetPromoWeekly"))
+			return nil, paginationInput, err
+		}
+		item.Product = product
+		item.PromoPrice = helper.CalculateDiscountPrice(product.PriceAfterDiscount, item.PromoDiscout)
+		newWeeklyPromos = append(newWeeklyPromos, item)
+		pagination.CountData++
+	}
+	return newWeeklyPromos, pagination, nil
 }

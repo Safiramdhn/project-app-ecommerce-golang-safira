@@ -41,7 +41,7 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 			r.Get("/{id}", handlers.ProductHandler.GetProductByIdHandler)
 			r.Get("/recommendation", handlers.RecommendationHandler.GetRecommendationsHandler)
 			r.Get("/banner", handlers.RecommendationHandler.GetBannerProduct)
-			// r.Get("/weekly-promo")
+			r.Get("/weekly-promo", handlers.ProductHandler.GetWeeklyPromotionsHandler)
 		})
 
 		r.With(middleware.AuthMiddleware).Route("/wishlist", func(r chi.Router) {

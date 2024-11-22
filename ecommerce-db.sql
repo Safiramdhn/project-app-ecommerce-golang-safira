@@ -171,6 +171,36 @@ CREATE TABLE wishlist (
 
 SELECT * FROM wishlist
 
+CREATE TABLE weekly_promos (
+	id SERIAL PRIMARY KEY,
+	product_id INT REFERENCES products(id) ON DELETE CASCADE,
+	promo_discount  DECIMAL(10, 2) DEFAULT 0 NOT NULL,
+	start_date DATE,
+	end_date DATE,
+	status status_enum DEFAULT 'active',
+  	created_at TIMESTAMP DEFAULT NOW(),
+  	updated_at TIMESTAMP,
+  	deleted_at TIMESTAMP
+)
+
+INSERT INTO weekly_promos (product_id, promo_discount, start_date, end_date)
+VALUES
+-- Promo for Casual T-Shirt
+(1, 3.00, CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '2 days'),
+
+-- Promo for Formal Shirt
+(2, 7.00, CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE - INTERVAL '3 days'),
+
+-- Promo for Stuffed Bear
+(3, 1.50, CURRENT_DATE - INTERVAL '2 days', CURRENT_DATE + INTERVAL '5 days'),
+
+-- Promo for Skin Care Kit
+(4, 12.00, CURRENT_DATE - INTERVAL '7 days', CURRENT_DATE + INTERVAL '7 days'),
+
+-- Promo for Wooden Chair
+(5, 10.00, CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE - INTERVAL '8 days');
+
+
 -- -- Tabel cart
 -- CREATE TABLE cart (
 --   id SERIAL PRIMARY KEY,

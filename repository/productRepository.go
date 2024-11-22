@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"go.uber.org/zap"
 )
@@ -41,6 +42,7 @@ func (repo ProductRepository) GetByID(id int) (model.Product, error) {
 		return product, err
 	}
 
+	product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.Price, product.Discount)
 	return product, nil
 }
 
@@ -119,6 +121,9 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 		if err != nil {
 			return nil, pagination, err
 		}
+
+		product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.Price, product.Discount)
+
 		product.SpecialProduct.IsNewProduct = isNewProduct
 		products = append(products, product)
 	}
@@ -195,4 +200,37 @@ func (repo ProductRepository) GetNewProducts(id int) (bool, error) {
 	}
 
 	return isNewProduct, nil
+}
+
+func (repo ProductRepository) GetWeeklyPromo(pagination model.Pagination) ([]model.WeeklyPromo, model.Pagination, error) {
+	sqlStatement := `SELECT id, product_id, start_date, end_date, promo_discount 
+			FROM weekly_promos WHERE status = 'active' 
+			AND start_date <= CURRENT_DATE AND end_date >= date_trunc('week', CURRENT_DATE)`
+
+	var weeklyPromos []model.WeeklyPromo
+
+	repo.Logger.Info("run sql statement", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetWeeklyPromo"))
+	rows, err := repo.DB.Query(sqlStatement)
+	if err != nil {
+		repo.Logger.Error("Error getting weekly promo", zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetWeeklyPromo"),
+			zap.Duration("duration", time.Since(startTime)))
+		return nil, pagination, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var weeklyPromo model.WeeklyPromo
+		err = rows.Scan(&weeklyPromo.ID, &weeklyPromo.ProductID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscout)
+		if err != nil {
+			repo.Logger.Error("Error scanning weekly promo", zap.Error(err),
+				zap.String("Repository", "Product"),
+				zap.String("Function", "GetWeeklyPromo"),
+				zap.Duration("duration", time.Since(startTime)))
+			return nil, pagination, err
+		}
+		weeklyPromos = append(weeklyPromos, weeklyPromo)
+	}
+	return weeklyPromos, pagination, nil
 }
