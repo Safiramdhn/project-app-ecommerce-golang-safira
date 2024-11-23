@@ -7,21 +7,25 @@ import (
 )
 
 type MainRepository struct {
-	UserRepository           UserRepository
+	AddressRepository        AddressRepository
 	CategoryRepository       CategoryRepository
+	CartRepository           CartRepository
 	ProductRepository        ProductRepository
-	VariantRepository        VariantRepository
 	RecommendationRepository RecommendationRepository
+	UserRepository           UserRepository
+	VariantRepository        VariantRepository
 	WishlistRepository       WishlistRepository
 }
 
 func NewMainRepository(db *sql.DB, log *zap.Logger) MainRepository {
 	return MainRepository{
-		UserRepository:           NewUserRepository(db, log),
+		AddressRepository:        NewAddressRepository(db, log),
 		CategoryRepository:       NewCategoryRepository(db, log),
+		CartRepository:           NewCartRepository(db, log),
 		ProductRepository:        NewProductRepository(db, log),
-		VariantRepository:        NewVariantRepository(db, log),
 		RecommendationRepository: NewRecommendationRepository(db, log),
+		UserRepository:           NewUserRepository(db, log),
+		VariantRepository:        NewVariantRepository(db, log),
 		WishlistRepository:       NewWishlistRepository(db, log),
 	}
 }

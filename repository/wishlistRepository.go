@@ -16,7 +16,7 @@ func NewWishlistRepository(db *sql.DB, logger *zap.Logger) WishlistRepository {
 	return WishlistRepository{DB: db, Logger: logger}
 }
 
-func (repo *WishlistRepository) Add(wishlistInput model.WishlistDTO) error {
+func (repo *WishlistRepository) Create(wishlistInput model.WishlistDTO) error {
 	tx, err := repo.DB.Begin()
 	if err != nil {
 		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
@@ -34,7 +34,7 @@ func (repo *WishlistRepository) Add(wishlistInput model.WishlistDTO) error {
 	}()
 
 	sqlStatement := `INSERT INTO wishlist (user_id, product_id) VALUES ($1, $2)`
-	repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "Wishlist"), zap.String("Function", "Add"))
+	repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "Wishlist"), zap.String("Function", "Create"))
 	_, err = tx.Exec(sqlStatement, wishlistInput.UserID, wishlistInput.ProductID)
 	if err != nil {
 		repo.Logger.Error("Failed to execute query", zap.Error(err))
@@ -43,7 +43,7 @@ func (repo *WishlistRepository) Add(wishlistInput model.WishlistDTO) error {
 
 	if err = tx.Commit(); err != nil {
 		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository",
-			"Wishlist"), zap.String("Function", "Add"))
+			"Wishlist"), zap.String("Function", "Create"))
 		return err
 	}
 	return nil

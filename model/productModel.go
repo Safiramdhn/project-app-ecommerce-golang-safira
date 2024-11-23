@@ -13,6 +13,7 @@ type Product struct {
 	IsNewProduct       bool           `json:"is_new_product,omitempty"`
 	HasVariant         bool           `json:"has_variant,omitempty"`
 	Rating             float64        `json:"rating,omitempty"`
+	TotalStock         int            `json:"total_stock,omitempty"`
 	Variant            []Variant      `json:"variants,omitempty"`
 	SpecialProduct     SpecialProduct `json:"special_products,omitempty"`
 	Detail             `json:"-"`
@@ -34,11 +35,11 @@ type SpecialProduct struct {
 }
 
 type WeeklyPromo struct {
-	ID           int     `json:"id,omitempty"`
-	ProductID    int     `json:"-"`
-	Product      Product `json:"product,omitempty"`
-	PromoDiscout float64 `json:"promo_discout,omitempty"`
-	PromoPrice   float64 `json:"promo_price,omitempty"`
-	StartDate    string  `json:"start_date"`
-	EndDate      string  `json:"end_date"`
+	ID            int     `json:"id,omitempty"`
+	ProductID     int     `json:"-"`
+	Product       Product `json:"product,omitempty"`
+	PromoDiscount float64 `json:"promo_discount,omitempty"`
+	PromoPrice    float64 `json:"promo_price,omitempty"`
+	StartDate     string  `json:"start_date"`
+	EndDate       string  `json:"end_date"`
 }

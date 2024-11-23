@@ -50,11 +50,29 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 			r.Delete("/remove/{id}", handlers.WishlistHandler.RemoveProductFromWishlistHandler)
 		})
 
+		r.With(middleware.AuthMiddleware).Route("/user", func(r chi.Router) {
+			r.Route("/address", func(r chi.Router) {
+				r.Post("/", handlers.AddressHandler.AddAddressHandler)
+				r.Put("/{id}", handlers.AddressHandler.UpdateAddressHandler)
+				r.Patch("/{id}", handlers.AddressHandler.SetDefaultAddressHandler)
+				r.Delete("/{id}", handlers.AddressHandler.DeleteAddressHandler)
+				r.Get("/", handlers.AddressHandler.GetAllAddressesHandler)
+				r.Get("/{id}", handlers.AddressHandler.GetAddressByIdHandler)
+			})
+		})
+
+		r.With(middleware.AuthMiddleware).Route("/cart", func(r chi.Router) {
+			r.Post("/add", handlers.CartHandler.AddToCartHandler)
+			r.Get("/", handlers.CartHandler.GetCartHandler)
+			r.Delete("/remove/{id}", handlers.CartHandler.DeleteProductInCartHandler)
+			r.Put("/update", handlers.CartHandler.UpdateCartHandler)
+			r.Get("/total", handlers.CartHandler.GetTotalCart)
+		})
+
 		// r.Route("/orders", func(r chi.Router) {
 		//     r.Post("/", handlers.OrderHandler.CreateOrderHandler)
 		//     r.Get("/", handlers.OrderHandler.GetOrdersByUserIdHandler)
 		//     r.Get("/{id}", handlers.OrderHandler.GetOrderByIdHandler)
-		//     r.Get("/cart")
 		// })
 	})
 

@@ -16,7 +16,7 @@ func NewWishlistService(repo repository.MainRepository, log *zap.Logger) Wishlis
 }
 
 func (s *WishlistService) AddProductToWishlist(wishlistInput model.WishlistDTO) error {
-	return s.Repo.WishlistRepository.Add(wishlistInput)
+	return s.Repo.WishlistRepository.Create(wishlistInput)
 }
 
 func (s *WishlistService) RemoveProductFromWishlist(userId string, wishlistId int) error {

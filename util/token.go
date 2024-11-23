@@ -12,7 +12,7 @@ var secretKey = []byte("your-secret-key")
 func GenerateToken(userId string, config Configuration) (string, error) {
 	claim := jwt.MapClaims{
 		"userId": userId,
-		"exp":    time.Now().Add(time.Hour * 72).Unix(),
+		"exp":    time.Now().Add(time.Hour * 12).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)

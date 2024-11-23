@@ -71,7 +71,7 @@ func (s ProductService) GetPromoWeekly(paginationInput model.Pagination) ([]mode
 			return nil, paginationInput, err
 		}
 		item.Product = product
-		item.PromoPrice = helper.CalculateDiscountPrice(product.PriceAfterDiscount, item.PromoDiscout)
+		item.PromoPrice = helper.CalculateDiscountPrice(product.PriceAfterDiscount, item.PromoDiscount)
 		newWeeklyPromos = append(newWeeklyPromos, item)
 		pagination.CountData++
 	}

@@ -14,8 +14,6 @@ CREATE TABLE users (
   deleted_at TIMESTAMP
 );
 
-CREATE SEQUENCE category_id_seq START 1;
-
 -- Tabel categories
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
@@ -37,6 +35,7 @@ CREATE TABLE products (
   rating DECIMAL(2, 1) CHECK (rating BETWEEN 1 AND 5) DEFAULT 0,
   photo_url TEXT,
   has_variant BOOLEAN DEFAULT FALSE,
+  total_stock INT DEFAULT 0,
   status status_enum DEFAULT 'active',
   created_at TIMESTAMP DEFAULT NOW(),
   updated_at TIMESTAMP,
@@ -74,16 +73,13 @@ INSERT INTO categories (name) VALUES
 SELECT * FROM categories
 
 -- Insert Products (Sample: Clothing, Toys, Health & Beauty, Furniture)
-INSERT INTO products (name, description, category_id, price, discount, rating, photo_url, has_variant, created_at)
+INSERT INTO products (name, description, category_id, price, discount, rating, photo_url, has_variant, total_stock, created_at)
 VALUES
-('Casual T-Shirt', 'A comfortable cotton T-shirt, perfect for everyday wear.', 3, 15.99, 2.00, 4.5, 'https://example.com/tshirt.jpg', TRUE, NOW() - INTERVAL '10 days'),
-('Formal Shirt', 'A sleek and stylish formal shirt, ideal for office and events.', 3, 25.99, 5.00, 4.8, 'https://example.com/shirt.jpg', TRUE, NOW() - INTERVAL '20 days'),
-('Stuffed Bear', 'A cute and cuddly stuffed bear, perfect as a gift or decoration.', 5, 12.99, 0.00, 4.2, 'https://example.com/bear.jpg', FALSE, NOW() - INTERVAL '5 days'),
-('Skin Care Kit', 'A premium skin care kit to rejuvenate and nourish your skin.', 8, 45.99, 10.00, 4.7, 'https://example.com/skincare.jpg', TRUE, NOW() - INTERVAL '15 days'),
-('Wooden Chair', 'A sturdy wooden chair, perfect for dining or working.', 10, 89.99, 0.00, 4.3, 'https://example.com/chair.jpg', FALSE, NOW() - INTERVAL '40 days');
-
-SELECT * FROM products
-SELECT id, name, description, price, discount, rating, photo_url, has_variant FROM products WHERE 1=1 AND category_id = 5
+('Casual T-Shirt', 'A comfortable cotton T-shirt, perfect for everyday wear.', 3, 15.99, 2.00, 4.5, 'https://example.com/tshirt.jpg', TRUE, 120, NOW() - INTERVAL '10 days'),
+('Formal Shirt', 'A sleek and stylish formal shirt, ideal for office and events.', 3, 25.99, 5.00, 4.8, 'https://example.com/shirt.jpg', TRUE, 33, NOW() - INTERVAL '20 days'),
+('Stuffed Bear', 'A cute and cuddly stuffed bear, perfect as a gift or decoration.', 5, 12.99, 0.00, 4.2, 'https://example.com/bear.jpg', FALSE, 100, NOW() - INTERVAL '5 days'),
+('Skin Care Kit', 'A premium skin care kit to rejuvenate and nourish your skin.', 8, 45.99, 10.00, 4.7, 'https://example.com/skincare.jpg', TRUE, 45, NOW() - INTERVAL '15 days'),
+('Wooden Chair', 'A sturdy wooden chair, perfect for dining or working.', 10, 89.99, 0.00, 4.3, 'https://example.com/chair.jpg', FALSE, 100, NOW() - INTERVAL '40 days');
 
 -- Variations for products with variations
 INSERT INTO variations (product_id, attribute_name, created_at)
@@ -101,8 +97,8 @@ VALUES
 (1, 'Small', 0.00, 50, NOW()),
 (1, 'Medium', 1.00, 40, NOW()),
 (1, 'Large', 2.00, 30, NOW()),
-(2, 'Red', 0.00, 20, NOW()),
-(2, 'Blue', 0.00, 25, NOW());
+(2, 'Red', 0.00, 60, NOW()),
+(2, 'Blue', 0.00, 60, NOW());
 
 -- Variation Options for "Formal Shirt" (Product ID 2)
 INSERT INTO variation_options (variation_id, option_value, additional_price, stock, created_at)
@@ -200,33 +196,43 @@ VALUES
 -- Promo for Wooden Chair
 (5, 10.00, CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE - INTERVAL '8 days');
 
+-- Tabel addresses
+CREATE TABLE addresses (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  is_default BOOLEAN DEFAULT FALSE NOT NULL,
+  name VARCHAR(100) NOT NULL, -- Specify a reasonable length for names
+  street VARCHAR(255) NOT NULL, -- Allow for longer street addresses
+  district VARCHAR(100), -- Add a length constraint for district
+  city VARCHAR(100), -- Add city for better address structuring
+  state VARCHAR(100), -- Add state for more detailed geographic data
+  postal_code VARCHAR(20), -- Add postal code to improve address accuracy
+  country VARCHAR(100) NOT NULL, -- Make country mandatory
+  status status_enum DEFAULT 'active' NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  updated_at TIMESTAMP,
+  deleted_at TIMESTAMP -- Nullable for soft deletes
+);
+
+SELECT * FROM addresses
+
 
 -- -- Tabel cart
--- CREATE TABLE cart (
---   id SERIAL PRIMARY KEY,
---   user_id INT REFERENCES users(id) ON DELETE CASCADE,
---   product_id INT REFERENCES products(id) ON DELETE CASCADE,
---   amount INT DEFAULT 1 CHECK (amount > 0),
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+CREATE TABLE carts (
+    id SERIAL PRIMARY KEY,                      -- Auto-incrementing ID for the cart
+    user_id VARCHAR REFERENCES users(id) DELETE ON CASCADE,              -- User ID (assuming it's a string)
+    product_id INT REFERENCES products(id) DELETE ON CASCADE,                    -- Foreign key referencing products
+    amount INT NOT NULL,                        -- Amount of the product in the cart
+    total_price DECIMAL(10, 2) NOT NULL,        -- Total price of the cart
+    VariantIDs INT[],                       -- Array of variant IDs
+    VariantOptionIDs INT[],                 -- Array of variant option IDs
+	status status_enum DEFAULT 'active',
+  	created_at TIMESTAMP DEFAULT NOW(),
+  	updated_at TIMESTAMP,
+  	deleted_at TIMESTAMP
+);
 
--- -- Tabel addresses
--- CREATE TABLE addresses (
---   id SERIAL PRIMARY KEY,
---   user_id INT REFERENCES users(id) ON DELETE CASCADE,
---   is_default BOOLEAN DEFAULT FALSE,
---   name VARCHAR NOT NULL,
---   street VARCHAR NOT NULL,
---   district VARCHAR,
---   country VARCHAR,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+
 
 -- -- Tabel shipping_types
 -- CREATE TABLE shipping_types (

@@ -21,10 +21,10 @@ func NewProductRepository(db *sql.DB, logger *zap.Logger) ProductRepository {
 
 func (repo ProductRepository) GetByID(id int) (model.Product, error) {
 	var product model.Product
-	sqlStatement := `SELECT id, name, description, price, discount, rating, photo_url, has_variant FROM products WHERE id = $1 AND status = 'active'`
+	sqlStatement := `SELECT id, name, description, price, discount, rating, photo_url, has_variant, total_stock FROM products WHERE id = $1 AND status = 'active'`
 
 	repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
-	err := repo.DB.QueryRow(sqlStatement, id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.Discount, &product.Rating, &product.PhotoURL, &product.HasVariant)
+	err := repo.DB.QueryRow(sqlStatement, id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.Discount, &product.Rating, &product.PhotoURL, &product.HasVariant, &product.TotalStock)
 	if err == sql.ErrNoRows {
 		repo.Logger.Info("product not found",
 			zap.Int("product id", id),
@@ -52,7 +52,7 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 
 	// Build base SQL query
 	sqlStatement := `
-        SELECT id, name, description, price, discount, rating, photo_url, has_variant 
+        SELECT id, name, description, price, discount, rating, photo_url, has_variant, total_stock 
         FROM products
         WHERE status = 'active'
     `
@@ -109,6 +109,7 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 			&product.Rating,
 			&product.PhotoURL,
 			&product.HasVariant,
+			&product.TotalStock,
 		); err != nil {
 			repo.Logger.Error("Error scanning product", zap.Error(err),
 				zap.String("Repository", "Product"),
@@ -222,7 +223,7 @@ func (repo ProductRepository) GetWeeklyPromo(pagination model.Pagination) ([]mod
 
 	for rows.Next() {
 		var weeklyPromo model.WeeklyPromo
-		err = rows.Scan(&weeklyPromo.ID, &weeklyPromo.ProductID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscout)
+		err = rows.Scan(&weeklyPromo.ID, &weeklyPromo.ProductID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscount)
 		if err != nil {
 			repo.Logger.Error("Error scanning weekly promo", zap.Error(err),
 				zap.String("Repository", "Product"),
@@ -233,4 +234,31 @@ func (repo ProductRepository) GetWeeklyPromo(pagination model.Pagination) ([]mod
 		weeklyPromos = append(weeklyPromos, weeklyPromo)
 	}
 	return weeklyPromos, pagination, nil
+}
+
+func (repo ProductRepository) GetPromoProduct(productId int) (model.WeeklyPromo, error) {
+	var weeklyPromo model.WeeklyPromo
+	sqlStatement := `SELECT id, start_date, end_date, promo_discount 
+	FROM weekly_promos WHERE product_id = $1 AND status = 'active' 
+	AND start_date <= CURRENT_DATE AND end_date >= date_trunc('week', CURRENT_DATE)`
+
+	repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
+	err := repo.DB.QueryRow(sqlStatement, productId).Scan(&weeklyPromo.ID, &weeklyPromo.ProductID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscount)
+	if err == sql.ErrNoRows {
+		repo.Logger.Info("product not found",
+			zap.Int("product id", productId),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetByID"),
+			zap.Duration("duration", time.Since(startTime)))
+
+		return weeklyPromo, nil
+	} else if err != nil {
+		repo.Logger.Error("error getting product by id",
+			zap.Error(err),
+			zap.String("Repository", "Product"),
+			zap.String("Function", "GetByID"),
+			zap.Duration("duration", time.Since(startTime)))
+		return weeklyPromo, err
+	}
+	return weeklyPromo, nil
 }

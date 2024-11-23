@@ -7,19 +7,23 @@ import (
 )
 
 type Mainhandler struct {
-	UserHandler           UserHandler
+	AddressHandler        AddressHandler
 	CategoryHandler       CategoryHandler
+	CartHandler           CartHandler
 	ProductHandler        ProductHandler
 	RecommendationHandler RecommendationHandler
+	UserHandler           UserHandler
 	WishlistHandler       WishlistHandler
 }
 
 func NewMainHandler(service service.MainService, log *zap.Logger, config util.Configuration) Mainhandler {
 	return Mainhandler{
-		UserHandler:           NewUserHandler(service, log, config),
+		AddressHandler:        NewAddressHandler(service, log),
 		CategoryHandler:       NewCategoryHandler(service, log),
+		CartHandler:           NewCartHandler(service, log),
 		ProductHandler:        NewProductHandler(service, log),
 		RecommendationHandler: NewRecommendationHandler(service, log),
+		UserHandler:           NewUserHandler(service, log, config),
 		WishlistHandler:       NewWishlistHandler(service, log),
 	}
 }

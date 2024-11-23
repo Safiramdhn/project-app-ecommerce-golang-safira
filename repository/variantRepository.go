@@ -79,3 +79,37 @@ func (repo *VariantRepository) GetVariantOptions(variantId int) ([]model.Variant
 	}
 	return variantOptions, nil
 }
+
+func (repo *VariantRepository) GetVariantOptionByID(id int) (model.VariantOption, error) {
+	sqlStatement := `SELECT id, option_value, additional_price, stock FROM variation_options WHERE id = $1 AND status = 'active'`
+	row := repo.DB.QueryRow(sqlStatement, id)
+
+	var variantOption model.VariantOption
+	err := row.Scan(&variantOption.ID, &variantOption.OptionValue, &variantOption.AdditionalPrice, &variantOption.Stock)
+	if err == sql.ErrNoRows {
+		return model.VariantOption{}, nil
+	} else if err != nil {
+		repo.Logger.Error("Error retrieving variant option", zap.Error(err),
+			zap.String("Repository", "Variant"),
+			zap.String("Function", "GetVariantOptionByID"))
+		return model.VariantOption{}, err
+	}
+	return variantOption, nil
+}
+
+func (repo *VariantRepository) GetVariantByID(id int) (model.Variant, error) {
+	sqlStatement := `SELECT iid, attribute_name FROM variations WHERE id = $1 AND status = 'active'`
+	row := repo.DB.QueryRow(sqlStatement, id)
+
+	var variant model.Variant
+	err := row.Scan(&variant.ID, &variant.AttributeName)
+	if err == sql.ErrNoRows {
+		return model.Variant{}, nil
+	} else if err != nil {
+		repo.Logger.Error("Error retrieving variant option", zap.Error(err),
+			zap.String("Repository", "Variant"),
+			zap.String("Function", "GetvariantByID"))
+		return model.Variant{}, err
+	}
+	return variant, nil
+}
