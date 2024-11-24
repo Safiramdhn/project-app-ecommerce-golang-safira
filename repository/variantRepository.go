@@ -98,7 +98,7 @@ func (repo *VariantRepository) GetVariantOptionByID(id int) (model.VariantOption
 }
 
 func (repo *VariantRepository) GetVariantByID(id int) (model.Variant, error) {
-	sqlStatement := `SELECT iid, attribute_name FROM variations WHERE id = $1 AND status = 'active'`
+	sqlStatement := `SELECT id, attribute_name FROM variations WHERE id = $1 AND status = 'active'`
 	row := repo.DB.QueryRow(sqlStatement, id)
 
 	var variant model.Variant

@@ -113,6 +113,8 @@ VALUES
 (4, 'Lavender', 2.00, 25, NOW()),
 (4, 'Rose', 2.50, 20, NOW());
 
+SELECT * FROM variation_options
+
 
 SELECT * FROM products
 
@@ -216,69 +218,85 @@ CREATE TABLE addresses (
 
 SELECT * FROM addresses
 
+CREATE TYPE cart_status_enum AS ENUM ('active', 'checkout')
 
 -- -- Tabel cart
 CREATE TABLE carts (
-    id SERIAL PRIMARY KEY,                      -- Auto-incrementing ID for the cart
-    user_id VARCHAR REFERENCES users(id) DELETE ON CASCADE,              -- User ID (assuming it's a string)
-    product_id INT REFERENCES products(id) DELETE ON CASCADE,                    -- Foreign key referencing products
-    amount INT NOT NULL,                        -- Amount of the product in the cart
-    total_price DECIMAL(10, 2) NOT NULL,        -- Total price of the cart
-    VariantIDs INT[],                       -- Array of variant IDs
-    VariantOptionIDs INT[],                 -- Array of variant option IDs
-	status status_enum DEFAULT 'active',
-  	created_at TIMESTAMP DEFAULT NOW(),
+    id SERIAL PRIMARY KEY,
+	user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+	total_amount INT DEFAULT 0,
+	total_price DECIMAL(10,2) DEFAULT 0,
+	cart_status cart_status_enum DEFAULT 'active',
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL,
   	updated_at TIMESTAMP,
-  	deleted_at TIMESTAMP
+  	deleted_at TIMESTAMP -- Nullable for soft deletes
 );
 
+CREATE TABLE cart_items (
+	id SERIAL PRIMARY KEY,
+	cart_id INT REFERENCES carts(id) ON DELETE CASCADE,
+	product_id INT REFERENCES products(id) ON DELETE SET NULL,
+	amount INT DEFAULT 1,
+	subtotal DECIMAL(10,2) DEFAULT 0,
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  	updated_at TIMESTAMP,
+  	deleted_at TIMESTAMP -- Nullable for soft deletes
+);
 
+CREATE TABLE cart_item_variants (
+	id SERIAL PRIMARY KEY,
+	cart_item_id INT REFERENCES cart_items(id) ON DELETE CASCADE,
+	item_variant_id INT REFERENCES variations(id) ON DELETE SET NULL,
+	option_id INT REFERENCES variation_options(id) ON DELETE SET NULL,
+	additional_price DECIMAL(10,2) DEFAULT 0,
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL,
+  	updated_at TIMESTAMP,
+  	deleted_at TIMESTAMP -- Nullable for soft deletes
+);
 
--- -- Tabel shipping_types
--- CREATE TABLE shipping_types (
---   id SERIAL PRIMARY KEY,
---   name VARCHAR NOT NULL,
---   is_active BOOLEAN DEFAULT TRUE,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+SELECT * FROM carts
+SELECT * FROM cart_items
+SELECT * FROM cart_item_variants
 
--- -- Tabel payment_methods
--- CREATE TABLE payment_methods (
---   id SERIAL PRIMARY KEY,
---   name VARCHAR NOT NULL,
---   is_active BOOLEAN DEFAULT TRUE,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+CREATE TYPE order_status_enum AS ENUM ('on_progress', 'success', 'failed');
 
--- -- Tabel order_items
--- CREATE TABLE order_items (
---   id SERIAL PRIMARY KEY,
---   product_id INT REFERENCES products(id) ON DELETE CASCADE,
---   amount INT CHECK (amount > 0),
---   price DECIMAL(10, 2),
---   order_id INT REFERENCES orders(id) ON DELETE CASCADE,
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+CREATE TABLE orders (
+	id SERIAL PRIMARY KEY,
+	user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
+	address_id INT REFERENCES addresses(id) ON DELETE SET NULL,
+	shipping_type TEXT NOT NULL,
+	shipping_cost DECIMAL(10,2) DEFAULT 0,
+	payment_method TEXT NOT NULL,
+	total_amount INT DEFAULT 0,
+	total_price DECIMAL(10,2) DEFAULT 0,
+	order_status order_status_enum DEFAULT 'on_progress',
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
 
--- -- Tabel orders
--- CREATE TABLE orders (
---   id SERIAL PRIMARY KEY,
---   user_id INT REFERENCES users(id) ON DELETE CASCADE,
---   total_price DECIMAL(10, 2),
---   address_id INT REFERENCES addresses(id),
---   shipping_type_id INT REFERENCES shipping_types(id),
---   payment_method_id INT REFERENCES payment_methods(id),
---   status status_enum DEFAULT 'active',
---   created_at TIMESTAMP DEFAULT NOW(),
---   updated_at TIMESTAMP,
---   deleted_at TIMESTAMP
--- );
+CREATE TABLE order_items (
+	id SERIAL PRIMARY KEY,
+	order_id int REFERENCES orders(id) ON DELETE CASCADE,
+	product_id int REFERENCES products(id) ON DELETE CASCADE,
+	amount int DEFAULT 0,
+	subtotal DECIMAL(10,2) DEFAULT 0,
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+CREATE TABLE order_item_variants (
+	id SERIAL PRIMARY KEY,
+	order_item_id INT REFERENCES order_items(id) ON DELETE CASCADE,
+	variant_id INT REFERENCES variations(id) ON DELETE SET NULL,
+	option_id INT REFERENCES variation_options(id) ON DELETE SET NULL,
+	additional_price DECIMAL(10,2) DEFAULT 0,
+	status status_enum DEFAULT 'active' NOT NULL,
+  	created_at TIMESTAMP DEFAULT NOW() NOT NULL
+);
+
+SELECT * FROM orders
+SELECT * FROM order_items
+SELECT * FROM order_item_variants

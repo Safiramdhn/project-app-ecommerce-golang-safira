@@ -20,11 +20,42 @@ func NewCartRepository(db *sql.DB, logger *zap.Logger) CartRepository {
 	return CartRepository{DB: db, Logger: logger}
 }
 
-// Create a new cart
-func (repo CartRepository) Create(userId string, cartInput model.Cart) error {
+func (repo CartRepository) Create(userID string) (model.Cart, error) {
+	var Cart model.Cart
 	tx, err := repo.DB.Begin()
 	if err != nil {
-		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+		return Cart, err
+	}
+
+	defer func() {
+		if p := recover(); p != nil {
+			tx.Rollback()
+			panic(p) // Re-panic after rollback
+		} else if err != nil {
+			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+			tx.Rollback()
+		}
+	}()
+
+	sqlStatement := `INSERT INTO carts (user_id) VALUES ($1) RETURNING id`
+	err = tx.QueryRow(sqlStatement, userID).Scan(&Cart.ID)
+	if err != nil {
+		repo.Logger.Error("Failed to create second cart", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Create"))
+		return Cart, err
+	}
+
+	if err := tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Create"))
+		return Cart, err
+	}
+	return Cart, nil
+}
+
+func (repo CartRepository) Update(cartInput model.Cart) error {
+	tx, err := repo.DB.Begin()
+	if err != nil {
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
 		return err
 	}
 
@@ -38,28 +69,26 @@ func (repo CartRepository) Create(userId string, cartInput model.Cart) error {
 		}
 	}()
 
-	sqlStatement := `INSERT INTO cart (user_id, product_id, variant_ids, variant_option_ids, amount, total_price) VALUES ($1, $2, $3, $4)`
-
-	repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "Cart"), zap.String("Function", "Create"))
-	_, err = repo.DB.Exec(sqlStatement, userId, cartInput.ProductID, cartInput.VariantIDs, cartInput.VariantOptionIDs, cartInput.Amount, cartInput.TotalPrice)
+	sqlStatement := `UPDATE carts SET total_amount = $1, total_price = $2, updated_at = NOW() WHERE id = $3`
+	_, err = tx.Exec(sqlStatement, cartInput.TotalAmount, cartInput.TotalPrice, cartInput.ID)
 	if err != nil {
-		repo.Logger.Error("Failed to execute query", zap.Error(err))
+		repo.Logger.Error("Failed to update second cart", zap.Error(err), zap.String("Repository", "Cart"), zap.String("function", "Update"))
 		return err
 	}
 
-	if err = tx.Commit(); err != nil {
-		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository",
-			"Cart"), zap.String("Function", "Create"))
+	if err := tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Update"))
 		return err
 	}
 	return nil
 }
 
-func (repo CartRepository) Update(id int, userId string, cartInput model.Cart) error {
+func (repo CartRepository) AddItem(itemInput model.CartItem) (model.CartItem, error) {
 	tx, err := repo.DB.Begin()
 	if err != nil {
-		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
-		return err
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "AddItem"))
+		return itemInput, err
 	}
 
 	defer func() {
@@ -72,21 +101,142 @@ func (repo CartRepository) Update(id int, userId string, cartInput model.Cart) e
 		}
 	}()
 
-	fields := map[string]interface{}{}
-
-	if cartInput.Amount != 0 {
-		fields["amount"] = cartInput.Amount
+	sqlStatement := `INSERT INTO cart_items (cart_id, product_id, amount, sub_total) VALUES ($1, $2, $3, $4) RETURNING id`
+	err = tx.QueryRow(sqlStatement, itemInput.CartID, itemInput.ProductID, itemInput.Amount, itemInput.SubTotal).Scan(&itemInput.ID)
+	if err != nil {
+		repo.Logger.Error("Failed to add cart item", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItem"))
+		return itemInput, err
 	}
 
-	for _, v := range cartInput.VariantOptionIDs {
-		if v.Valid && v.Int64 != 0 {
-			fields["variant_option_ids"] = cartInput.VariantOptionIDs
+	if err := tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItem"))
+		return itemInput, err
+	}
+	return itemInput, nil
+}
+
+func (repo CartRepository) DeleteItem(itemID int) error {
+	tx, err := repo.DB.Begin()
+	if err != nil {
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+
+	defer func() {
+		if p := recover(); p != nil {
+			tx.Rollback()
+			panic(p) // Re-panic after rollback
+		} else if err != nil {
+			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+				"Cart"), zap.String("Function", "DeleteItem"))
+			tx.Rollback()
 		}
+	}()
+
+	var item model.CartItem
+	sqlStatement := `SELECT cart_id, amount, sub_total FROM cart_items WHERE id = $1`
+	err = tx.QueryRow(sqlStatement, itemID).Scan(&item.CartID, &item.Amount, &item.SubTotal)
+	if err == sql.ErrNoRows {
+		repo.Logger.Error("Item not found", zap.Int("ID", itemID), zap.String("Repository", "Cart"), zap.String("Function", "DeleteItem"))
+		return nil
 	}
-	fields["total_price"] = cartInput.TotalPrice
+	if err != nil {
+		repo.Logger.Error("Failed to retrieve item details", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+	cart, err := repo.GetByID(item.CartID)
+	if err != nil {
+		repo.Logger.Error("Failed to retrieve cart details", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+	cart.TotalAmount -= item.Amount
+	cart.TotalPrice -= item.SubTotal
+	err = repo.Update(cart)
+	if err != nil {
+		repo.Logger.Error("Failed to update cart", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+
+	sqlStatement = `UPDATE cart_items SET status = 'deleted', deleted_at = NOW() WHERE id = $1`
+	_, err = tx.Exec(sqlStatement, itemID)
+	if err != nil {
+		repo.Logger.Error("Failed to delete cart item", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+
+	if err := tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+	return nil
+}
+
+func (repo CartRepository) AddItemVariant(cartItemID int, variantInput model.CartItemVariantDTO) error {
+	tx, err := repo.DB.Begin()
+	if err != nil {
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "DeleteItem"))
+		return err
+	}
+
+	defer func() {
+		if p := recover(); p != nil {
+			tx.Rollback()
+			panic(p) // Re-panic after rollback
+		} else if err != nil {
+			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+				"Cart"), zap.String("Function", "AddItemVariant"))
+			tx.Rollback()
+		}
+	}()
+
+	sqlStatement := `INSERT INTO cart_item_variants (cart_item_id, item_variant_id, option_id, additional_price) VALUES ($1, $2, $3, $4)`
+	_, err = tx.Exec(sqlStatement, cartItemID, variantInput.VariantID, variantInput.VariantOptionID, variantInput.AdditionalPrice)
+	if err != nil {
+		repo.Logger.Error("Failed to add cart item variant", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItemVariant"))
+		return err
+	}
+
+	if err := tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItemVariant"))
+		return err
+	}
+	return nil
+}
+
+func (repo CartRepository) UpdateItem(itemInput model.CartItem) error {
+	tx, err := repo.DB.Begin()
+	if err != nil {
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "AddVariantOption"))
+		return err
+	}
+
+	defer func() {
+		if p := recover(); p != nil {
+			tx.Rollback()
+			panic(p) // Re-panic after rollback
+		} else if err != nil {
+			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+				"Cart"), zap.String("Function", "AddVariantOption"))
+			tx.Rollback()
+		}
+	}()
+
+	fields := map[string]interface{}{}
+	if itemInput.Amount != 0 {
+		fields["amount"] = itemInput.Amount
+	}
+	if itemInput.SubTotal != 0 {
+		fields["sub_total"] = itemInput.SubTotal
+	}
 	fields["updated_at"] = time.Now()
 
-	// Build the SET clause dynamically
 	setClauses := []string{}
 	values := []interface{}{}
 	index := 1
@@ -101,31 +251,154 @@ func (repo CartRepository) Update(id int, userId string, cartInput model.Cart) e
 		return errors.New("no fields to update")
 	}
 
-	queryStatement := `UPDATE cart SET ` + helper.JoinStrings(setClauses, ", ") + `
-	WHERE id = $` + strconv.Itoa(index) +
-		` AND user_id = $` + strconv.Itoa(index+1) +
+	// Build the final query
+	queryStatement := `
+		UPDATE cart_items
+		SET ` + helper.JoinStrings(setClauses, ", ") + `
+		WHERE id = $` + strconv.Itoa(index) +
 		` AND status = 'active'`
-	values = append(values, id, userId)
+	values = append(values, itemInput.ID)
 
-	repo.Logger.Info("Executing query", zap.Int("cart_id", id),
+	repo.Logger.Info("Executing query", zap.Int("cart_item_id", itemInput.ID),
 		zap.String("query", queryStatement), zap.String("repository", "Cart"),
-		zap.String("function", "Update"))
+		zap.String("function", "UpdateItem"))
+
+	// Execute the query
 	_, err = tx.Exec(queryStatement, values...)
 	if err != nil {
+		repo.Logger.Error("Failed to update cart item", zap.Error(err), zap.String("repository", "Cart"), zap.String("function", "UpdateItem"))
 		return err
 	}
 
 	if err := tx.Commit(); err != nil {
-		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository", "Cart"), zap.String("Function", "Update"))
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository",
+			"Cart"), zap.String("Function", "UpdateItem"))
 		return err
 	}
 	return nil
 }
 
-func (repo CartRepository) Delete(id int, userId string) error {
+func (repo CartRepository) GetByUserID(userID string) (model.Cart, error) {
+	var result model.Cart
+	sqlStatement := `SELECT id, total_amount, total_price FROM carts WHERE user_id = $1 AND status = 'active' AND cart_status = 'active'`
+	err := repo.DB.QueryRow(sqlStatement, userID).Scan(&result.ID, &result.TotalAmount, &result.TotalPrice)
+	if err == sql.ErrNoRows {
+		return result, nil
+	} else if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+	}
+	return result, nil
+}
+
+func (repo CartRepository) GetByID(id int) (model.Cart, error) {
+	var result model.Cart
+	sqlStatement := `SELECT id, user_id, total_amount, total_price FROM carts WHERE id = $1 AND status = 'active' AND cart_status = 'active'`
+	err := repo.DB.QueryRow(sqlStatement, id).Scan(&result.ID, &result.UserID, &result.TotalAmount, &result.TotalPrice)
+	if err == sql.ErrNoRows {
+		return result, nil
+	} else if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+	}
+	return result, nil
+}
+
+func (repo CartRepository) GetItems(cartId int) ([]model.CartItem, error) {
+	var cartItems []model.CartItem
+	sqlStatement := `SELECT id, product_id, amount, sub_total FROM cart_items WHERE cart_id = $1`
+	rows, err := repo.DB.Query(sqlStatement, cartId)
+	if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+			"Cart"))
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var item model.CartItem
+		err = rows.Scan(&item.ID, &item.ProductID, &item.Amount, &item.SubTotal)
+		if err != nil {
+			repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("repository",
+				"Cart"))
+			return nil, err
+		}
+
+		variant, err := repo.GetItemVariants(item.ID)
+		if err != nil {
+			repo.Logger.Error("Failed to get item variants", zap.Error(err), zap.String("repository",
+				"Cart"))
+			return nil, err
+		}
+		item.ItemVariant = variant
+		cartItems = append(cartItems, item)
+	}
+	return cartItems, nil
+}
+
+func (repo CartRepository) RecalculateTotal(cartID int) error {
+	sqlStatement := `SELECT SUM(amount) as total_amount, SUM(sub_total) as total_price FROM cart_items WHERE cart_id = $1 AND status ='active'`
+	var totalAmount, totalPrice float64
+	err := repo.DB.QueryRow(sqlStatement, cartID).Scan(&totalAmount, &totalPrice)
+	if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+			"Cart"))
+		return err
+	}
+	cartInput := model.Cart{
+		ID:          cartID,
+		TotalAmount: int(totalAmount),
+		TotalPrice:  totalPrice,
+	}
+	err = repo.Update(cartInput)
+	if err != nil {
+		repo.Logger.Error("Failed to update cart", zap.Error(err), zap.String("repository",
+			"Cart"))
+		return err
+	}
+	return nil
+}
+
+func (repo CartRepository) GetItemByID(id int) (model.CartItem, error) {
+	var result model.CartItem
+	sqlStatement := `SELECT id, cart_id, product_id, amount, sub_total FROM cart_items WHERE id = $1`
+	err := repo.DB.QueryRow(sqlStatement, id).Scan(&result.ID, &result.CartID, &result.ProductID, &result.Amount, &result.SubTotal)
+	if err == sql.ErrNoRows {
+		return result, nil
+	} else if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+	}
+
+	return result, nil
+}
+
+func (repo CartRepository) GetItemVariants(itemID int) ([]model.CarttemVariant, error) {
+	var result []model.CarttemVariant
+	sqlStatement := `SELECT id, cart_item_id, item_variant_id, option_id, additional_price  FROM cart_item_variants WHERE cart_item_id = $1`
+	rows, err := repo.DB.Query(sqlStatement, itemID)
+	if err == sql.ErrNoRows {
+		return result, nil
+	} else if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+		return result, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var itemVariant model.CarttemVariant
+		err = rows.Scan(&itemVariant.ID, &itemVariant.CartItemID, &itemVariant.VariantID, &itemVariant.OptionID, &itemVariant.AdditionalPrice)
+		if err != nil {
+			repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("repository", "Cart"), zap.String("Function", "GetItemVariants"))
+			return result, err
+		}
+		result = append(result, itemVariant)
+	}
+	return result, nil
+}
+
+func (repo CartRepository) UpdateCartStatus(id int) error {
 	tx, err := repo.DB.Begin()
 	if err != nil {
-		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+			"Cart"), zap.String("Function", "AddVariantOption"))
 		return err
 	}
 
@@ -134,60 +407,24 @@ func (repo CartRepository) Delete(id int, userId string) error {
 			tx.Rollback()
 			panic(p) // Re-panic after rollback
 		} else if err != nil {
-			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("repository", "User"), zap.String("Function", "Create"))
+			repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+				"Cart"), zap.String("Function", "AddVariantOption"))
 			tx.Rollback()
 		}
 	}()
 
-	sqlStatement := `UPDATE cart SET status = 'deleted', deleted_at = NOW() WHERE id = $1 AND user_id = $2`
-	repo.Logger.Info("Executing query", zap.Int("address_id", id),
-		zap.String("query", sqlStatement), zap.String("repository", "Cart"),
-		zap.String("function", "Delete"))
-	_, err = tx.Exec(sqlStatement, id, userId)
+	sqlStatement := `UPDATE carts SET cart_status = 'checkout' WHERE id = $1`
+	_, err = tx.Exec(sqlStatement, id)
 	if err != nil {
+		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+			"Cart"), zap.String("Function", "UpdateCartStatus"))
 		return err
 	}
 
-	if err := tx.Commit(); err != nil {
+	if err = tx.Commit(); err != nil {
+		repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository",
+			"Cart"), zap.String("Function", "UpdateCartStatus"))
 		return err
 	}
 	return nil
-}
-
-func (repo CartRepository) GetAll(userId string) ([]model.Cart, error) {
-	sqlStatement := `SELECT id, product_id, variant_ids, variant_options, amount, total_price FROM cart WHERE user_id = $1 AND status = 'active'`
-	repo.Logger.Info("Executing query", zap.String("query", sqlStatement), zap.String("repository", "Cart"), zap.String("Function", "GetAll"))
-
-	rows, err := repo.DB.Query(sqlStatement, userId)
-	if err != nil {
-		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
-		return nil, err
-	}
-	defer rows.Close()
-
-	var carts []model.Cart
-	for rows.Next() {
-		var cart model.Cart
-		err := rows.Scan(&cart.ID, &cart.ProductID, &cart.VariantIDs, &cart.VariantOptionIDs, &cart.Amount, &cart.TotalPrice)
-		if err != nil {
-			repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("repository", "Cart"), zap.String("Function", "GetAll"))
-			return nil, err
-		}
-		carts = append(carts, cart)
-	}
-	return carts, nil
-}
-
-func (repo CartRepository) CountItemCart() (int, float64, error) {
-	sqlStatement := `SELECT SUM(amount), SUM(total_price) as total_price FROM cart WHERE status = 'active'`
-	repo.Logger.Info("Executing query", zap.String("query", sqlStatement), zap.String("repository", "Cart"), zap.String("Function", "CountCart"))
-
-	var totalItem int
-	var totalPrice float64
-	err := repo.DB.QueryRow(sqlStatement).Scan(&totalItem, &totalPrice)
-	if err != nil {
-		repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
-		return 0, 0, err
-	}
-	return totalItem, totalPrice, nil
 }

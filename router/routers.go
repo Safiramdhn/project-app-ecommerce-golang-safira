@@ -62,18 +62,17 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 		})
 
 		r.With(middleware.AuthMiddleware).Route("/cart", func(r chi.Router) {
-			r.Post("/add", handlers.CartHandler.AddToCartHandler)
-			r.Get("/", handlers.CartHandler.GetCartHandler)
-			r.Delete("/remove/{id}", handlers.CartHandler.DeleteProductInCartHandler)
-			r.Put("/update", handlers.CartHandler.UpdateCartHandler)
-			r.Get("/total", handlers.CartHandler.GetTotalCart)
+			r.Post("/add-item", handlers.CartHandler.AddToCartHandler)
+			r.Get("/", handlers.CartHandler.GetUserCart)
+			r.Delete("/remove-item/{id}", handlers.CartHandler.DeleteItemHandler)
+			r.Put("/update-item/{id}", handlers.CartHandler.UpdateCartItemHandler)
 		})
 
-		// r.Route("/orders", func(r chi.Router) {
-		//     r.Post("/", handlers.OrderHandler.CreateOrderHandler)
-		//     r.Get("/", handlers.OrderHandler.GetOrdersByUserIdHandler)
-		//     r.Get("/{id}", handlers.OrderHandler.GetOrderByIdHandler)
-		// })
+		r.With(middleware.AuthMiddleware).Route("/orders", func(r chi.Router) {
+			r.Post("/", handlers.OrderHandler.CreateOrderHanlder)
+			r.Get("/", handlers.OrderHandler.GetOrderHistoryHandler)
+			r.Get("/{id}", handlers.OrderHandler.GetOrderDetailsHandler)
+		})
 	})
 
 	return r, logger, config.Port, nil

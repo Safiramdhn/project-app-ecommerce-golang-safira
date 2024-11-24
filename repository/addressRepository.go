@@ -226,9 +226,9 @@ func (repo AddressRepository) UpdateDefaultAddress(id int, userID string, setAsD
 		}
 	}()
 
-	sqlStatement := `UPDATE addresses SET is_default $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`
+	sqlStatement := `UPDATE addresses SET is_default = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`
 
-	repo.Logger.Info("Executing query", zap.Int("address_id", id),
+	repo.Logger.Info("Executing query", zap.Bool("boolean", setAsDefault),
 		zap.String("query", sqlStatement), zap.String("repository", "Address"),
 		zap.String("function", "UpdateDefaultAddress"))
 

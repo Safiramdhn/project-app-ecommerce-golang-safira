@@ -243,7 +243,7 @@ func (repo ProductRepository) GetPromoProduct(productId int) (model.WeeklyPromo,
 	AND start_date <= CURRENT_DATE AND end_date >= date_trunc('week', CURRENT_DATE)`
 
 	repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
-	err := repo.DB.QueryRow(sqlStatement, productId).Scan(&weeklyPromo.ID, &weeklyPromo.ProductID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscount)
+	err := repo.DB.QueryRow(sqlStatement, productId).Scan(&weeklyPromo.ID, &weeklyPromo.StartDate, &weeklyPromo.EndDate, &weeklyPromo.PromoDiscount)
 	if err == sql.ErrNoRows {
 		repo.Logger.Info("product not found",
 			zap.Int("product id", productId),

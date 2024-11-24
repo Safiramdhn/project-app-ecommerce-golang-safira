@@ -154,8 +154,10 @@ func (h *AddressHandler) SetDefaultAddressHandler(w http.ResponseWriter, r *http
 		return
 	}
 
-	var setAsDefault bool
-	err = json.NewDecoder(r.Body).Decode(&setAsDefault)
+	var input = struct {
+		SetAsDefault bool `json:"set_as_default"`
+	}{}
+	err = json.NewDecoder(r.Body).Decode(&input)
 	if err != nil {
 		h.Logger.Error("Failed to decode JSON body", zap.Error(err))
 		JsonResponse.SendError(w, http.StatusBadRequest, "invalid payload", err)
@@ -163,16 +165,16 @@ func (h *AddressHandler) SetDefaultAddressHandler(w http.ResponseWriter, r *http
 	}
 
 	// Call the service to set the default address
-	err = h.Service.AddressService.SetDeafultAddress(addressId, user.ID, setAsDefault)
+	err = h.Service.AddressService.SetDeafultAddress(addressId, user.ID, input.SetAsDefault)
 	if err != nil {
-		h.Logger.Error("Failed to set default address", zap.Int("addressId", addressId), zap.Bool("setAsDefault", setAsDefault), zap.Error(err))
+		h.Logger.Error("Failed to set default address", zap.Int("addressId", addressId), zap.Bool("setAsDefault", input.SetAsDefault), zap.Error(err))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to update address")
 		return
 	}
 
 	// Send success response
 	message := "Address successfully set as default"
-	if !setAsDefault {
+	if !input.SetAsDefault {
 		message = "Address successfully set as not default"
 	}
 	JsonResponse.SendSuccess(w, nil, message)
