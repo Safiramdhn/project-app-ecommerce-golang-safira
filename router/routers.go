@@ -31,7 +31,7 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 	middleware := middleware.NewMiddleware(logger, config)
 
 	r.Route("/api", func(r chi.Router) {
-		r.Post("/register", handlers.UserHandler.RegisterHanlder)
+		r.Post("/register", handlers.UserHandler.RegisterHandler)
 		r.Get("/login", handlers.UserHandler.LoginHandler)
 
 		r.Get("/categories", handlers.CategoryHandler.GetAllCategoryHandler)
@@ -69,7 +69,7 @@ func InitRouter() (*chi.Mux, *zap.Logger, string, error) {
 		})
 
 		r.With(middleware.AuthMiddleware).Route("/orders", func(r chi.Router) {
-			r.Post("/", handlers.OrderHandler.CreateOrderHanlder)
+			r.Post("/", handlers.OrderHandler.CreateOrderHandler)
 			r.Get("/", handlers.OrderHandler.GetOrderHistoryHandler)
 			r.Get("/{id}", handlers.OrderHandler.GetOrderDetailsHandler)
 		})
