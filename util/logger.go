@@ -23,9 +23,21 @@ func InitLog(config Configuration) *zap.Logger {
 	date := time.Now().Format("2006-01-02")
 
 	// Create log files for each level
-	infoLog, _ := os.OpenFile(fmt.Sprintf("%s/info-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	errorLog, _ := os.OpenFile(fmt.Sprintf("%s/error-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	debugLog, _ := os.OpenFile(fmt.Sprintf("%s/debug-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// Create folders for each log level
+	logLevels := []string{"info", "error", "debug"}
+	for _, level := range logLevels {
+		levelFolder := fmt.Sprintf("%s/%s", logFolder, level)
+		if _, err := os.Stat(levelFolder); os.IsNotExist(err) {
+			err := os.Mkdir(levelFolder, os.ModePerm)
+			if err != nil {
+				panic("Failed to create log level folder: " + err.Error())
+			}
+		}
+	}
+	// Create log files for each level, with filename based on date
+	infoLog, _ := os.OpenFile(fmt.Sprintf("%s/info/%s-%s.log", logFolder, "info", date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	errorLog, _ := os.OpenFile(fmt.Sprintf("%s/error/%s-%s.log", logFolder, "error", date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	debugLog, _ := os.OpenFile(fmt.Sprintf("%s/debug/%s-%s.log", logFolder, "debug", date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
 	// Create WriteSyncers for each level
 	infoWS := zapcore.AddSync(infoLog)
@@ -49,6 +61,13 @@ func InitLog(config Configuration) *zap.Logger {
 		zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), debugWS, zapcore.DebugLevel),
 		zapcore.NewCore(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig()), consoleDebugWS, zapcore.DebugLevel),
 	)
+
+	if config.Debug {
+		debugCore = zapcore.NewTee(
+			debugCore,
+			zapcore.NewCore(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig()), consoleDebugWS, zapcore.DebugLevel),
+		)
+	}
 
 	// Combine cores
 	core := zapcore.NewTee(infoCore, errorCore, debugCore)
