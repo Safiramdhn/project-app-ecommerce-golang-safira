@@ -122,10 +122,18 @@ func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination 
 		if err != nil {
 			return nil, pagination, err
 		}
-
+		orderedProducts, err := repo.CountProductFromOrder(product.ID)
+		if err != nil {
+			return nil, pagination, err
+		}
 		product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.Price, product.Discount)
 
 		product.SpecialProduct.IsNewProduct = isNewProduct
+		if orderedProducts > 10 {
+			product.SpecialProduct.IsBestSelling = true
+		} else {
+			product.SpecialProduct.IsBestSelling = false
+		}
 		products = append(products, product)
 	}
 
@@ -261,4 +269,15 @@ func (repo ProductRepository) GetPromoProduct(productId int) (model.WeeklyPromo,
 		return weeklyPromo, err
 	}
 	return weeklyPromo, nil
+}
+
+func (repo ProductRepository) CountProductFromOrder(productID int) (int, error) {
+	sqlStatement := `SELECT COUNT(*) FROM order_items WHERE product_id = $1`
+	var count int
+	err := repo.DB.QueryRow(sqlStatement, productID).Scan(&count)
+	if err != nil {
+		repo.Logger.Error("Failed to count products by ID", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "CountProduct"))
+		return 0, err
+	}
+	return count, nil
 }
