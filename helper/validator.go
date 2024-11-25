@@ -49,12 +49,12 @@ func EmailOrPhoneValidator(input string) FieldError {
 // PasswordValidator validates the password based on common rules.
 func PasswordValidator(password string) FieldError {
 	// Define the validation rules
-	err := validate.Var(password, "required,min=8,max=32,containsany=!@#$%^&*()_+|~-=\\`{}[]:\";'<>?,./0123456789,containsany=abcdefghijklmnopqrstuvwxyz,containsany=ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	err := validate.Var(password, "required,min=8,max=32")
 	if err != nil {
 		// Provide a detailed error message
 		return FieldError{
 			Field:   "password",
-			Message: "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*()_+|~-=\\`{}[]:\";'<>?,./0123456789)",
+			Message: "Password must be at least 8 characters long",
 		}
 	}
 	return FieldError{}
