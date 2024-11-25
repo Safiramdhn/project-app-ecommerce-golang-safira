@@ -24,118 +24,87 @@ func NewUserHandler(service service.MainService, log *zap.Logger, config util.Co
 	return UserHandler{Service: service, Logger: log, Config: config}
 }
 
-func (h *UserHandler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
+func (h *UserHandler) RegisterHanlder(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error("Invalid HTTP method",
-			zap.String("method", r.Method),
-			zap.String("handler", "User"),
-			zap.String("function", "RegisterHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "RegisterHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
-		return
 	}
 
 	var userInput model.UserDTO
 	err := json.NewDecoder(r.Body).Decode(&userInput)
 	if err != nil {
-		h.Logger.Error("Failed to decode request body",
-			zap.String("error", err.Error()),
-			zap.String("handler", "User"),
-			zap.String("function", "RegisterHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "GetProductByIdHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
 
 	errField := helper.EmailOrPhoneValidator(userInput.EmailOrPhoneNumber)
 	if errField.Message != "" {
-		// Log specific validation error with details
+		// Log the specific validation error
 		h.Logger.Error("Validation error",
 			zap.String("field", errField.Field),
 			zap.String("message", errField.Message),
+			zap.String("method", r.Method),
 			zap.String("handler", "User"),
-			zap.String("function", "RegisterHandler"),
-			zap.String("client_ip", r.RemoteAddr),
+			zap.String("function", "GetProductByIdHandler"),
 		)
+		// Send detailed error response
 		JsonResponse.SendError(w, http.StatusBadRequest, errField.Message)
 		return
 	}
 
 	errField = helper.PasswordValidator(userInput.Password)
 	if errField.Message != "" {
-		// Log specific validation error with details
+		// Log the specific validation error
 		h.Logger.Error("Validation error",
 			zap.String("field", errField.Field),
 			zap.String("message", errField.Message),
+			zap.String("method", r.Method),
 			zap.String("handler", "User"),
-			zap.String("function", "RegisterHandler"),
-			zap.String("client_ip", r.RemoteAddr),
+			zap.String("function", "GetProductByIdHandler"),
 		)
+
+		// Send detailed error response
 		JsonResponse.SendError(w, http.StatusBadRequest, errField.Message)
 		return
 	}
 
 	userID, err := h.Service.UserService.CreateUser(userInput)
 	if err != nil {
-		h.Logger.Error("Failed to create user",
-			zap.String("error", err.Error()),
-			zap.String("handler", "User"),
-			zap.String("function", "RegisterHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "RegisterHandler"))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to create user")
 		return
 	}
-
-	h.Logger.Info("User successfully created",
-		zap.String("userID", userID),
-		zap.String("handler", "User"),
-		zap.String("function", "RegisterHandler"),
-		zap.String("client_ip", r.RemoteAddr),
-	)
 
 	JsonResponse.SendCreated(w, userID, "User created successfully")
 }
 
 func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error("Invalid HTTP method",
-			zap.String("method", r.Method),
-			zap.String("handler", "User"),
-			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "LoginHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
-		return
 	}
 
 	var userInput model.UserDTO
 	err := json.NewDecoder(r.Body).Decode(&userInput)
 	if err != nil {
-		h.Logger.Error("Failed to decode request body",
-			zap.String("error", err.Error()),
-			zap.String("handler", "User"),
-			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "LoginHandler"))
 		JsonResponse.SendError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
 
 	errField := helper.EmailOrPhoneValidator(userInput.EmailOrPhoneNumber)
 	if errField.Message != "" {
-		// Log validation error with specific field and message
+		// Log the specific validation error
 		h.Logger.Error("Validation error",
 			zap.String("field", errField.Field),
 			zap.String("message", errField.Message),
+			zap.String("method", r.Method),
 			zap.String("handler", "User"),
-			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+			zap.String("function", "LoginHandler"))
+		// Send detailed error response
 		JsonResponse.SendError(w, http.StatusBadRequest, errField.Message)
 		return
 	}
@@ -144,9 +113,9 @@ func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		h.Logger.Error("Authentication error",
 			zap.String("error", err.Error()),
+			zap.String("method", r.Method),
 			zap.String("handler", "User"),
 			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
 		)
 		JsonResponse.SendError(w, http.StatusUnauthorized, "Invalid username or password")
 		return
@@ -155,9 +124,9 @@ func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if (user == model.User{}) {
 		h.Logger.Error("User not found",
 			zap.String("email_or_phone", userInput.EmailOrPhoneNumber),
+			zap.String("method", r.Method),
 			zap.String("handler", "User"),
 			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
 		)
 		JsonResponse.SendError(w, http.StatusNotFound, "User not found")
 		return
@@ -165,22 +134,10 @@ func (h *UserHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	token, err := util.GenerateToken(user.ID, h.Config)
 	if err != nil {
-		h.Logger.Error("Failed to generate token",
-			zap.String("error", err.Error()),
-			zap.String("handler", "User"),
-			zap.String("function", "LoginHandler"),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error(), zap.String("method", r.Method), zap.String("handler", "User"), zap.String("function", "LoginHandler"))
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to generate token")
 		return
 	}
-
-	h.Logger.Info("User login successful",
-		zap.String("userID", user.ID),
-		zap.String("handler", "User"),
-		zap.String("function", "LoginHandler"),
-		zap.String("client_ip", r.RemoteAddr),
-	)
 
 	JsonResponse.SendSuccess(w, map[string]interface{}{
 		"token": token,

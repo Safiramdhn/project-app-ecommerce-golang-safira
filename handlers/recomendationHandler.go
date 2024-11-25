@@ -30,7 +30,7 @@ var recommedFilter = model.RecommendationDTO{
 func (h *RecommendationHandler) GetRecommendationsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Recommendation"), zap.String("function", "GetRecommendationsHandler"), zap.String("client_ip", r.RemoteAddr))
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Recommendation"), zap.String("function", "GetRecommendations"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 		return
 	}
@@ -48,14 +48,7 @@ func (h *RecommendationHandler) GetRecommendationsHandler(w http.ResponseWriter,
 	recommedFilter.IsRecommended = true
 	recommendations, pagination, err := h.Service.RecommendationService.GetProductRecommendations(recommedFilter, paginationInput)
 	if err != nil {
-		h.Logger.Error("Failed to get product recommendations",
-			zap.String("error", err.Error()),
-			zap.String("handler", "Recommendation"),
-			zap.String("function", "GetRecommendationsHandler"),
-			zap.Int("page", paginationInput.Page),
-			zap.Int("perPage", paginationInput.PerPage),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error())
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get product recommendations")
 		return
 	}
@@ -63,22 +56,13 @@ func (h *RecommendationHandler) GetRecommendationsHandler(w http.ResponseWriter,
 	if pagination.CountData/pagination.PerPage > 0 {
 		TotalPage = pagination.CountData / pagination.PerPage
 	}
-
-	h.Logger.Info("Successfully retrieved product recommendations",
-		zap.String("handler", "Recommendation"),
-		zap.String("function", "GetRecommendationsHandler"),
-		zap.Int("totalPage", TotalPage),
-		zap.Int("pagination_page", pagination.Page),
-		zap.Int("pagination_perPage", pagination.PerPage),
-	)
-
 	JsonResponse.SendPaginatedResponse(w, recommendations, pagination.Page, pagination.PerPage, pagination.CountData, TotalPage, "Product recommendations successfully retrieved")
 }
 
 func (h *RecommendationHandler) GetBannerProduct(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		errMessage := fmt.Sprintf("Invalid method %s", r.Method)
-		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Recommendation"), zap.String("function", "GetBannerProduct"), zap.String("client_ip", r.RemoteAddr))
+		h.Logger.Error("Invalid method", zap.String("method", r.Method), zap.String("handler", "Recommendation"), zap.String("function", "GetBannerProduct"))
 		JsonResponse.SendError(w, http.StatusBadRequest, errMessage)
 		return
 	}
@@ -96,29 +80,12 @@ func (h *RecommendationHandler) GetBannerProduct(w http.ResponseWriter, r *http.
 	recommedFilter.SetInBanner = true
 	bannerProduct, pagination, err := h.Service.RecommendationService.GetProductRecommendations(recommedFilter, paginationInput)
 	if err != nil {
-		h.Logger.Error("Failed to get banner product recommendations",
-			zap.String("error", err.Error()),
-			zap.String("handler", "Recommendation"),
-			zap.String("function", "GetBannerProduct"),
-			zap.Int("page", paginationInput.Page),
-			zap.Int("perPage", paginationInput.PerPage),
-			zap.String("client_ip", r.RemoteAddr),
-		)
+		h.Logger.Error(err.Error())
 		JsonResponse.SendError(w, http.StatusInternalServerError, "Failed to get product recommendations")
 		return
 	}
-
 	if pagination.CountData/pagination.PerPage > 0 {
 		TotalPage = pagination.CountData / pagination.PerPage
 	}
-
-	h.Logger.Info("Successfully retrieved banner product recommendations",
-		zap.String("handler", "Recommendation"),
-		zap.String("function", "GetBannerProduct"),
-		zap.Int("totalPage", TotalPage),
-		zap.Int("pagination_page", pagination.Page),
-		zap.Int("pagination_perPage", pagination.PerPage),
-	)
-
 	JsonResponse.SendPaginatedResponse(w, bannerProduct, pagination.Page, pagination.PerPage, pagination.CountData, TotalPage, "Banner products successfully retrieved")
 }

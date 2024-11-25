@@ -6,7 +6,6 @@ import (
 	"errors"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
 	"github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
@@ -43,13 +42,7 @@ func (m *Middleware) AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		// Log successful extraction of token
-		m.Log.Info("Token extracted successfully",
-			zap.String("method", r.Method),
-			zap.String("path", r.URL.Path),
-			zap.String("remote_addr", r.RemoteAddr),
-			zap.String("token", token),
-		)
+		m.Log.Info("Token extracted successfully", zap.String("token", token))
 
 		claims, err := util.VerifyToken(token, m.Config)
 		if err != nil {
@@ -57,22 +50,13 @@ func (m *Middleware) AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		// Log claims parsed successfully
-		m.Log.Info("Claims parsed successfully",
-			zap.String("userId", claims["userId"].(string)),
-			zap.Time("issuedAt", claims["iat"].(time.Time)),
-			zap.Time("expiresAt", claims["exp"].(time.Time)),
-		)
+		m.Log.Info("Claims parsed successfully", zap.Any("claims", claims))
 
 		user := model.User{
 			ID: claims["userId"].(string),
 		}
-
-		// Add user info to the context and log context update
 		ctx := context.WithValue(r.Context(), UserClaimsContextKey, user)
-		m.Log.Info("User added to context", zap.String("userId", user.ID))
-
-		// Proceed with the next handler
+		m.Log.Info("added to context", zap.Any("contextValue", user))
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -85,38 +69,22 @@ func (m *Middleware) extractToken(r *http.Request) (string, error) {
 		return strings.TrimPrefix(authHeader, "Bearer "), nil
 	}
 
-	// Log missing token
-	m.Log.Warn("Missing token in cookie or Authorization header",
-		zap.String("method", r.Method),
-		zap.String("path", r.URL.Path),
-		zap.String("remote_addr", r.RemoteAddr),
-	)
 	return "", errors.New("missing token in cookie or Authorization header")
 }
 
 // handleUnauthorized handles unauthorized access with logging and response
 func (m *Middleware) handleUnauthorized(w http.ResponseWriter, r *http.Request, message string) {
-	// Log unauthorized access attempt
-	m.Log.Warn("Unauthorized access attempt",
+	m.Log.Info("Unauthorized access",
 		zap.String("method", r.Method),
 		zap.String("path", r.URL.Path),
 		zap.String("remote_addr", r.RemoteAddr),
 		zap.String("message", message),
 	)
-
-	// Send error response
 	m.respondWithError(w, http.StatusUnauthorized, message)
 }
 
 // respondWithError sends an error response with JSON formatting
 func (m *Middleware) respondWithError(w http.ResponseWriter, statusCode int, message string) {
-	// Log the error response
-	m.Log.Error("Responding with error",
-		zap.Int("statusCode", statusCode),
-		zap.String("message", message),
-	)
-
-	// Prepare and send the JSON response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
 	_ = json.NewEncoder(w).Encode(map[string]string{"error": message})
