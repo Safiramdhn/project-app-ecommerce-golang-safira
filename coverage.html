@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>database: Go Coverage Report</title>
+        <style>
+                body {
+                        background: black;
+                        color: rgb(80, 80, 80);
+                }
+
+                body,
+                pre,
+                #legend span {
+                        font-family: Menlo, monospace;
+                        font-weight: bold;
+                }
+
+                #topbar {
+                        background: black;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 42px;
+                        border-bottom: 1px solid rgb(80, 80, 80);
+                }
+
+                #content {
+                        margin-top: 50px;
+                }
+
+                #nav,
+                #legend {
+                        float: left;
+                        margin-left: 10px;
+                }
+
+                #legend {
+                        margin-top: 12px;
+                }
+
+                #nav {
+                        margin-top: 10px;
+                }
+
+                #legend span {
+                        margin: 0 5px;
+                }
+
+                .cov0 {
+                        color: rgb(192, 0, 0)
+                }
+
+                .cov1 {
+                        color: rgb(128, 128, 128)
+                }
+
+                .cov2 {
+                        color: rgb(116, 140, 131)
+                }
+
+                .cov3 {
+                        color: rgb(104, 152, 134)
+                }
+
+                .cov4 {
+                        color: rgb(92, 164, 137)
+                }
+
+                .cov5 {
+                        color: rgb(80, 176, 140)
+                }
+
+                .cov6 {
+                        color: rgb(68, 188, 143)
+                }
+
+                .cov7 {
+                        color: rgb(56, 200, 146)
+                }
+
+                .cov8 {
+                        color: rgb(44, 212, 149)
+                }
+
+                .cov9 {
+                        color: rgb(32, 224, 152)
+                }
+
+                .cov10 {
+                        color: rgb(20, 236, 155)
+                }
+        </style>
+</head>
+
+<body>
+        <div id="topbar">
+                <div id="nav">
+                        <select id="files">
+
+                                <option value="file0">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/database/postgres.go
+                                        (0.0%)</option>
+
+                                <option value="file1">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/arrSqlNull.go
+                                        (0.0%)</option>
+
+                                <option value="file2">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/discountPrice.go
+                                        (0.0%)</option>
+
+                                <option value="file3">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/password.go
+                                        (0.0%)</option>
+
+                                <option value="file4">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/response.go
+                                        (0.0%)</option>
+
+                                <option value="file5">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/string.go
+                                        (0.0%)</option>
+
+                                <option value="file6">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/token.go (0.0%)
+                                </option>
+
+                                <option value="file7">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper/validator.go
+                                        (0.0%)</option>
+
+                                <option value="file8">github.com/Safiramdhn/project-app-ecommerce-golang-safira/main.go
+                                        (0.0%)</option>
+
+                                <option value="file9">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/middleware/authMiddleware.go
+                                        (0.0%)</option>
+
+                                <option value="file10">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/addressRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file11">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/cartRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file12">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/categoryRespository.go
+                                        (0.0%)</option>
+
+                                <option value="file13">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/orderRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file14">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/productRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file15">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/recommendationRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file16">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/repositories.go
+                                        (0.0%)</option>
+
+                                <option value="file17">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/userRepository.go
+                                        (75.7%)</option>
+
+                                <option value="file18">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/variantRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file19">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository/wishlistRepository.go
+                                        (0.0%)</option>
+
+                                <option value="file20">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/router/routers.go
+                                        (0.0%)</option>
+
+                                <option value="file21">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/UserService.go
+                                        (0.0%)</option>
+
+                                <option value="file22">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/addressService.go
+                                        (0.0%)</option>
+
+                                <option value="file23">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/cartService.go
+                                        (0.0%)</option>
+
+                                <option value="file24">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/categoryService.go
+                                        (0.0%)</option>
+
+                                <option value="file25">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/orderService.go
+                                        (0.0%)</option>
+
+                                <option value="file26">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/productService.go
+                                        (0.0%)</option>
+
+                                <option value="file27">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/recommendatioService.go
+                                        (0.0%)</option>
+
+                                <option value="file28">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/services.go
+                                        (0.0%)</option>
+
+                                <option value="file29">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/service/wishlistService.go
+                                        (0.0%)</option>
+
+                                <option value="file30">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/util/config.go (0.0%)
+                                </option>
+
+                                <option value="file31">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/util/logger.go (0.0%)
+                                </option>
+
+                                <option value="file32">
+                                        github.com/Safiramdhn/project-app-ecommerce-golang-safira/util/token.go (0.0%)
+                                </option>
+
+                        </select>
+                </div>
+                <div id="legend">
+                        <span>not tracked</span>
+
+                        <span class="cov0">not covered</span>
+                        <span class="cov8">covered</span>
+
+                </div>
+        </div>
+        <div id="content">
+
+                <pre class="file" id="file0" style="display: none">package database
+
+import (
+        "database/sql"
+        "fmt"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
+        _ "github.com/lib/pq"
+)
+
+func InitDatabase(config util.Configuration) (*sql.DB, error) <span class="cov0" title="0">{
+        connStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable host=%s",
+                config.DB.Username, config.DB.Password, config.DB.Name, config.DB.Host)
+        db, err := sql.Open("postgres", connStr)
+
+        db.SetMaxOpenConns(25)
+        db.SetMaxIdleConns(25)
+        db.SetConnMaxLifetime(30 * time.Minute)
+        db.SetConnMaxIdleTime(5 * time.Minute)
+
+        return db, err
+}</span>
+</pre>
+
+                <pre class="file" id="file1" style="display: none">package helper
+
+import "database/sql"
+
+func ConvertToNullInt64Slice(intSlice []int) []sql.NullInt64 <span class="cov0" title="0">{
+        nullInt64Slice := make([]sql.NullInt64, len(intSlice))
+        for i, val := range intSlice </span><span class="cov0" title="0">{
+                nullInt64Slice[i] = sql.NullInt64{
+                        Int64: int64(val),
+                        Valid: true,
+                }
+        }</span>
+        <span class="cov0" title="0">return nullInt64Slice</span>
+}
+</pre>
+
+                <pre class="file" id="file2" style="display: none">package helper
+
+import "math"
+
+func CalculateDiscountPrice(price, discount float64) float64 <span class="cov0" title="0">{
+        // Calculate the promo price
+        priceAfterDiscount := price * ((100.00 - discount) / 100)
+
+        // Round to 2 decimal places
+        return math.Round(priceAfterDiscount*100) / 100
+}</span>
+
+func CalculateCartPrice(price, additionalPrice, discount, promoDiscount float64, amount int) float64 <span class="cov0" title="0">{
+        totalPrice := (price + additionalPrice) * ((100.00 - discount) / 100) * float64(amount)
+        totalPrice -= totalPrice * ((100.00 - promoDiscount) / 100)
+
+        return math.Round(totalPrice*100) / 100
+}</span>
+</pre>
+
+                <pre class="file" id="file3" style="display: none">package helper
+
+import (
+        "golang.org/x/crypto/bcrypt"
+)
+
+func EncodePassword(password string) (string, error) <span class="cov0" title="0">{
+        // encode password using bcrypt
+        hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov0" title="0">return string(hashedPassword), nil</span>
+}
+
+func ComparePassword(hashedPassword string, password string) (bool, error) <span class="cov0" title="0">{
+        // compare the given password with the hashed password
+        err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+        if err != nil </span><span class="cov0" title="0">{
+                return false, err
+        }</span>
+        <span class="cov0" title="0">return true, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file4" style="display: none">package helper
+
+import (
+        "encoding/json"
+        "net/http"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+)
+
+type JSONResponse struct{}
+
+// SendSuccess sends a successful JSON response
+func (j *JSONResponse) SendSuccess(w http.ResponseWriter, data interface{}, message ...string) <span class="cov0" title="0">{
+        response := model.StandardResponse{
+                Status: model.StatusSuccess,
+                Data:   data,
+        }
+
+        if len(message) &gt; 0 </span><span class="cov0" title="0">{
+                response.Message = message[0]
+        }</span>
+
+        <span class="cov0" title="0">j.sendJSON(w, http.StatusOK, response)</span>
+}
+
+// SendCreated sends a JSON response for resource creation
+func (j *JSONResponse) SendCreated(w http.ResponseWriter, data interface{}, message ...string) <span class="cov0" title="0">{
+        response := model.StandardResponse{
+                Status: model.StatusSuccess,
+                Data:   data,
+        }
+
+        defaultMessage := "Resource created successfully"
+        if len(message) &gt; 0 </span><span class="cov0" title="0">{
+                defaultMessage = message[0]
+        }</span>
+        <span class="cov0" title="0">response.Message = defaultMessage
+
+        j.sendJSON(w, http.StatusCreated, response)</span>
+}
+
+// SendError sends an error JSON response
+func (j *JSONResponse) SendError(w http.ResponseWriter, statusCode int, message string, errors ...interface{}) <span class="cov0" title="0">{
+        response := model.StandardResponse{
+                Status:  model.StatusError,
+                Message: message,
+        }
+
+        if len(errors) &gt; 0 </span><span class="cov0" title="0">{
+                response.Errors = errors[0]
+        }</span>
+
+        <span class="cov0" title="0">j.sendJSON(w, statusCode, response)</span>
+}
+
+// SendPaginatedResponse sends a paginated JSON response
+func (j *JSONResponse) SendPaginatedResponse(
+        w http.ResponseWriter,
+        data interface{},
+        page, limit, totalItems, totalPages int,
+        message ...string,
+) <span class="cov0" title="0">{
+        response := model.PaginatedResponse{
+                StandardResponse: model.StandardResponse{
+                        Status: model.StatusSuccess,
+                        Data:   data,
+                },
+                Page:       page,
+                Limit:      limit,
+                TotalItems: totalItems,
+                TotalPages: totalPages,
+        }
+
+        if len(message) &gt; 0 </span><span class="cov0" title="0">{
+                response.Message = message[0]
+        }</span>
+
+        <span class="cov0" title="0">j.sendJSON(w, http.StatusOK, response)</span>
+}
+
+// ValidationErrorResponse generates a structured validation error response
+func (j *JSONResponse) ValidationErrorResponse(w http.ResponseWriter, validationErrors map[string]string) <span class="cov0" title="0">{
+        j.SendError(
+                w,
+                http.StatusUnprocessableEntity,
+                "Validation failed",
+                validationErrors,
+        )
+}</span>
+
+// sendJSON is an internal method to send JSON response
+func (j *JSONResponse) sendJSON(w http.ResponseWriter, statusCode int, data interface{}) <span class="cov0" title="0">{
+        // Set Content-Type header
+        w.Header().Set("Content-Type", "application/json")
+
+        // Set status code
+        w.WriteHeader(statusCode)
+
+        // Encode and send JSON
+        if err := json.NewEncoder(w).Encode(data); err != nil </span><span class="cov0" title="0">{
+                http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
+        }</span>
+}
+</pre>
+
+                <pre class="file" id="file5" style="display: none">package helper
+
+func JoinStrings(parts []string, delimiter string) string <span class="cov0" title="0">{
+        result := ""
+        for i, part := range parts </span><span class="cov0" title="0">{
+                result += part
+                if i &lt; len(parts)-1 </span><span class="cov0" title="0">{
+                        result += delimiter
+                }</span>
+        }
+        <span class="cov0" title="0">return result</span>
+}
+</pre>
+
+                <pre class="file" id="file6" style="display: none">package helper
+
+import "github.com/google/uuid"
+
+func GenerateToken(userId string) (string, error) <span class="cov0" title="0">{
+        // Generate a basic token
+        token, err := uuid.NewUUID()
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov0" title="0">return token.String(), nil</span>
+}
+</pre>
+
+                <pre class="file" id="file7" style="display: none">package helper
+
+import (
+        "regexp"
+        "strings"
+
+        "github.com/go-playground/validator/v10"
+)
+
+var validate = validator.New()
+
+type FieldError struct {
+        Field   string `json:"field"`
+        Message string `json:"message"`
+}
+
+func EmailOrPhoneValidator(input string) FieldError <span class="cov0" title="0">{
+        if strings.Contains(input, "@") </span><span class="cov0" title="0">{
+                // Validate as email
+                if err := validate.Var(input, "required,email"); err != nil </span><span class="cov0" title="0">{
+                        return FieldError{
+                                Field:   "email",
+                                Message: "Invalid email address",
+                        }
+                }</span>
+                <span class="cov0" title="0">return FieldError{}</span>
+        }
+
+        // Regex for validating phone numbers with optional country code (+)
+        <span class="cov0" title="0">phoneRegex := regexp.MustCompile(`^\+?[0-9]+$`)
+        if phoneRegex.MatchString(input) </span><span class="cov0" title="0">{
+                // Validate as a phone number
+                if err := validate.Var(input, "required,numeric"); err != nil </span><span class="cov0" title="0">{
+                        return FieldError{
+                                Field:   "phone",
+                                Message: "Invalid phone number",
+                        }
+                }</span>
+                <span class="cov0" title="0">return FieldError{}</span>
+        }
+
+        // If input is neither email nor phone number
+        <span class="cov0" title="0">return FieldError{
+                Field:   "email_or_phone",
+                Message: "Invalid email or phone number",
+        }</span>
+}
+
+// PasswordValidator validates the password based on common rules.
+func PasswordValidator(password string) FieldError <span class="cov0" title="0">{
+        // Define the validation rules
+        err := validate.Var(password, "required,min=8,max=32")
+        if err != nil </span><span class="cov0" title="0">{
+                // Provide a detailed error message
+                return FieldError{
+                        Field:   "password",
+                        Message: "Password must be at least 8 characters long",
+                }
+        }</span>
+        <span class="cov0" title="0">return FieldError{}</span>
+}
+</pre>
+
+                <pre class="file" id="file8" style="display: none">package main
+
+import (
+        "net/http"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/router"
+        "go.uber.org/zap"
+)
+
+func main() <span class="cov0" title="0">{
+        r, log, PORT, err := router.InitRouter()
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal("init router failed", zap.Error(err))
+                return
+        }</span>
+        <span class="cov0" title="0">defer log.Sync()
+
+        log.Info("Server started on port", zap.String("port", PORT))
+        if err := http.ListenAndServe(":"+PORT, r); err != nil </span><span class="cov0" title="0">{
+                log.Fatal("listen and serve failed", zap.Error(err))
+        }</span>
+}
+</pre>
+
+                <pre class="file" id="file9" style="display: none">package middleware
+
+import (
+        "context"
+        "encoding/json"
+        "errors"
+        "net/http"
+        "strings"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
+        "go.uber.org/zap"
+)
+
+// ContextKey is a type for storing context keys
+type ContextKey string
+
+const (
+        UserClaimsContextKey ContextKey = "userId"
+)
+
+// Middleware holds dependencies for middleware functions
+type Middleware struct {
+        Log    *zap.Logger
+        Config util.Configuration
+}
+
+// NewMiddleware creates a new Middleware instance
+func NewMiddleware(log *zap.Logger, config util.Configuration) *Middleware {
+        return &amp;Middleware{
+                Log:    log,
+                Config: config,
+        }
+}
+
+</span>
+// AuthMiddleware ensures requests are authenticated
+func (m *Middleware) AuthMiddleware(next http.Handler) http.Handler {
+        return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request<span class="cov0" title="0">) {
+                token, err := m.extractToken(r)
+</span>                if err != nil {
+                        m.handleUnaut</span><span class="cov0" title="0">horized(w, r, "Unauthorized access: "+err.Error())
+                        return
+                }
+
+</span>                m.Log.Info("Token extracted successfully", zap.String("token", token))
+
+                <span class="cov0" title="0">claims, err := util.VerifyToken(token, m.Config)
+                if err != nil {
+                        m.handleUnauthorized(w, r, "Invalid token: "+err.Error())
+                        return
+                }
+
+                m.Log.Info("Claims parsed successfully", zap.Any("claims", claims))
+
+                user := model.</span><span class="cov0" title="0">User{
+                        ID: claims["userId"].(string),
+                }
+                c</span>tx := context.WithValue(r.Context(), UserClaimsContextKey, user)
+                m.Log.Info("added to context", zap.Any("contextValue", user))
+                next.ServeHTTP(w, r.WithContext(ctx))
+        }<span class="cov0" title="0">)
+}
+
+// extractToken retrieves the token from a cookie or the Authorization header
+func (m *Middleware) extractToken(r *http.Request) (string, error) {
+        // Check for token in Authorization header
+        authHeader := r.Header.Get("Authorization")
+        if authHeader != "" &amp;&amp; strings.HasPrefix(authHeader, "Bearer ") {
+                return strings.TrimPrefix(authHeader, "Bearer "), nil
+        }
+
+        return "", errors.New("missing token in cookie or Authorization header")
+}
+
+// handleUnauthorized handles unauthorized access with logging and response
+func (m *Middleware) handleUnauthorized</span>(w http.ResponseWriter, r *http.Request, message string) {
+        m.Log.Info("Unauthorized access",
+                zap.String("method", r.Method),
+                zap.String("path", r.URL.Path),
+                zap.String("remote_addr", r.RemoteAddr),
+                zap.String("message", message),
+        )
+        m.respondWithError(w, http.StatusUnauthorized, message)
+}
+</span>
+//</span> respondWithError sends an error response with JSON formatting
+func (m *Middleware) respondWithError(w http.ResponseWriter, statusCode int, message string) {
+        w.Header().Set("Content-Type", "application/json")
+        <span class="cov0" title="0">w.WriteHeader(statusCode)
+        _ = json.NewEncoder(w).Encode(map[string]string{"error": message})
+}
+</pre>
+
+                <pre class="file" id="file10" style="display: none">package repository
+
+import (
+        "database/sql"
+        "errors"
+        "strconv"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type addressRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+type AddressRepository interface {
+        Create(userID string, addressInput model.Address) error
+        </span>GetDefaultAddress(userID string) (model.Address, error)
+        GetAll(userID string, pagination model.Pagination) ([]model.Address, model.Pagination, error)
+        GetByID(id int) (*model.Address, error)
+        Update(id int, userID string, addressInput model.Address) error
+        UpdateDefaultA</span><span class="cov0" title="0">ddress(id int, userID string, setAsDefault bool) error
+        Delete(id int, userID string) error
+}
+
+</span>func NewAddressRepository(db *sql.DB, logger *zap.Logger) AddressRepository {
+        <span class="cov0" title="0">return addres</span><span class="cov0" title="0">sRepository{DB: db, Logger: logger}
+}
+</span>
+func (repo </span>addressRepository) Create(userID string, addressInput model.Address) error {
+        tx, err<span class="cov0" title="0"> := repo.DB.Beg</span><span class="cov0" title="0">in()
+        if err != nil {
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "Create"))
+                r</span>eturn err
+        }
+
+        <span class="cov0" title="0">defer func() {
+                if p := recov</span><span class="cov0" title="0">er(); p != nil {
+                        tx.Rollback()
+                </span>        panic(p) // Re-panic after rollback
+        <span class="cov0" title="0">        } else if err != nil {
+</span>                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                </span>        tx.R<span class="cov0" title="0">ollback()
+                }
+        }</span>()
+
+        <span class="cov0" title="0">defaultAddress, err := repo.GetDefaultAddress(userID)
+        if err != nil {
+                return err
+</span>        }
+        if (defaultAddress == model.Address{}) {
+                </span>addressInput.IsDefault = true
+        } else {
+        <span class="cov0" title="0">        addressInput.IsDefault = false
+</span>        }
+
+        s</span>qlStatement := `INSERT INTO addresses (user_id, name, street, district, city, state, postal_code, country, is_default) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
+        _, err = tx.Exec(sqlStatement, userID, addressInput.Name, addressInput.Street, addressInput.District, addressInput.City, addressInput.State, addressInput.PostalCode, addressInput.Country, addressInput.IsDefault)
+        <span class="cov0" title="0">if err != </span>nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "Create"))
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "Create"))
+                return err
+</span>        }
+</span>
+        return nil
+}
+</span>
+func (repo addressRepository) GetDefaultAddress(userID string) (model.Address, error) {
+        va</span>r address model.Address
+        sqlStatement := `SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE user_id = $1 AND is_default = true AND status = 'active'`
+        err := repo.DB.QueryRow(sqlStatement, userID).Scan(&amp;address.ID, &amp;address.Name, &amp;address.Street, &amp;address.District, &amp;address.City, &amp;address.State, &amp;address.PostalCode, &amp;address.Country, &amp;address.IsDefault)
+        <span class="cov0" title="0">if err != nil {
+</span>                if err == sql.ErrNoRows {
+                        repo.Logger.Info("No default address found", zap.String("user_id", userID), zap.String("Repository", "Address"), zap.String("Function", "GetDefaultAddress"))
+                        return address, nil // No default address found
+                } else {
+                        repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "GetDefaultAddress"))
+                        return address, err
+                }
+        }
+
+        return address, nil
+}
+</span>
+func (repo addressRepository) GetAll(userID string, pagination model.Pagination) ([]model.Address, model.Pagination, error) {
+        v</span>ar addresses []model.Address
+        <span class="cov0" title="0">sqlStatement := `SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE user_id = $1 AND status = 'active' ORDER BY created_at DESC LIMIT $2 OFFSET $3`
+        limit := pagination.PerPage
+        offset := (pagin</span><span class="cov0" title="0">ation.Page - 1) / limit
+
+        repo.Logger.Info("Executing query", zap.String("query", sqlStatement), zap.String("Repository", "Address"), zap.String("Function", "GetAll"))
+        rows, err := re</span><span class="cov0" title="0">po.DB.Query(sqlStatement, userID, limit, offset)
+        if err != nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "GetAll"))
+                return nil, pagination, err
+        }
+</span>
+        d<span class="cov0" title="0">efer rows.Close()
+</span>
+        <span class="cov0" title="0">for rows.Next() {
+</span>                var address model.Address
+                err = rows.Scan(&amp;address.ID, &amp;address.Name, &amp;address.Street, &amp;address.District, &amp;address.City, &amp;address.State, &amp;address.PostalCode, &amp;address.Country, &amp;address.IsDefault)
+                if err != nil {
+                        repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("Repository",
+                                "Address"), zap.String("Function", "GetAll"))
+                        return nil, pagination, err
+                }
+                addresses = append(addresses, address)
+        }
+</span>        return addresses, paginat</span><span class="cov0" title="0">ion, nil
+}
+
+fun</span>c (repo addressRepository) GetByID(id int) (*model.Address, error) {
+        v<span class="cov0" title="0">ar address model.Address
+        sqlStatement := </span>`SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE id = $1 AND status = 'active'`
+
+        repo.Logger.Info("Running query", zap.String("query", sqlStatement), zap.String("Repository", "Address"), zap.String("Function", "GetByID"))
+        <span class="cov0" title="0">err := repo.DB.Query</span>Row(sqlStatement, id).Scan(&amp;address.ID, &amp;address.Name, &amp;address.Street, &amp;address.District, &amp;address.City, &amp;address.State, &amp;address.PostalCode, &amp;address.Country, &amp;address.IsDefault)
+        if err != nil {
+                if err == sql.ErrNoRows {
+                        repo.Logger.Info("Address not found", zap.Int("id", id), zap.String("Repository", "Address"<span class="cov0" title="0">), zap.String("Function", "GetByID"))
+                        return nil, nil
+                }
+</span>                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "GetByID"))
+                return nil, err
+        }
+
+</span>        return &amp;address, nil
+}<span class="cov0" title="0">
+</span>
+</span>func (repo addressRepository) Update(id int, userID string, addressInput model.Address) error {
+        tx, err :=</span> repo.DB.Begin()
+        if err <span class="cov0" title="0">!= nil {
+</span>                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+                        "Address"), zap.String("Function", "Update"))
+                r</span>eturn err
+        }
+
+        defer func() {
+        <span class="cov0" title="0">        if p := recover(); p != nil {
+                        tx.Rollback()
+                        panic(p) // Re-panic afte</span><span class="cov0" title="0">r rollback
+                } else if err != nil {
+                </span>        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+        <span class="cov0" title="0">                tx.Rollback()
+</span>                }
+        }</span>()
+
+<span class="cov0" title="0">
+</span>        // Create a map to hold the fields to update
+        f</span>ields := map[string]interface{}{}
+
+<span class="cov0" title="0">
+</span>        if addressInput.Name != "" {
+                </span>fields["name"] = addressInput.Name
+        <span class="cov0" title="0">}
+</span>        if addressInput.Street != "" {
+                </span>fields["street"] = addressInput.Street
+        <span class="cov0" title="0">}
+</span>        if addressInput.District.Valid &amp;&amp; addressInput.District.String != "" {
+                </span>fields["district"] = addressInput.District.String
+        <span class="cov0" title="0">}
+</span>        if addressInput.City.Valid &amp;&amp; addressInput.City.String != "" {
+                </span>fields["city"] = addressInput.City.String
+        }
+        if addressInput.State.Valid &amp;&amp; addressInput.State.String != "" {
+        <span class="cov0" title="0">        fields["state"] = addressInput.State.String
+        }
+        if addressInput.PostalCode != "" {
+                fields["postal_code"] = addressInput.PostalCode
+        }
+        if addressInput.Country != "" {
+                fields["country"] = addressInput</span><span class="cov0" title="0">.Country
+        }
+
+        // Add the updated_at field
+        f</span>ields["updated_at"] = time.Now()
+
+        // Build the SET clause dynamically
+        <span class="cov0" title="0">setClauses := []string{}</span><span class="cov0" title="0">
+        values := []interface{}{}
+        i</span>ndex := 1
+        for field, value := range fields {
+                setClauses = append(setClauses, field+"=$"+strconv.Itoa(index))
+        <span class="cov0" title="0">        values = append(values, value)
+                index++
+        }
+
+        // Check if there are fields to update
+        if len(setClauses) == 0 {
+                return errors.New("no fields to update")
+        }
+
+        // Build the final query
+        queryStatement := `
+                UPDATE addresses
+                SET ` + helper.JoinStrings(setClauses, ", ") + `
+                WHERE id = $`</span><span class="cov0" title="0"> + strconv.Itoa(index) +
+                ` AND user_id = $` + strconv.Itoa(index+1) +
+                </span>` AND status = 'active'`
+        values = append(values, id, userID)
+
+<span class="cov0" title="0">
+</span>        // Execute the query
+        r</span>epo.Logger.Info("Executing query", zap.Int("address_id", id),
+        <span class="cov0" title="0">        zap.Strin</span>g("query", queryStatement), zap.String("repository", "Address"),
+                zap.String("function", "Update"))
+        _, err = tx.Exec(queryStatement, values...)
+        if err != nil {
+                return err
+        }
+
+</span>        if err := tx.Commit(); err != nil {
+                </span>return err
+        }
+        <span class="cov0" title="0">return nil
+</span>}
+</span>
+func (repo </span>addressRepository) UpdateDefaultAddress(id int, userID string, setAsDefault bool) error {
+        // Chec<span class="cov0" title="0">k if the addres</span><span class="cov0" title="0">s exists
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                r</span>eturn err
+        }
+
+        <span class="cov0" title="0">defer func() {
+                if r := recover(); r != nil {
+                        tx.Rollback()
+                        panic(r) // Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }
+</span>        }()
+
+        s</span>qlStatement := `UPDATE addresses SET is_default = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3`
+
+        <span class="cov0" title="0">repo.Logger.Info("Executing query"</span><span class="cov0" title="0">, zap.Bool("boolean", setAsDefault),
+                zap.String("query", sqlStatement), zap.String("repository", "Address"),
+                </span>zap.String("function", "UpdateDefaultAddress"))
+
+<span class="cov0" title="0">
+</span>        _, err = tx.Exec(sqlStatement, setAsDefault, id, userID)
+        if err != nil {
+
+                return err
+        }
+</span>
+        i</span>f err := tx.Commit(); err != nil {
+                return err
+        <span class="cov0" title="0">}
+</span>        return nil
+</span>}
+
+</span>func (re<span class="cov0" title="0">po addressRepos</span><span class="cov0" title="0">itory) Delete(id int, userID string) error {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                return err
+        }
+</span>
+
+        defer func() {
+        <span class="cov0" title="0">        if r := recover(); r != nil {
+                        tx.Rollback()
+                        panic(r) // Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"),
+                                zap.String(</span><span class="cov0" title="0">"Function", "Delete"))
+                        tx.Rollback()
+                </span>}
+        }()
+
+<span class="cov0" title="0">
+</span>        sqlStatement := `UPDATE addresses SET status = 'deleted', deleted_at = NOW() WHERE id = $1 AND user_id = $2`
+        r</span>epo.Logger.Info("Executing query", zap.Int("address_id", id),
+        <span class="cov0" title="0">        zap.Strin</span>g("query", sqlStatement), zap.String("repository", "Address"),
+                zap.String("function", "Delete"))
+        _, err = tx.Exec(sqlStatement, id, userID)
+        if err != nil {
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                return err
+        }
+        return nil
+}
+</pre>
+
+                <pre class="file" id="file11" style="display: none">package repository
+
+import (
+        "database/sql"
+        "errors"
+        "strconv"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type CartRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewCartRepository(db *sql.DB, logger *zap.Logger) CartRepository <span class="cov0" title="0">{
+        return CartRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo CartRepository) Create(userID string) (model.Cart, error) <span class="cov0" title="0">{
+        var Cart model.Cart
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return Cart, err
+        }
+
+        defer func() {
+                if p := recover(); p != nil {
+                        tx.Rollback()
+                </span>        panic(p) // Re-panic after rollback
+                } else if err != nil {
+        <span class="cov0" title="0">                repo.Logger</span><span class="cov0" title="0">.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+</span>                }
+        }()
+
+        sqlStatement := `INSERT INTO carts (user_id) VALUES ($1) RETURNING id`
+        err = tx.QueryRow(sqlStatement, userID).Scan(&amp;Cart.ID)
+        if err != nil {
+                repo.Logger.Error("Failed to create second cart", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Create"))
+                return Ca</span>rt, err
+        }
+</span>
+        if err := tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Create"))
+                return Cart, err
+        }
+        return Cart, nil
+}
+
+</span>func (repo CartRepository) Update(cartInput model.Cart) error {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }
+</span>
+
+        defer func() {
+        <span class="cov0" title="0">        if p := recover(); p != nil {
+                        tx.Rollback()
+                        panic(p) // </span><span class="cov0" title="0">Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }
+        }()
+
+        sqlStatement := `UPDATE carts SET total_amount = $1, total_price = $2, updated_at = NOW() WHERE id = $3`
+        _</span>, err = tx.Exec(sqlStatement, cartInput.TotalAmount, cartInput.TotalPrice, cartInput.ID)
+        if err != nil {
+        <span class="cov0" title="0">        repo.Logger.Error("Failed to upda</span><span class="cov0" title="0">te second cart", zap.Error(err), zap.String("Repository", "Cart"), zap.String("function", "Update"))
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "Update"))
+                return err
+        }
+        r</span>eturn nil
+}<span class="cov0" title="0">
+</span>
+func (repo CartRepository) AddItem(itemInput model.CartItem) (model.CartItem, error) {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                repo.Logger.E</span><span class="cov0" title="0">rror("Failed to start transaction", zap.Error(err), zap.String("Repository",
+                        "Cart"), zap.String("Function", "AddItem"))
+                return itemInput, err
+        }
+
+        defer func() {
+                if p := recover(); p != nil {
+                        tx.Rollback()
+                </span>        panic(p) // Re-panic after rollback
+                } else if err != nil {
+        <span class="cov0" title="0">                repo.Logger</span><span class="cov0" title="0">.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+</span>                }
+        }()
+
+        sqlStatement := `INSERT INTO cart_items (cart_id, product_id, amount, sub_total) VALUES ($1, $2, $3, $4) RETURNING id`
+        err = tx.QueryRow(sqlStatement, itemInput.CartID, itemInput.ProductID, itemInput.Amount, itemInput.SubTotal).Scan(&amp;itemInput.ID)
+        if err != nil {
+                repo.Logger.Error("Failed to add cart item", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItem"))
+                return it</span>emInput, err
+        }
+</span>
+        if err := tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItem"))
+                return itemInput, err
+        }
+        return itemInput, nil
+}
+
+</span>func (repo CartRepository) DeleteItem(itemID int) error {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+                        "Cart"), zap.String("Function", "DeleteItem"))
+                r</span>eturn err
+        }
+
+        <span class="cov0" title="0">defer func() {
+                if p := recover(); p != nil {
+                        tx.Rollback(</span><span class="cov0" title="0">)
+                        panic(p) // Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+                                "Cart"), zap.String("Function", "DeleteItem"))
+                        tx.Rollback()
+                }
+        }()
+
+</span>        var item model.CartItem
+        <span class="cov0" title="0">sqlStatement := `SELECT cart_id, a</span><span class="cov0" title="0">mount, sub_total FROM cart_items WHERE id = $1`
+        err = tx.QueryRow(sqlStatement, itemID).Scan(&amp;item.CartID, &amp;item.Amount, &amp;item.SubTotal)
+        if err == sql.ErrNoRows {
+                repo.Logger.Error("Item not found", zap.Int("ID", itemID), zap.String("Repository", "Cart"), zap.String("Function", "DeleteItem"))
+                return nil
+        }
+        if err != nil {
+                repo.Logger.Error("Failed to retrieve item details", zap.Error(err), zap.String("Repository",
+                </span>        "Cart"), zap.String("Function", "DeleteItem"))
+        <span class="cov0" title="0">        return er</span>r
+        }
+        cart, err := repo.GetByID(item.CartID)
+        if err != nil {
+                repo.Logger.Error("Failed to retrieve cart details", zap.Error(err), zap.String("Repository",
+                        "Cart"), zap</span><span class="cov0" title="0">.String("Function", "DeleteItem"))
+                return err
+        }
+        cart.TotalAmount -= item.Amount
+        cart.TotalPrice -= item.SubTotal
+        err = repo.Update(cart)
+        if err != nil {
+                repo.Logger.Error("Failed to update cart", zap.Error(err), zap.String("Repository",
+                        "Cart"), zap.String("Function", "DeleteItem"))
+                </span>return err
+        }
+
+<span class="cov0" title="0">
+</span>        sqlStatement = `UPDATE cart_i</span><span class="cov0" title="0">tems SET status = 'deleted', deleted_at = NOW() WHERE id = $1`
+        _, err = tx.Exec(sqlStatement, itemID)
+        if err != nil {
+                repo.Logger.Error("Failed to delete cart item", zap.Error(err), zap.String("Repository",
+                        "Cart"), zap.String("Function", "DeleteItem"))
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                repo.Logg</span>er.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "DeleteItem"))
+                return<span class="cov0" title="0"> err
+</span>        }
+        return nil
+}
+
+func (repo CartRepository) AddItemVariant(cartItemID int, variantInput model.CartItemVariantDTO) error {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+                        </span>"Cart<span class="cov0" title="0">"), zap.String("Function", "DeleteItem"))
+                return err
+        }
+
+        defer func() {
+                if p := recover(); p != nil {
+                        tx.Rollback()
+                        </span>panic(p) // Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+        <span class="cov0" title="0">                        "Cart"), zap.String("Function", "AddItemVariant"))
+                        tx.Rollback()
+                }
+</span>        }()
+
+        sqlStatement := `INSERT INTO cart_item_variants (cart_item_id, item_variant_id, option_id, additional_price) VALUES ($1, $2, $3, $4)`
+        _, err = tx.Exec(sqlStatement, cartItemID, variantInput.VariantID, variantInput.VariantOptionID, variantInput.AdditionalPrice)
+        if err != nil {
+                repo.Logger.Error("Failed to add cart item variant", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItemVariant"))
+                return err
+        }
+
+</span>        if err := tx.Commit(); err != nil {
+        <span class="cov0" title="0">        repo.Logger.Error("Failed to comm</span><span class="cov0" title="0">it transaction", zap.Error(err), zap.String("Repository", "Cart"), zap.String("Function", "AddItemVariant"))
+                return err
+        }
+        return nil
+}
+
+func (repo CartRepository) UpdateItem(itemInput model.CartItem) error {
+        tx, err := repo.DB.Begin()
+        if err != nil {
+                </span>repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+        <span class="cov0" title="0">                "Cart"), zap.String</span>("Function", "AddVariantOption"))
+                return err
+        }
+
+        defer func() {
+                if p := recov</span><span class="cov0" title="0">er(); p != nil {
+                        tx.Rollback()
+                        panic(p) // Re-panic after rollback
+                } else if err != nil {
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+                                "Cart"), zap.String("Function", "AddVariantOption"))
+                        tx.Rollback()
+                </span>}
+        }()
+
+<span class="cov0" title="0">
+</span>        fields := map[string]interfac</span><span class="cov0" title="0">e{}{}
+        if itemInput.Amount != 0 {
+                fields["amount"] = itemInput.Amount
+        }
+        if itemInput.SubTotal != 0 {
+                fields["sub_total"] = itemInput.SubTotal
+        }
+        fields["up</span>dated_at"] = time.Now()
+
+</span>        setClauses := []string{}
+        values := []interface{}{}
+        index := 1
+        for field, value := range fields {
+                setClauses = append(setClauses, field+"=$"+strconv.Itoa(index))
+                values = append(values, value)
+                i</span>ndex++
+        }
+
+        <span class="cov0" title="0">// Check if there are fields to update
+        if len(setClauses) == 0 {
+                return errors.New("no fields to update")
+        }
+</span>
+        // Build the final query
+        queryStatement := `
+                UPDATE cart_items
+                SET ` + helper.JoinStrings(setClauses, ", ") + `
+                </span>WHERE id = $` + strconv.Itoa(index) +
+        <span class="cov0" title="0">        ` AND status </span><span class="cov0" title="0">= 'active'`
+        values = append(values, itemInput.ID)
+
+        repo.Logger.Info("Executing query", zap.Int("cart_item_id", itemInput.ID),
+                zap.String("query", queryStatement), zap.String("repository", "Cart"),
+                zap.String("function", "UpdateItem"))
+
+        /</span>/ Execute the query
+        _, err = tx.Exec(queryStatement, values...)
+        <span class="cov0" title="0">if err != nil {
+                repo.Logger.E</span><span class="cov0" title="0">rror("Failed to update cart item", zap.Error(err), zap.String("repository", "Cart"), zap.String("function", "UpdateItem"))
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository",
+                        "Cart"), zap.String("Function", "UpdateItem"))
+                </span>return err
+        }
+        <span class="cov0" title="0">return nil
+}
+
+func (repo Cart</span><span class="cov0" title="0">Repository) GetByUserID(userID string) (model.Cart, error) {
+        var result model.Cart
+        sqlStatement := `SELECT id, total_amount, total_price FROM carts WHERE user_id = $1 AND status = 'active' AND cart_status = 'active'`
+        err := repo.DB.QueryRow(sqlStatement, userID).Scan(&amp;result.ID, &amp;result.TotalAmount, &amp;result.TotalPrice)
+        if err == sql.ErrNoRows {
+                return result, nil
+        } else if err != nil {
+                </span>repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+        }
+        <span class="cov0" title="0">return result, nil
+}
+
+</span>func (repo CartRepository) GetByID(id int) (model.Cart, error) {
+        var result model.Cart
+        sqlStatement := `SELECT id, user_id, total_amount, total_price FROM carts WHERE id = $1 AND status = 'active' AND cart_status = 'active'`
+        err := repo.DB.QueryRow(sqlStatement, id).Scan(&amp;result.ID, &amp;result.UserID, &amp;result.TotalAmount, &amp;result.TotalPrice)
+        if err == sql.ErrNoRows {
+                return result, nil
+        }</span> else if err != nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+        <span class="cov0" title="0">}
+</span>        return result, nil
+}
+
+func (repo CartRepository) GetItems(cartId int) ([]model.CartItem, error) {
+        var cartItems []model.CartItem
+        sqlStatement := `SELECT id, product_id, amount, sub_total FROM cart_items WHERE cart_id = $1`
+        r</span>ows, err := repo.DB.Query(sqlStatement, cartId)
+        <span class="cov0" title="0">if err != </span>nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+                        "Cart"))
+                return nil, err
+        }
+        defer rows.Clo</span><span class="cov0" title="0">se()
+
+        for rows.Next() {
+                var item model.CartItem
+                err = rows.Scan(&amp;item.ID, &amp;item.ProductID, &amp;item.Amount, &amp;item.SubTotal)
+                if err != nil {
+                        repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("repository",
+                </span>                "Cart"))
+                        return nil, err
+        <span class="cov0" title="0">        }
+</span>
+</span>                variant, err := repo.GetItemVariants(item.ID)
+                if err != nil {
+                        repo.Logger.Error("Failed to get item variants", zap.Error(err), zap.String("repository",
+                                "Cart"))
+                        return nil, err
+                }
+                item.Item</span>Variant = variant
+                cartIt<span class="cov0" title="0">ems = append(ca</span><span class="cov0" title="0">rtItems, item)
+        }
+        return cartItems, nil
+}
+
+func (repo CartRepository) RecalculateTotal(cartID int) error {
+        sqlStatement := `SELECT SUM(amount) as total_amount, SUM(sub_total) as total_price FROM cart_items WHERE cart_id = $1 AND status ='active'`
+        va</span>r totalAmount, totalPrice float64
+        err := repo.DB.QueryRow(sqlStatement, cartID).Scan(&amp;totalAmount, &amp;totalPrice)
+        if err != nil {
+        <span class="cov0" title="0">        repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+                        "Cart"))
+                return err
+</span>        }
+        cartInput := model.Cart{
+                ID:          cartID,
+                TotalAmount: int(totalAmount),
+                TotalPrice:  totalPrice,
+        }
+        e</span>rr = repo.Update(cartInput)
+        if err != nil {
+        <span class="cov0" title="0">        repo.Logger.Error("Failed to upda</span><span class="cov0" title="0">te cart", zap.Error(err), zap.String("repository",
+                        "Cart"))
+                return err
+        }
+        return nil
+}
+
+fu</span>nc (repo CartRepository) GetItemByID(id int) (model.CartItem, error) {
+        <span class="cov0" title="0">var result</span> model.CartItem
+        sqlStatement := `SELECT id, cart_id, product_id, amount, sub_total FROM cart_items WHERE id = $1`
+        err := repo.DB.QueryRow(sqlStatement, id).Scan(&amp;result.ID, &amp;result.CartID, &amp;result.ProductID, &amp;result.Amount, &amp;result.SubTotal)
+        if err == sql.ErrNoRows {
+                return result, nil
+        } else if err </span><span class="cov0" title="0">!= nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+        }
+
+        return result, nil
+}
+
+fu</span>nc (repo CartRepository) GetItemVariants(itemID int) ([]model.CarttemVariant, error) {
+        var result []model.CarttemVariant
+        <span class="cov0" title="0">sqlStatement </span><span class="cov0" title="0">:= `SELECT id, cart_item_id, item_variant_id, option_id, additional_price  FROM cart_item_variants WHERE cart_item_id = $1`
+        rows, err := repo.DB.Query(sq</span><span class="cov0" title="0">lStatement, itemID)
+        if err == sql.ErrNoRows {
+                return result, nil
+        } else if err != nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository", "Cart"))
+                return result, err
+        }
+        defer rows</span>.Close()
+
+</span>        for rows.Next() {
+                var itemVariant model.CarttemVariant
+                err = rows.Scan(&amp;itemVariant.ID, &amp;itemVariant.CartItemID, &amp;itemVariant.VariantID, &amp;itemVariant.OptionID, &amp;itemVariant.AdditionalPrice)
+                if err != nil {
+                        repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("repository", "Cart"), zap.String("Function", "GetItemVariants"))
+                        return result, err
+                }</span>
+                result = append(result, itemVariant)
+        }
+        <span class="cov0" title="0">return result, nil
+}
+</span>
+fu</span>nc (repo CartRepository) UpdateCartStatus(id int) error {
+        <span class="cov0" title="0">tx, err := repo.DB.Begin()
+</span><span class="cov0" title="0">
+        if err != nil {
+                </span>repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
+        <span class="cov0" title="0">                "Cart"), zap.String("Function", "AddVariantOption"))
+                return err
+        }
+
+        defer func() {
+                if p := recover(); p != nil {
+</span>                        tx.Rollback()
+                        panic(p) // Re-panic after rollback
+                } else if err != nil {
+                </span>        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository",
+                                "Cart"), zap.String("Function", "AddVariantOption"))
+                        tx.Rollback()
+        <span class="cov0" title="0">        }
+</span>        }()
+
+</span>        sqlStatement := `UPDATE carts SET cart_status = 'checkout' WHERE id = $1`
+        _, err = tx.Exec(sqlStatement, id)
+        <span class="cov0" title="0">if err != nil {
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("repository",
+                        "Cart"), zap.String("Function", "UpdateCartStatus"))
+                return err
+        }
+
+        if err = tx.Commit(); err != nil {
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository",
+                        "Cart"), zap.String("Function", "UpdateCartStatus"))
+                return err
+        }
+        return nil
+}
+</pre>
+
+                <pre class="file" id="file12" style="display: none">package repository
+
+import (
+        "database/sql"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type CategoryRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewCategoryRepository(db *sql.DB, logger *zap.Logger) CategoryRepository <span class="cov0" title="0">{
+        return CategoryRepository{DB: db, Logger: logger}
+}</span>
+
+var startTime = time.Now()
+
+func (repo CategoryRepository) GetAll(pagination model.Pagination) ([]model.Category, model.Pagination, error) <span class="cov0" title="0">{
+        var categories []model.Category
+
+        sqlStatement := `SELECT id, name FROM categories LIMIT $1 OFFSET $2`
+        limit := pagination.PerPage
+        offset := (pagination.Page - 1) / limit
+
+        repo.Logger.Info("running query",
+                zap.String("query", sqlStatement),
+                zap.String("Repository", "Category"),
+                zap.String("Function", "GetAll"),
+        )
+        rows, err := repo.DB.Query(sqlStatement, limit, offset)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("error when query database",
+                        zap.Error(err),
+                        zap.String("Repository", "Category"),
+                        zap.String("Function", "GetAll"),
+                        zap.Duration("duration", time.Since(startTime)))
+
+                return categories, pagination, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        for rows.Next() </span><span class="cov0" title="0">{
+                var category model.Category
+                err := rows.Scan(&amp;category.ID, &amp;category.Name)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("error when scanning row", zap.Error(err),
+                                zap.String("Repository", "Category"),
+                                zap.Duration("duration", time.Since(startTime)))
+
+                        return categories, pagination, err
+                }</span>
+                <span class="cov0" title="0">categories = append(categories, category)</span>
+        }
+
+        <span class="cov0" title="0">totalCount, err := repo.CountCategories()
+        if err != nil </span><span class="cov0" title="0">{
+                return categories, pagination, err
+        }</span>
+
+        <span class="cov0" title="0">pagination.CountData = totalCount
+        return categories, pagination, nil</span>
+}
+
+func (repo CategoryRepository) CountCategories() (int, error) <span class="cov0" title="0">{
+        var totalCount int
+        countQuery := `SELECT COUNT(*) FROM categories WHERE status = 'active';`
+
+        repo.Logger.Info("running query", zap.String("query", countQuery), zap.String("Repository", "Category"), zap.String("Function", "CountCategories"))
+        err := repo.DB.QueryRow(countQuery).Scan(&amp;totalCount)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error counting Category", zap.Error(err),
+                        zap.String("Repository", "Category"),
+                        zap.String("Function", "CountCategories"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return 0, err
+        }</span>
+
+        <span class="cov0" title="0">return totalCount, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file13" style="display: none">package repository
+
+import (
+        "database/sql"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type OrderRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewOrderRepository(db *sql.DB, logger *zap.Logger) OrderRepository <span class="cov0" title="0">{
+        return OrderRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo OrderRepository) Create(orderInput model.Order) (model.Order, error) <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderInput, err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `INSERT INTO orders (user_id, address_id, total_amount, total_price, shipping_type, shipping_cost, payment_method) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
+        err = tx.QueryRow(sqlStatement, orderInput.UserID, orderInput.AddressID, orderInput.TotalAmount, orderInput.TotalPrice, orderInput.ShippingType, orderInput.ShippingCost, orderInput.PaymentMethod).Scan(&amp;orderInput.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to create order", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderInput, err
+        }</span>
+
+        <span class="cov0" title="0">if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderInput, err
+        }</span>
+        <span class="cov0" title="0">return orderInput, nil</span>
+}
+
+func (repo OrderRepository) AddOrderItem(orderItemInput model.OrderItem) (model.OrderItem, error) <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderItemInput, err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `INSERT INTO order_items (order_id, product_id, amount, subtotal) VALUES ($1, $2, $3, $4) RETURNING id`
+        err = tx.QueryRow(sqlStatement, orderItemInput.OrderID, orderItemInput.ProductID, orderItemInput.Amount, orderItemInput.SubTotal).Scan(&amp;orderItemInput.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to add order item", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderItemInput, err
+        }</span>
+
+        <span class="cov0" title="0">if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return orderItemInput, err
+        }</span>
+        <span class="cov0" title="0">return orderItemInput, nil</span>
+}
+
+func (repo OrderRepository) AddOrderItemVariant(variantInput model.OrderItemVariant) error <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `INSERT INTO order_item_variants (order_item_id, variant_id, option_id) VALUES ($1, $2, $3)`
+        _, err = tx.Exec(sqlStatement, variantInput.OrderItemID, variantInput.VariantID, variantInput.OptionID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to add order item variant", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (repo OrderRepository) UpdateOrderStatus(orderId int, orderStatus string) error <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `UPDATE orders SET order_status = $1 WHERE id = $2`
+        _, err = tx.Exec(sqlStatement, orderStatus, orderId)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to update order status", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "Create"))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (repo OrderRepository) GetByID(id int) (model.Order, error) <span class="cov0" title="0">{
+        var order model.Order
+        sqlStatement := `SELECT id, address_id, shipping_type, total_amount, total_price, order_status FROM orders WHERE id = $1`
+        err := repo.DB.QueryRow(sqlStatement, id).Scan(&amp;order.ID, &amp;order.AddressID, &amp;order.ShippingType, &amp;order.TotalAmount, &amp;order.TotalPrice, &amp;order.OrderStatus)
+        if err == sql.ErrNoRows </span><span class="cov0" title="0">{
+                return order, nil
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to get order by ID", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "GetByID"))
+                return order, err
+        }</span>
+
+        <span class="cov0" title="0">return order, nil</span>
+}
+
+func (repo OrderRepository) GetByUserID(userID string) ([]model.Order, error) <span class="cov0" title="0">{
+        var order []model.Order
+        sqlStatement := `SELECT id, total_amount, total_price, order_status FROM orders WHERE user_id = $1`
+        rows, err := repo.DB.Query(sqlStatement, userID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to get order by user ID", zap.Error(err), zap.String(
+                        "repository", "Order"), zap.String("Function", "GetByUserID"))
+                return order, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        for rows.Next() </span><span class="cov0" title="0">{
+                var o model.Order
+                err := rows.Scan(&amp;o.ID, &amp;o.TotalAmount, &amp;o.TotalPrice, &amp;o.OrderStatus)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Failed to scan order", zap.Error(err), zap.String("repository", "order"),
+                                zap.String("Function", "GetByUserID"))
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">order = append(order, o)</span>
+        }
+
+        <span class="cov0" title="0">return order, nil</span>
+}
+
+func (repo OrderRepository) GetOrderItems(orderId int) ([]model.OrderItem, error) <span class="cov0" title="0">{
+        var orderItems []model.OrderItem
+        sqlStatement := `SELECT id, order_id, product_id, amount, subtotal FROM order_items WHERE order_id = $1`
+        rows, err := repo.DB.Query(sqlStatement, orderId)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to get order items by order ID", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "GetOrderItems"))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        for rows.Next() </span><span class="cov0" title="0">{
+                var orderItem model.OrderItem
+                err = rows.Scan(&amp;orderItem.ID, &amp;orderItem.OrderID, &amp;orderItem.ProductID, &amp;orderItem.Amount, &amp;orderItem.SubTotal)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Failed to scan order item", zap.Error(err), zap.String("repository", "order"),
+                                zap.String("Function", "GetOrderItems"))
+                        return nil, err
+                }</span>
+
+                <span class="cov0" title="0">variant, err := repo.GetOrderItemVariants(orderItem.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+
+                <span class="cov0" title="0">orderItem.Variants = variant
+                orderItems = append(orderItems, orderItem)</span>
+        }
+        <span class="cov0" title="0">return orderItems, nil</span>
+}
+
+func (repo OrderRepository) GetOrderItemVariants(itemId int) ([]model.OrderItemVariant, error) <span class="cov0" title="0">{
+        var orderItemVariants []model.OrderItemVariant
+        sqlStatement := `SELECT id, variant_id, option_id price FROM order_item_variants
+        WHERE order_item_id = $1`
+        rows, err := repo.DB.Query(sqlStatement, itemId)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to get order item variants by order item ID", zap.Error(err),
+                        zap.String("repository", "Order"), zap.String("Function", "GetOrderItemVariants"))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        for rows.Next() </span><span class="cov0" title="0">{
+                var orderItemVariant model.OrderItemVariant
+                err = rows.Scan(&amp;orderItemVariant.ID, &amp;orderItemVariant.VariantID, &amp;orderItemVariant.OptionID)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Failed to scan order item variant", zap.Error(err),
+                                zap.String("repository", "Order"), zap.String("Function", "GetOrderItemVariants"))
+                        return nil, err
+                }</span>
+        }
+        <span class="cov0" title="0">return orderItemVariants, nil</span>
+}
+
+func (repo OrderRepository) CountProduct(productID int) (int, error) <span class="cov0" title="0">{
+        sqlStatement := `SELECT COUNT(*) FROM order_items WHERE product_id = $1`
+        var count int
+        err := repo.DB.QueryRow(sqlStatement, productID).Scan(&amp;count)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to count products by ID", zap.Error(err), zap.String("repository", "Order"), zap.String("Function", "CountProduct"))
+                return 0, err
+        }</span>
+        <span class="cov0" title="0">return count, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file14" style="display: none">package repository
+
+import (
+        "database/sql"
+        "fmt"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type ProductRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewProductRepository(db *sql.DB, logger *zap.Logger) ProductRepository <span class="cov0" title="0">{
+        return ProductRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo ProductRepository) GetByID(id int) (model.Product, error) <span class="cov0" title="0">{
+        var product model.Product
+        sqlStatement := `SELECT id, name, description, price, discount, rating, photo_url, has_variant, total_stock FROM products WHERE id = $1 AND status = 'active'`
+
+        repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
+        err := repo.DB.QueryRow(sqlStatement, id).Scan(&amp;product.ID, &amp;product.Name, &amp;product.Description, &amp;product.Price, &amp;product.Discount, &amp;product.Rating, &amp;product.PhotoURL, &amp;product.HasVariant, &amp;product.TotalStock)
+        if err == sql.ErrNoRows </span><span class="cov0" title="0">{
+                repo.Logger.Info("product not found",
+                        zap.Int("product id", id),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetByID"),
+                        zap.Duration("duration", time.Since(startTime)))
+
+                return product, nil
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("error getting product by id",
+                        zap.Error(err),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetByID"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return product, err
+        }</span>
+
+        <span class="cov0" title="0">product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.Price, product.Discount)
+        return product, nil</span>
+}
+
+func (repo ProductRepository) GetAll(productFilter model.ProductDTO, pagination model.Pagination) ([]model.Product, model.Pagination, error) <span class="cov0" title="0">{
+        var products []model.Product
+        var filterArgs []interface{}
+
+        // Build base SQL query
+        sqlStatement := `
+        SELECT id, name, description, price, discount, rating, photo_url, has_variant, total_stock 
+        FROM products
+        WHERE status = 'active'
+    `
+
+        // Add filters if provided
+        if productFilter.Name != "" </span><span class="cov0" title="0">{
+                sqlStatement += " AND name LIKE $1"
+                filterArgs = append(filterArgs, "%"+productFilter.Name+"%")
+        }</span>
+
+        <span class="cov0" title="0">if productFilter.CategoryID != 0 </span><span class="cov0" title="0">{
+                sqlStatement += " AND category_id = $" + fmt.Sprint(len(filterArgs)+1)
+                filterArgs = append(filterArgs, productFilter.CategoryID)
+        }</span>
+
+        // Add pagination
+        <span class="cov0" title="0">sqlStatement += " LIMIT $" + fmt.Sprint(len(filterArgs)+1) + " OFFSET $" + fmt.Sprint(len(filterArgs)+2)
+        filterArgs = append(filterArgs, pagination.PerPage, (pagination.Page-1)*pagination.PerPage)
+
+        // Log SQL statement and parameters (be cautious with sensitive data in production)
+        repo.Logger.Info("Run Get All Products",
+                zap.String("Repository", "Product"),
+                zap.String("function", "GetAllProducts"),
+                zap.String("statement", sqlStatement),
+                zap.Int("args_count", len(filterArgs)),
+                // Optionally, mask sensitive data in args for logging purposes
+                zap.Any("args", filterArgs),
+        )
+
+        // Execute query
+        rows, err := repo.DB.Query(sqlStatement, filterArgs...)
+        if err != nil </span><span class="cov0" title="0">{
+                if err == sql.ErrNoRows </span><span class="cov0" title="0">{
+                        return nil, pagination, nil
+                }</span>
+                <span class="cov0" title="0">repo.Logger.Error("Error retrieving products", zap.Error(err),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetByID"),
+                        zap.Duration("duration", time.Since(startTime)))
+
+                return nil, pagination, err</span>
+        }
+        <span class="cov0" title="0">defer rows.Close()
+
+        // Iterate and scan products
+        for rows.Next() </span><span class="cov0" title="0">{
+                var product model.Product
+                if err := rows.Scan(
+                        &amp;product.ID,
+                        &amp;product.Name,
+                        &amp;product.Description,
+                        &amp;product.Price,
+                        &amp;product.Discount,
+                        &amp;product.Rating,
+                        &amp;product.PhotoURL,
+                        &amp;product.HasVariant,
+                        &amp;product.TotalStock,
+                ); err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error scanning product", zap.Error(err),
+                                zap.String("Repository", "Product"),
+                                zap.String("Function", "GetAll"),
+                                zap.Duration("duration", time.Since(startTime)))
+
+                        return nil, pagination, err
+                }</span>
+                <span class="cov0" title="0">isNewProduct, err := repo.GetNewProducts(product.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, pagination, err
+                }</span>
+
+                <span class="cov0" title="0">product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.Price, product.Discount)
+
+</span>                product.SpecialProduct.IsNewProduct = isNewProduct
+                p</span>roducts = append(products, product)
+        }
+
+        // Check for errors during rows iteration
+        if err := rows.Err(); err != nil {
+                repo.Logger.Error("Error during rows iteration", zap.Error(err),
+                        zap.String("Repository"</span><span class="cov0" title="0">, "Product"),
+                        zap.String("Function", "GetAll"),
+                        </span>zap.D<span class="cov0" title="0">uration("duration", time.Since(startTime)))
+                return nil, pagination, err
+        }
+</span>
+
+</span>        // Get total product count
+        totalCount, err := repo.CountProducts(productFilter)
+        if err != nil {
+        <span class="cov0" title="0">        return nil, pagination, err
+</span>        }
+        pagination.CountData = totalCount
+
+        return products, pagination, nil
+}
+
+</span>func (repo ProductRepository) CountProducts(productFilter model.ProductDTO) (int, error) {
+        // Base query
+        <span class="cov0" title="0">countQuery := `SELECT COUNT(*) FROM products WHERE status = 'active'`
+        countArgs := [</span><span class="cov0" title="0">]interface{}{}
+        countArgIndex := 1
+
+</span>        <span class="cov0" title="0">// Add filters if provided
+        if productFilter.Name != "" {
+                countQuery += ` AND name ILIKE </span>$` + fmt.Sprint(countArgIndex)
+                countArgs = append(countArgs, "%"+productFilter.Name+"%")
+                countArgIndex++
+        }
+
+        if productFilter.CategoryID != 0 {
+                countQuery += ` AND category_id = $` + fmt.Sprint(countArgIndex)
+                countArgs = append(countArgs, productFilter.CategoryID)
+                countArgIndex++
+        }
+
+</span>        // Execute count query
+        var totalCount int
+        repo.Logger.Info("Execute count query", zap.String("query", countQuery), zap.String("Repository", "Product"), zap.String("Function", "CountProducts"))
+        e</span>rr := repo.DB.QueryRow(countQuery, countArgs...).Scan(&amp;totalCount)
+        if err != nil {
+        <span class="cov0" title="0">        repo.Logger.Error("Error countin</span><span class="cov0" title="0">g products", zap.Error(err),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "CountProducts"),
+                        zap.Duration("duration", time.Since(startTime)))
+                </span>return 0, err
+        }
+
+        <span class="cov0" title="0">return totalCount, nil
+}
+
+func (repo Prod</span><span class="cov0" title="0">uctRepository) GetNewProducts(id int) (bool, error) {
+        sqlStatement := `SELECT(created_at &gt; NOW() - INTERVAL '30 days') AS is_new_product FROM products WHERE id = $1 AND status = 'active';`
+        var isNewProduct bool
+
+        repo.Logger.Info("run sql statement", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetNewProduct"))
+        err := repo.DB.QueryRow(sqlStatement, id).Scan(&amp;isNewProduct)
+
+</span>        if err == sql.ErrNoRows {
+        <span class="cov0" title="0">        return false, nil
+</span>        } else if err != nil {
+                repo.Logger.Error("Error getting new product status", zap.Error(err),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetNewProducts"),
+                        zap.Int("id", id),
+                        zap.Duration("duration", time.Since(startTime)))
+                return false,</span><span class="cov0" title="0"> err
+        }
+
+        r</span>eturn isNewProduct, nil
+}<span class="cov0" title="0">
+</span>
+func (repo ProductRepository) GetWeeklyPromo(pagination model.Pagination) ([]model.WeeklyPromo, model.Pagination, error) {
+        sqlStatement := `SELECT id, product_id, start_date, end_date, prom<span class="cov0" title="0">o_discount 
+                        FROM weekly_promos WHERE status = 'active' 
+                        AND start_date &lt;= CURRENT_DATE AND end_date &gt;= date_trunc('week', CURRENT_DATE)`
+
+        var weeklyPromos []model.WeeklyPromo
+
+        repo.Logger.Info("run sql statement", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetWeeklyPromo"))
+        rows, err := repo.DB.Que</span><span class="cov0" title="0">ry(sqlStatement)
+        if err != nil {
+                </span>repo.<span class="cov0" title="0">Logger.Error("E</span><span class="cov0" title="0">rror getting weekly promo", zap.Error(err),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetWeeklyPromo"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return nil, pagination, err
+        }
+        defer rows.Close()
+
+</span>        for rows.Next() {
+        <span class="cov0" title="0">        var weeklyPromo model.W</span>eeklyPromo
+                err = rows.Scan(&amp;weeklyPromo.ID, &amp;weeklyPromo.ProductID, &amp;weeklyPromo.StartDate, &amp;weeklyPromo.EndDate, &amp;weeklyPromo.PromoDiscount)
+                if err != nil {
+                        repo.Logger.Error("Error scanning weekly promo", zap.Error(err),
+                                zap.String("Repository", "Product"),
+                                zap.String("Function", "GetWeeklyPromo"),
+                                zap.Duration("duration", time.Since(startTime)))
+                        return nil, pagination, err
+                }
+                weeklyPromos = append(weeklyPromos, weeklyPromo)
+        }
+        return weeklyPromos, pagination, nil
+}
+</span>
+func (repo ProductRepository) GetPromoProduct(productId int) (model.WeeklyPromo, error) {
+        var weeklyPromo model.WeeklyPromo
+        sqlStatement := `SELECT id, start_date, end_date, promo_discount 
+        FROM weekly_promos WHERE product_id = $1 AND status = 'active' 
+        A</span>ND start_date &lt;= CURRENT_DATE AND end_date &gt;= date_trunc('week', CURRENT_DATE)`
+
+<span class="cov0" title="0">
+        repo.Logger.Info("running query", zap.String("query", sqlStatement), zap.String("Repository", "Product"), zap.String("Function", "GetByID"))
+        err := repo.DB.Q</span><span class="cov0" title="0">ueryRow(sqlStatement, productId).Scan(&amp;weeklyPromo.ID, &amp;weeklyPromo.StartDate, &amp;weeklyPromo.EndDate, &amp;weeklyPromo.PromoDiscount)
+        if err == sql.ErrNoRows {
+                repo.Logger.Info("product not found",
+                        zap.Int("prod</span><span class="cov0" title="0">uct id", productId),
+                        zap.String("Repository", "Product"),
+                        zap.String("Function", "GetByID"),
+                        zap.Duration("duration", time.Since(startTime)))
+
+                return weeklyPromo, nil
+        } </span>else if err != nil {
+                <span class="cov0" title="0">repo.Logger.Error("error getting product by id",</span>
+                        zap.Error(err),
+        <span class="cov0" title="0">                zap.String("Repository", "Product"</span>),
+                        zap.String("Function", "GetByID"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return weeklyPromo, err
+        }
+        return weeklyPromo, nil
+}
+</pre>
+
+                <pre class="file" id="file15" style="display: none">package repository
+
+import (
+        "database/sql"
+        "fmt"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type RecommendationRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewRecommendationRepository(db *sql.DB, logger *zap.Logger) RecommendationRepository <span class="cov0" title="0">{
+        return RecommendationRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo *RecommendationRepository) GetRecommendations(recommendFilter model.RecommendationDTO, pagination model.Pagination) ([]model.Recommendation, model.Pagination, error) <span class="cov0" title="0">{
+        var recommendations []model.Recommendation
+        var filterArgs []interface{}
+        var argIndex = 1
+
+        sqlStatement := `SELECT r.id, p.id, p.name, r.photo_url, r.is_recommended, r.set_in_banner,
+                                r.title, r.subtitle FROM recommendations r 
+                                JOIN products p ON p.id = r.product_id 
+                                WHERE p.status = 'active'`
+
+        if recommendFilter.IsRecommended </span><span class="cov0" title="0">{
+                sqlStatement += ` AND is_recommended = $` + fmt.Sprint(argIndex)
+                filterArgs = append(filterArgs, recommendFilter.IsRecommended)
+                argIndex++
+        }</span>
+        <span class="cov0" title="0">if recommendFilter.SetInBanner </span><span class="cov0" title="0">{
+                sqlStatement += ` AND set_in_banner = $` + fmt.Sprint(argIndex)
+                filterArgs = append(filterArgs, recommendFilter.SetInBanner)
+                argIndex++
+        }</span>
+
+        <span class="cov0" title="0">sqlStatement += " LIMIT $" + fmt.Sprint(len(filterArgs)+1) + " OFFSET $" + fmt.Sprint(len(filterArgs)+2)
+        filterArgs = append(filterArgs, pagination.PerPage, (pagination.Page-1)*pagination.PerPage)
+
+        rows, err := repo.DB.Query(sqlStatement, filterArgs...)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("error getting recommendations", zap.Error(err))
+                return nil, pagination, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        if err := rows.Err(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error during rows iteration", zap.Error(err))
+                return nil, pagination, err
+        }</span>
+
+        <span class="cov0" title="0">for rows.Next() </span><span class="cov0" title="0">{
+                var product model.Product
+                var recommendation model.Recommendation
+
+                if err := rows.Scan(&amp;recommendation.ID,
+                        &amp;product.ID,
+                        &amp;product.Name,
+                        &amp;recommendation.PhotoUrl,
+                        &amp;recommendation.IsRecommended,
+                        &amp;recommendation.SetInBanner,
+                        &amp;recommendation.Title,
+                        &amp;recommendation.Subtitle); err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("error scanning rows", zap.Error(err))
+                        return nil, pagination, err
+                }</span>
+
+                <span class="cov0" title="0">recommendation.Product = product
+                recommendation.PathUrl = fmt.Sprintf("/api/products/%d", product.ID)
+                recommendations = append(recommendations, recommendation)</span>
+        }
+
+        <span class="cov0" title="0">totalCount, err := repo.CountRecommendations(recommendFilter)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, pagination, err
+        }</span>
+        <span class="cov0" title="0">pagination.CountData = totalCount
+        return recommendations, pagination, nil</span>
+}
+
+func (repo RecommendationRepository) CountRecommendations(recommendFilter model.RecommendationDTO) (int, error) <span class="cov0" title="0">{
+        var totalCount int
+        countQuery := `SELECT COUNT(*) FROM recommendations WHERE status = 'active'`
+        countArgs := []interface{}{}
+        countArgIndex := 1
+
+        if recommendFilter.IsRecommended </span><span class="cov0" title="0">{
+                countQuery += ` AND is_recommended =
+                 $` + fmt.Sprint(countArgIndex)
+                countArgs = append(countArgs, recommendFilter.IsRecommended)
+                countArgIndex++
+        }</span>
+        <span class="cov0" title="0">if recommendFilter.SetInBanner </span><span class="cov0" title="0">{
+                countQuery += ` AND set_in_banner = $` + fmt.Sprint(countArgIndex)
+                countArgs = append(countArgs, recommendFilter.SetInBanner)
+                countArgIndex++
+        }</span>
+
+        <span class="cov0" title="0">repo.Logger.Info("running query", zap.String("query", countQuery),
+                zap.String("Repository", "Recommendation"),
+                zap.String("Function", "CountCategories"),
+                zap.Int("args_count", len(countArgs)),
+                // Optionally, mask sensitive data in args for logging purposes
+                zap.Any("args", countArgs))
+
+        err := repo.DB.QueryRow(countQuery, countArgs...).Scan(&amp;totalCount)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error counting recommendation", zap.Error(err),
+                        zap.String("Repository", "Recommendation"),
+                        zap.String("Function", "CountRecommendations"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return 0, err
+        }</span>
+
+        <span class="cov0" title="0">return totalCount, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file16" style="display: none">package repository
+
+import (
+        "database/sql"
+
+        "go.uber.org/zap"
+)
+
+type MainRepository struct {
+        AddressRepository        AddressRepository
+        CategoryRepository       CategoryRepository
+        OrderRepository          OrderRepository
+        ProductRepository        ProductRepository
+        RecommendationRepository RecommendationRepository
+        UserRepository           UserRepository
+        VariantRepository        VariantRepository
+        WishlistRepository       WishlistRepository
+        CartRepository           CartRepository
+}
+
+func NewMainRepository(db *sql.DB, log *zap.Logger) MainRepository <span class="cov0" title="0">{
+        return MainRepository{
+                AddressRepository:        NewAddressRepository(db, log),
+                CategoryRepository:       NewCategoryRepository(db, log),
+                OrderRepository:          NewOrderRepository(db, log),
+                ProductRepository:        NewProductRepository(db, log),
+                RecommendationRepository: NewRecommendationRepository(db, log),
+                UserRepository:           NewUserRepository(db, log),
+                VariantRepository:        NewVariantRepository(db, log),
+                WishlistRepository:       NewWishlistRepository(db, log),
+                CartRepository:           NewCartRepository(db, log),
+        }
+}</span>
+</pre>
+
+                <pre class="file" id="file17" style="display: none">package repository
+
+import (
+        "database/sql"
+        "errors"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type userRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+type UserRepository interface {
+        Create(userInput model.User) error
+        </span>Login(userInput model.UserDTO) (model.User, error)
+}
+
+func NewUserRepository(db *sql.DB, logger *zap.Logger) UserRepository {
+        return userRep</span><span class="cov0" title="0">ository{DB: db, Logger: logger}
+}
+
+fu</span>nc (repo userRepository) Create(userInput model.User) error {
+        tx, err := repo.DB.Begin()
+        <span class="cov8" title="1">if err != nil</span><span class="cov8" title="1"> {
+                repo.Logger.Error("Failed to</span><span class="cov0" title="0"> start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                return err
+        }
+</span>
+</span>        defer func() {
+                if p := recover(); p != nil {
+                        </span>tx.Rollback()
+                        panic(p) // Re-panic after rollback
+                } else if err != nil {
+        <span class="cov8" title="1">                repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }
+        }()
+
+        sqlStatement := `
+                INSERT INTO users (id, name, email, phone_number, password)
+                VALUES (
+                        $1, 
+                        $2, 
+                        CASE WHEN $3 ~ '^[^@]+@[^@]+\.[^@]+$' THEN $3 ELSE NULL END, 
+                        CASE WHEN $4 ~ '^[0-9]{10,15}$' THEN $4 ELSE NULL END, 
+                        $5
+                ) 
+                RETURNING id;</span><span class="cov8" title="1">
+        `
+        repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "User"), zap.String("Function", "Create"))
+
+        _, err = tx.Exec(sqlStatement, userInput.ID, userInput.Name, userInput.Email, userInput.PhoneNumber, userInput.PasswordHashed)
+        if err != nil {
+                </span>repo.Logger.Error("Error creating user", zap.Error(err),
+                        zap.String("Repository", "User"),
+        <span class="cov8" title="1">                zap.String("Function", "Create")</span><span class="cov0" title="0">,
+                        zap.Duration("duration", time.Since(startTime)))
+                return err
+        }
+
+        if err := tx.Commit(); err != nil {
+                </span>repo.Logger.Error("Error committing transaction", zap.Error(err),
+        <span class="cov8" title="1">                zap.Stri</span>ng("Repository", "User"),
+                        zap.String("Function", "Create"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return err
+        }
+        return nil
+}
+
+func (repo userRepository) Login(userLogin model.UserDTO) (model.User, error) {
+        var user model</span><span class="cov8" title="1">.User
+        sqlStatement := `SELECT i</span><span class="cov8" title="1">d, password FROM users WHERE (email = $1 OR phone_number = $1) AND status = 'active'`
+
+        repo.Logger.Info("Executing query", zap.String("query", sqlStatement), zap.String("Repository", "User"), zap.String("Function", "Login"))
+        err := repo.DB.QueryRow(sqlStatement, userLogin.EmailOrPhoneNumber).Scan(&amp;user.ID, &amp;user.PasswordHashed)
+        if err != nil {
+                if err == sql.ErrNoRows {
+                        repo.Logger.Error("User not found", zap.Error(err),
+                        </span>        zap.String("Repository", "User"),
+                <span class="cov8" title="1">                zap.String("Function", "Login"),
+                                zap.Duration("duration", time.Since(startTime)))
+                        repo.Logger.Error("User not found", zap.Error(err))
+                        return user, errors.New("user not found")
+                }
+</span>                repo.Logger.Error("Error retrieving user", zap.Error(err),
+                        zap.String("Repository", "User"),
+        <span class="cov8" title="1">                zap.String("Fu</span>nction", "Login"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return user, err
+        }
+
+        </span>return user, nil
+}
+
+// func (repo *userRepository) GetByID(id int) (*model.User, error) {
+/</span>/         return nil, nil
+// }
+
+// func (repo *userRepository) Update(user *model.User) error {
+/</span>/         return nil
+// }
+
+// func (repo *userRepository) Delete(id int) error {
+//         return nil
+// }
+</pre>
+
+                <pre class="file" id="file18" style="display: none">package repository
+
+import (
+        "database/sql"
+        "time"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type VariantRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewVariantRepository(db *sql.DB, logger *zap.Logger) VariantRepository <span class="cov0" title="0">{
+        return VariantRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo *VariantRepository) GetByProductId(productId int) ([]model.Variant, error) <span class="cov0" title="0">{
+        sqlStatement := `SELECT id, attribute_name FROM variations WHERE product_id = $1 AND status = 'active'`
+        repo.Logger.Info("Executing query", zap.String("query", sqlStatement), zap.String("Repository", "Variant"), zap.String("Function", "GetByProductId"))
+        rows, err := repo.DB.Query(sqlStatement, productId)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error getting variants by product ID", zap.Error(err),
+                        zap.String("Repository", "Variant"),
+                        zap.String("Function", "GetByProductId"),
+                        zap.Duration("duration", time.Since(startTime)))
+
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        var variants []model.Variant
+        for rows.Next() </span><span class="cov0" title="0">{
+                var variant model.Variant
+                err := rows.Scan(&amp;variant.ID, &amp;variant.AttributeName)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error scanning variant row", zap.Error(err),
+                                zap.String("Repository", "Variant"),
+                                zap.String("Function", "GetByProductId"),
+                                zap.Duration("duration", time.Since(startTime)))
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">variantOption, err := repo.GetVariantOptions(variant.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">variant.VariantOption = append(variant.VariantOption, variantOption...)
+                variants = append(variants, variant)</span>
+        }
+
+        <span class="cov0" title="0">return variants, nil</span>
+}
+
+func (repo *VariantRepository) GetVariantOptions(variantId int) ([]model.VariantOption, error) <span class="cov0" title="0">{
+        sqlStatement := `SELECT id, option_value, additional_price, stock FROM variation_options WHERE variation_id = $1 AND status = 'active'`
+        rows, err := repo.DB.Query(sqlStatement, variantId)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error getting variant options by variant ID", zap.Error(err),
+                        zap.String("Repository", "Variant"),
+                        zap.String("Function", "GetVariantOptions"),
+                        zap.Duration("duration", time.Since(startTime)))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+        var variantOptions []model.VariantOption
+        for rows.Next() </span><span class="cov0" title="0">{
+                var variantOption model.VariantOption
+                err := rows.Scan(&amp;variantOption.ID, &amp;variantOption.OptionValue, &amp;variantOption.AdditionalPrice, &amp;variantOption.Stock)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error scanning variant option row", zap.Error(err),
+                                zap.String("Repository", "Variant"),
+                                zap.String("Function", "GetVariantOption"),
+                                zap.Duration("duration", time.Since(startTime)))
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">variantOptions = append(variantOptions, variantOption)</span>
+        }
+        <span class="cov0" title="0">return variantOptions, nil</span>
+}
+
+func (repo *VariantRepository) GetVariantOptionByID(id int) (model.VariantOption, error) <span class="cov0" title="0">{
+        sqlStatement := `SELECT id, option_value, additional_price, stock FROM variation_options WHERE id = $1 AND status = 'active'`
+        row := repo.DB.QueryRow(sqlStatement, id)
+
+        var variantOption model.VariantOption
+        err := row.Scan(&amp;variantOption.ID, &amp;variantOption.OptionValue, &amp;variantOption.AdditionalPrice, &amp;variantOption.Stock)
+        if err == sql.ErrNoRows </span><span class="cov0" title="0">{
+                return model.VariantOption{}, nil
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error retrieving variant option", zap.Error(err),
+                        zap.String("Repository", "Variant"),
+                        zap.String("Function", "GetVariantOptionByID"))
+                return model.VariantOption{}, err
+        }</span>
+        <span class="cov0" title="0">return variantOption, nil</span>
+}
+
+func (repo *VariantRepository) GetVariantByID(id int) (model.Variant, error) <span class="cov0" title="0">{
+        sqlStatement := `SELECT id, attribute_name FROM variations WHERE id = $1 AND status = 'active'`
+        row := repo.DB.QueryRow(sqlStatement, id)
+
+        var variant model.Variant
+        err := row.Scan(&amp;variant.ID, &amp;variant.AttributeName)
+        if err == sql.ErrNoRows </span><span class="cov0" title="0">{
+                return model.Variant{}, nil
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error retrieving variant option", zap.Error(err),
+                        zap.String("Repository", "Variant"),
+                        zap.String("Function", "GetvariantByID"))
+                return model.Variant{}, err
+        }</span>
+        <span class="cov0" title="0">return variant, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file19" style="display: none">package repository
+
+import (
+        "database/sql"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "go.uber.org/zap"
+)
+
+type WishlistRepository struct {
+        DB     *sql.DB
+        Logger *zap.Logger
+}
+
+func NewWishlistRepository(db *sql.DB, logger *zap.Logger) WishlistRepository <span class="cov0" title="0">{
+        return WishlistRepository{DB: db, Logger: logger}
+}</span>
+
+func (repo *WishlistRepository) Create(wishlistInput model.WishlistDTO) error <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `INSERT INTO wishlist (user_id, product_id) VALUES ($1, $2)`
+        repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "Wishlist"), zap.String("Function", "Create"))
+        _, err = tx.Exec(sqlStatement, wishlistInput.UserID, wishlistInput.ProductID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to execute query", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if err = tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository",
+                        "Wishlist"), zap.String("Function", "Create"))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (repo *WishlistRepository) GetAll(userID string, pagination model.Pagination) ([]model.Wishlist, model.Pagination, error) <span class="cov0" title="0">{
+        var wishlist []model.Wishlist
+        sqlStatement := `SELECT product_id FROM wishlist WHERE user_id = $1 AND status = 'active' LIMIT $2 OFFSET $3`
+        limit := pagination.PerPage
+        offset := (pagination.Page - 1) / limit
+
+        rows, err := repo.DB.Query(sqlStatement, userID, limit, offset)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to execute query", zap.Error(err), zap.String("Repository", "Wishlist"), zap.String("Function", "GetAll"))
+                return nil, pagination, err
+        }</span>
+        <span class="cov0" title="0">defer rows.Close()
+
+        for rows.Next() </span><span class="cov0" title="0">{
+                var productID int
+                err = rows.Scan(&amp;productID)
+                if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Failed to scan row", zap.Error(err), zap.String("Repository", "Wishlist"), zap.String("Function", "GetAll"))
+                        return nil, pagination, err
+                }</span>
+                <span class="cov0" title="0">wishlist = append(wishlist, model.Wishlist{UserID: userID, ProductID: productID})</span>
+        }
+
+        <span class="cov0" title="0">totalCount, err := repo.CountWishlist(userID)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, pagination, err
+        }</span>
+        <span class="cov0" title="0">pagination.CountData = totalCount
+        return wishlist, pagination, nil</span>
+}
+
+func (repo *WishlistRepository) Delete(userID string, wishlistID int) error <span class="cov0" title="0">{
+        tx, err := repo.DB.Begin()
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if p := recover(); p != nil </span><span class="cov0" title="0">{
+                        tx.Rollback()
+                        panic(p)</span> // Re-panic after rollback
+                } else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                        repo.Logger.Error("Error executing transaction", zap.Error(err), zap.String("Repository", "User"), zap.String("Function", "Create"))
+                        tx.Rollback()
+                }</span>
+        }()
+
+        <span class="cov0" title="0">sqlStatement := `UPDATE wishlist SET status = 'deleted', deleted_at = NOW() WHERE id = $1 AND user_id = $2`
+
+        repo.Logger.Info("Execute query", zap.String("query", sqlStatement), zap.String("Repository", "Wishlist"), zap.String("Function", "Delete"))
+        _, err = tx.Exec(sqlStatement, wishlistID, userID)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to execute query", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Failed to commit transaction", zap.Error(err), zap.String("Repository", "Wishlist"), zap.String("Function", "Delete"))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (repo *WishlistRepository) CountWishlist(userID string) (int, error) <span class="cov0" title="0">{
+        var totalCount int
+        countQuery := `SELECT COUNT(*) FROM wishlist WHERE user_id = $1 AND status = 'active';`
+
+        repo.Logger.Info("Execute query", zap.String("query", countQuery), zap.String("Repository", "Wishlist"), zap.String("Function", "CountWishlist"))
+        err := repo.DB.QueryRow(countQuery, userID).Scan(&amp;totalCount)
+        if err != nil </span><span class="cov0" title="0">{
+                repo.Logger.Error("Error counting wishlist", zap.Error(err), zap.String("Repository", "Wishlist"), zap.String("Function", "CountWishlist"))
+                return 0, err
+        }</span>
+
+        <span class="cov0" title="0">return totalCount, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file20" style="display: none">package router
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/database"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/handlers"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/middleware"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/service"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/util"
+        "github.com/go-chi/chi/v5"
+        "go.uber.org/zap"
+)
+
+func InitRouter() (*chi.Mux, *zap.Logger, string, error) <span class="cov0" title="0">{
+        r := chi.NewRouter()
+        config, err := util.InitConfig()
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, nil, "", err
+        }</span>
+        <span class="cov0" title="0">logger := util.InitLog(config)
+
+        logger.Info("Starting database connection")
+        db, err := database.InitDatabase(config)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, nil, "", err
+        }</span>
+
+        <span class="cov0" title="0">repositories := repository.NewMainRepository(db, logger)
+        services := service.NewMainService(repositories, logger)
+        handlers := handlers.NewMainHandler(services, logger, config)
+        middleware := middleware.NewMiddleware(logger, config)
+
+        r.Route("/api", func(r chi.Router) </span><span class="cov0" title="0">{
+                r.Post("/register", handlers.UserHandler.RegisterHanlder)
+                r.Get("/login", handlers.UserHandler.LoginHandler)
+
+                r.Get("/categories", handlers.CategoryHandler.GetAllCategoryHandler)
+
+                r.Route("/products", func(r chi.Router) </span><span class="cov0" title="0">{
+                        r.Get("/", handlers.ProductHandler.GetAllProductHandler)
+                        r.Get("/{id}", handlers.ProductHandler.GetProductByIdHandler)
+                        r.Get("/recommendation", handlers.RecommendationHandler.GetRecommendationsHandler)
+                        r.Get("/banner", handlers.RecommendationHandler.GetBannerProduct)
+                        r.Get("/weekly-promo", handlers.ProductHandler.GetWeeklyPromotionsHandler)
+                }</span>)
+
+                <span class="cov0" title="0">r.With(middleware.AuthMiddleware).Route("/wishlist", func(r chi.Router) </span><span class="cov0" title="0">{
+                        r.Post("/add", handlers.WishlistHandler.AddWishlistHandler)
+                        r.Get("/", handlers.WishlistHandler.GetWishlistHandler)
+                        r.Delete("/remove/{id}", handlers.WishlistHandler.RemoveProductFromWishlistHandler)
+                }</span>)
+
+                <span class="cov0" title="0">r.With(middleware.AuthMiddleware).Route("/user", func(r chi.Router) </span><span class="cov0" title="0">{
+                        r.Route("/address", func(r chi.Router) </span><span class="cov0" title="0">{
+                                r.Post("/", handlers.AddressHandler.AddAddressHandler)
+                                r.Put("/{id}", handlers.AddressHandler.UpdateAddressHandler)
+                                r.Patch("/{id}", handlers.AddressHandler.SetDefaultAddressHandler)
+                                r.Delete("/{id}", handlers.AddressHandler.DeleteAddressHandler)
+                                r.Get("/", handlers.AddressHandler.GetAllAddressesHandler)
+                                r.Get("/{id}", handlers.AddressHandler.GetAddressByIdHandler)
+                        }</span>)
+                })
+
+                <span class="cov0" title="0">r.With(middleware.AuthMiddleware).Route("/cart", func(r chi.Router) </span><span class="cov0" title="0">{
+                        r.Post("/add-item", handlers.CartHandler.AddToCartHandler)
+                        r.Get("/", handlers.CartHandler.GetUserCart)
+                        r.Delete("/remove-item/{id}", handlers.CartHandler.DeleteItemHandler)
+                        r.Put("/update-item/{id}", handlers.CartHandler.UpdateCartItemHandler)
+                }</span>)
+
+                <span class="cov0" title="0">r.With(middleware.AuthMiddleware).Route("/orders", func(r chi.Router) </span><span class="cov0" title="0">{
+                        r.Post("/", handlers.OrderHandler.CreateOrderHanlder)
+                        r.Get("/", handlers.OrderHandler.GetOrderHistoryHandler)
+                        r.Get("/{id}", handlers.OrderHandler.GetOrderDetailsHandler)
+                }</span>)
+        })
+
+        <span class="cov0" title="0">return r, logger, config.Port, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file21" style="display: none">package service
+
+import (
+        "database/sql"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "github.com/google/uuid"
+        "go.uber.org/zap"
+)
+
+type UserService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewUserService(repo repository.MainRepository, log *zap.Logger) UserService <span class="cov0" title="0">{
+        return UserService{Repo: repo, Logger: log}
+}</span>
+
+func (s *UserService) CreateUser(userInput model.UserDTO) (string, error) <span class="cov0" title="0">{
+        //encode password
+        passwordHashed, err := helper.EncodePassword(userInput.Password)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error encode password", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "CreateUser"))
+                return "", err
+        }</span>
+        <span class="cov0" title="0">newUserInput := model.User{
+                ID:             uuid.NewString(),
+                Name:           userInput.Name,
+                PasswordHashed: passwordHashed,
+                Email:          sql.NullString{String: userInput.EmailOrPhoneNumber, Valid: true},
+                PhoneNumber:    sql.NullString{String: userInput.EmailOrPhoneNumber, Valid: true},
+        }
+
+        err = s.Repo.UserRepository.Create(newUserInput)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error creating user", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "CreateUser"))
+                return "", err
+        }</span>
+        <span class="cov0" title="0">return newUserInput.ID, nil</span>
+}
+
+func (s *UserService) Login(userInput model.UserDTO) (model.User, error) <span class="cov0" title="0">{
+        user, err := s.Repo.UserRepository.Login(userInput)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error login user", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
+                return model.User{}, err
+        }</span>
+        <span class="cov0" title="0">if user.ID == "" </span><span class="cov0" title="0">{
+                return model.User{}, nil
+        }</span>
+
+        // compare password
+        <span class="cov0" title="0">if user.PasswordHashed != "" </span><span class="cov0" title="0">{
+                passwordValidation, err := helper.ComparePassword(user.PasswordHashed, userInput.Password)
+                if !passwordValidation </span><span class="cov0" title="0">{
+                        s.Logger.Error("password validation failed", zap.Error(err), zap.String("Service", "User"), zap.String("Function", "Login"))
+                        return model.User{}, err
+                }</span>
+        }
+        <span class="cov0" title="0">return user, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file22" style="display: none">package service
+
+import (
+        "database/sql"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type AddressService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewAddressService(repo repository.MainRepository, log *zap.Logger) AddressService <span class="cov0" title="0">{
+        return AddressService{Repo: repo, Logger: log}
+}</span>
+
+func (s *AddressService) GetAddressById(addressId int) (*model.Address, error) <span class="cov0" title="0">{
+        return s.Repo.AddressRepository.GetByID(addressId)
+}</span>
+
+func (s *AddressService) AddAddress(userId string, addressInput model.AddressDTO) error <span class="cov0" title="0">{
+        var district = sql.NullString{String: "", Valid: false}
+        var city = sql.NullString{String: "", Valid: false}
+        var state = sql.NullString{String: "", Valid: false}
+
+        if addressInput.District != "" </span><span class="cov0" title="0">{
+                district = sql.NullString{String: addressInput.District, Valid: true}
+        }</span>
+        <span class="cov0" title="0">if addressInput.City != "" </span><span class="cov0" title="0">{
+                city = sql.NullString{String: addressInput.City, Valid: true}
+        }</span>
+        <span class="cov0" title="0">if addressInput.State != "" </span><span class="cov0" title="0">{
+                state = sql.NullString{String: addressInput.State, Valid: true}
+        }</span>
+
+        <span class="cov0" title="0">newAddressInput := model.Address{
+                Name:       addressInput.Name,
+                Street:     addressInput.Street,
+                District:   district,
+                City:       city,
+                State:      state,
+                Country:    addressInput.Country,
+                PostalCode: addressInput.PostalCode,
+        }
+        return s.Repo.AddressRepository.Create(userId, newAddressInput)</span>
+}
+
+func (s *AddressService) RemoveAddress(addressId int, userId string) error <span class="cov0" title="0">{
+        return s.Repo.AddressRepository.Delete(addressId, userId)
+}</span>
+
+func (s *AddressService) SetDeafultAddress(addressId int, userId string, setAsDefault bool) error <span class="cov0" title="0">{
+        s.Logger.Info("Getting current default address", zap.String("userId", userId), zap.String("service", "Address"), zap.String("function", "setAsDefault"))
+        if setAsDefault </span><span class="cov0" title="0">{
+                currentDefaultAddress, err := s.Repo.AddressRepository.GetDefaultAddress(userId)
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">if currentDefaultAddress.ID != 0 </span><span class="cov0" title="0">{
+                        err := s.Repo.AddressRepository.UpdateDefaultAddress(currentDefaultAddress.ID, userId, false)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                }
+        }
+        <span class="cov0" title="0">return s.Repo.AddressRepository.UpdateDefaultAddress(addressId, userId, setAsDefault)</span>
+}
+
+func (s *AddressService) GetAllAddresses(userID string, paginationInput model.Pagination) ([]model.Address, model.Pagination, error) <span class="cov0" title="0">{
+        if paginationInput.Page == 0 </span><span class="cov0" title="0">{
+                paginationInput.Page = 1
+        }</span>
+        <span class="cov0" title="0">if paginationInput.PerPage == 0 </span><span class="cov0" title="0">{
+                paginationInput.PerPage = 5
+        }</span>
+
+        <span class="cov0" title="0">return s.Repo.AddressRepository.GetAll(userID, paginationInput)</span>
+}
+
+func (s *AddressService) UpdateAdress(addressId int, userId string, addressInput model.AddressDTO) error <span class="cov0" title="0">{
+        var district = sql.NullString{String: "", Valid: false}
+        var city = sql.NullString{String: "", Valid: false}
+        var state = sql.NullString{String: "", Valid: false}
+
+        if addressInput.District != "" </span><span class="cov0" title="0">{
+                district = sql.NullString{String: addressInput.District, Valid: true}
+        }</span>
+        <span class="cov0" title="0">if addressInput.City != "" </span><span class="cov0" title="0">{
+                city = sql.NullString{String: addressInput.City, Valid: true}
+        }</span>
+        <span class="cov0" title="0">if addressInput.State != "" </span><span class="cov0" title="0">{
+                state = sql.NullString{String: addressInput.State, Valid: true}
+        }</span>
+
+        <span class="cov0" title="0">newAddressInput := model.Address{
+                Name:       addressInput.Name,
+                Street:     addressInput.Street,
+                District:   district,
+                City:       city,
+                State:      state,
+                Country:    addressInput.Country,
+                PostalCode: addressInput.PostalCode,
+        }
+        return s.Repo.AddressRepository.Update(addressId, userId, newAddressInput)</span>
+}
+</pre>
+
+                <pre class="file" id="file23" style="display: none">package service
+
+import (
+        "errors"
+
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type CartService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewCartService(repo repository.MainRepository, logger *zap.Logger) CartService <span class="cov0" title="0">{
+        return CartService{Repo: repo, Logger: logger}
+}</span>
+
+func (s *CartService) AddProductToCart(userID string, CartInput model.CartItemDTO) error <span class="cov0" title="0">{
+        // Get the existing cart for the user
+        existedCart, err := s.Repo.CartRepository.GetByUserID(userID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("Failed to get existing cart", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">var cart model.Cart
+
+        // If the cart doesn't exist, create a new one
+        if existedCart.ID == 0 </span><span class="cov0" title="0">{
+                s.Logger.Info("Creating new cart", zap.String("service", "cart"), zap.String("function", "AddProductToCart"))
+                cart, err = s.Repo.CartRepository.Create(userID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("Failed to create new cart", zap.Error(err))
+                        return err
+                }</span>
+        } else<span class="cov0" title="0"> {
+                // If the cart already exists, use the existing cart
+                s.Logger.Info("Cart already exists", zap.String("service", "cart"), zap.String("function", "AddProductToCart"))
+                cart = existedCart
+        }</span>
+
+        <span class="cov0" title="0">product, err := s.Repo.ProductRepository.GetByID(CartInput.ProductID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get product by id", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">weekly, err := s.Repo.ProductRepository.GetPromoProduct(product.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get weekly promo by product id", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">if weekly.ID != 0 </span><span class="cov0" title="0">{
+                product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.PriceAfterDiscount, weekly.PromoDiscount)
+        }</span>
+        <span class="cov0" title="0">if CartInput.Amount == 0 </span><span class="cov0" title="0">{
+                CartInput.Amount = 1
+        }</span>
+        <span class="cov0" title="0">cartItem := model.CartItem{
+                ProductID: CartInput.ProductID,
+                Amount:    CartInput.Amount,
+                SubTotal:  product.PriceAfterDiscount * float64(CartInput.Amount),
+                Product:   product,
+                CartID:    cart.ID,
+        }
+        additionalPrice, err := s.AddItemToCart(cartItem, CartInput.Variant)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error add item to second cart", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">cart.TotalAmount += cartItem.Amount
+        cart.TotalPrice += (additionalPrice + product.PriceAfterDiscount) * float64(CartInput.Amount)
+        err = s.UpdateCart(cart)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error update second cart", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (s *CartService) GetCartByUserID(userID string) (model.Cart, error) <span class="cov0" title="0">{
+        cart, err := s.Repo.CartRepository.GetByUserID(userID)
+        if err != nil </span><span class="cov0" title="0">{
+                return model.Cart{}, err
+        }</span>
+        <span class="cov0" title="0">cartItems, err := s.Repo.CartRepository.GetItems(cart.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                return model.Cart{}, err
+        }</span>
+
+        <span class="cov0" title="0">var newCartItem []model.CartItem
+        for _, item := range cartItems </span><span class="cov0" title="0">{
+                product, err := s.Repo.ProductRepository.GetByID(item.ProductID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error get product by id", zap.Error(err))
+                        return model.Cart{}, err
+                }</span>
+                <span class="cov0" title="0">item.Product = product
+                NewVariants := []model.CarttemVariant{}
+                if product.HasVariant </span><span class="cov0" title="0">{
+                        for _, variantItem := range item.ItemVariant </span><span class="cov0" title="0">{
+                                variant, err := s.Repo.VariantRepository.GetVariantByID(int(variantItem.VariantID.Int64))
+                                if err != nil </span><span class="cov0" title="0">{
+                                        s.Logger.Error("error get variant by id", zap.Error(err))
+                                        return model.Cart{}, err
+                                }</span>
+                                <span class="cov0" title="0">option, err := s.Repo.VariantRepository.GetVariantOptionByID(int(variantItem.OptionID.Int64))
+                                if err != nil </span><span class="cov0" title="0">{
+                                        s.Logger.Error("error get variant option by id", zap.Error(err))
+                                        return model.Cart{}, err
+                                }</span>
+
+                                <span class="cov0" title="0">variantItem.Variant = variant
+                                variantItem.Option = option
+                                NewVariants = append(NewVariants, variantItem)</span>
+                        }
+                        <span class="cov0" title="0">item.ItemVariant = NewVariants</span>
+                }
+                <span class="cov0" title="0">newCartItem = append(newCartItem, item)</span>
+        }
+        <span class="cov0" title="0">cart.Items = newCartItem
+        return cart, nil</span>
+}
+
+func (s *CartService) AddItemToCart(itemInput model.CartItem, itemVariantInput []model.CartItemVariantDTO) (float64, error) <span class="cov0" title="0">{
+        var AdditionalPrice = 0.0
+        item, err := s.Repo.CartRepository.AddItem(itemInput)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error add item to second cart", zap.Error(err))
+                return AdditionalPrice, err
+        }</span>
+        <span class="cov0" title="0">if item.Product.HasVariant </span><span class="cov0" title="0">{
+                for _, v := range itemVariantInput </span><span class="cov0" title="0">{
+                        err := s.AddVariantItem(item.ID, v)
+                        if err != nil </span><span class="cov0" title="0">{
+                                s.Logger.Error("error add variant item to second cart", zap.Error(err))
+                                return AdditionalPrice, err
+                        }</span>
+
+                        <span class="cov0" title="0">for _, pv := range item.Product.Variant </span><span class="cov0" title="0">{
+                                if v.VariantID == pv.ID </span><span class="cov0" title="0">{
+                                        for _, option := range pv.VariantOption </span><span class="cov0" title="0">{
+                                                if v.VariantOptionID == option.ID </span><span class="cov0" title="0">{
+                                                        AdditionalPrice += option.AdditionalPrice
+                                                        break</span>
+                                                }
+                                        }
+                                }
+                        }
+                }
+
+        }
+        <span class="cov0" title="0">return AdditionalPrice, nil</span>
+}
+
+func (s *CartService) AddVariantItem(cartItemID int, variantInput model.CartItemVariantDTO) error <span class="cov0" title="0">{
+        varianOption, err := s.Repo.VariantRepository.GetVariantOptionByID(variantInput.VariantOptionID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get variant option", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">variantInput.AdditionalPrice = varianOption.AdditionalPrice
+        return s.Repo.CartRepository.AddItemVariant(cartItemID, variantInput)</span>
+}
+
+func (s *CartService) UpdateCart(cartInput model.Cart) error <span class="cov0" title="0">{
+        return s.Repo.CartRepository.Update(cartInput)
+}</span>
+
+func (s *CartService) UpdateItemInCart(userId string, itemInput model.CartItem) error <span class="cov0" title="0">{
+        cart, err := s.Repo.CartRepository.GetByID(itemInput.CartID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get cart by id", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">if cart.ID == 0 </span><span class="cov0" title="0">{
+                s.Logger.Error("cart not found", zap.Error(err))
+                return errors.New("cart not found")
+        }</span>
+        <span class="cov0" title="0">if cart.UserID != userId </span><span class="cov0" title="0">{
+                s.Logger.Error("UserID mismatch for cart", zap.Error(err))
+                return errors.New("UserID mismatch for cart")
+        }</span>
+
+        <span class="cov0" title="0">product, err := s.Repo.ProductRepository.GetByID(itemInput.ProductID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get product by id", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">weekly, err := s.Repo.ProductRepository.GetPromoProduct(product.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get weekly promo by product id", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">if weekly.ID != 0 </span><span class="cov0" title="0">{
+                product.PriceAfterDiscount = helper.CalculateDiscountPrice(product.PriceAfterDiscount, weekly.PromoDiscount)
+        }</span>
+
+        <span class="cov0" title="0">var additional_costs float64
+        if product.HasVariant </span><span class="cov0" title="0">{
+                itemVariant, err := s.Repo.CartRepository.GetItemVariants(itemInput.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error get item variants", zap.Error(err))
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">if len(itemVariant) &gt; 0 </span><span class="cov0" title="0">{
+                        for _, variant := range itemVariant </span><span class="cov0" title="0">{
+                                additional_costs += variant.AdditionalPrice
+                        }</span>
+                }
+        }
+
+        <span class="cov0" title="0">itemInput.SubTotal = (product.PriceAfterDiscount + additional_costs) * float64(itemInput.Amount)
+        err = s.Repo.CartRepository.UpdateItem(itemInput)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error update item in cart", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">err = s.Repo.CartRepository.RecalculateTotal(cart.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error recalculate total amount in cart", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (s *CartService) DeleteProductInCart(cartItemID int) error <span class="cov0" title="0">{
+        cartItem, err := s.Repo.CartRepository.GetItemByID(cartItemID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get cart item by id", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">if cartItem.CartID == 0 </span><span class="cov0" title="0">{
+                s.Logger.Error("cart not found", zap.String("service", "cart"), zap.String("function", "DeleteProductInCart"))
+                return errors.New("cart not found")
+        }</span>
+
+        <span class="cov0" title="0">err = s.Repo.CartRepository.DeleteItem(cartItemID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error delete item from cart", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">err = s.Repo.CartRepository.RecalculateTotal(cartItem.CartID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error recalculate total amount in cart", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+
+                <pre class="file" id="file24" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type CategoryService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewCategoryService(repo repository.MainRepository, logger *zap.Logger) CategoryService <span class="cov0" title="0">{
+        return CategoryService{Repo: repo, Logger: logger}
+}</span>
+
+func (s *CategoryService) GetAllCategory(pagination model.Pagination) ([]model.Category, model.Pagination, error) <span class="cov0" title="0">{
+        if pagination.Page == 0 </span><span class="cov0" title="0">{
+                pagination.Page = 1
+        }</span>
+
+        <span class="cov0" title="0">if pagination.PerPage == 0 </span><span class="cov0" title="0">{
+                pagination.PerPage = 5
+        }</span>
+        <span class="cov0" title="0">return s.Repo.CategoryRepository.GetAll(pagination)</span>
+}
+</pre>
+
+                <pre class="file" id="file25" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type OrderService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewOrderService(repo repository.MainRepository, logger *zap.Logger) OrderService <span class="cov0" title="0">{
+        return OrderService{Repo: repo, Logger: logger}
+}</span>
+
+func (s *OrderService) CreateOrder(userID string, orderInput model.OrderDTO) error <span class="cov0" title="0">{
+        cart, err := s.Repo.CartRepository.GetByID(orderInput.CartID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get cart by id", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if cart.UserID != userID </span><span class="cov0" title="0">{
+                s.Logger.Error("user not match")
+                return err
+        }</span>
+
+        <span class="cov0" title="0">newOrderInput := model.Order{
+                UserID:        userID,
+                CartID:        orderInput.CartID,
+                TotalPrice:    cart.TotalPrice + orderInput.ShippingCost,
+                TotalAmount:   cart.TotalAmount,
+                AddressID:     orderInput.AddressID,
+                ShippingType:  orderInput.ShippingType,
+                ShippingCost:  orderInput.ShippingCost,
+                PaymentMethod: orderInput.PaymentMethod,
+        }
+
+        order, err := s.Repo.OrderRepository.Create(newOrderInput)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error create order", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">err = s.AddItemOrder(order)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error add item order", zap.Error(err))
+                s.UpdateOrderStatus(order.ID, cart.ID, "failed")
+                return err
+        }</span>
+        <span class="cov0" title="0">s.UpdateOrderStatus(order.ID, cart.ID, "success")
+        return nil</span>
+}
+
+func (s *OrderService) AddItemOrder(order model.Order) error <span class="cov0" title="0">{
+        cartItem, err := s.Repo.CartRepository.GetItems(order.CartID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get cart item by cart id", zap.Error(err))
+                return err
+        }</span>
+        <span class="cov0" title="0">for _, item := range cartItem </span><span class="cov0" title="0">{
+                orderItemInput := model.OrderItem{
+                        OrderID:    order.ID,
+                        ProductID:  item.ProductID,
+                        Amount:     item.Amount,
+                        SubTotal:   item.SubTotal,
+                        CartItemID: item.ID,
+                }
+                orderItem, err := s.Repo.OrderRepository.AddOrderItem(orderItemInput)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error create order item", zap.Error(err))
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">err = s.AddVariantItem(orderItem)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error add variant item to order item", zap.Error(err))
+                        return err
+                }</span>
+        }
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (s *OrderService) AddVariantItem(orderItem model.OrderItem) error <span class="cov0" title="0">{
+        variantItems, err := s.Repo.CartRepository.GetItemVariants(orderItem.CartItemID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get item variant by cart item id", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">for _, variantItem := range variantItems </span><span class="cov0" title="0">{
+                orderVariantItemInput := model.OrderItemVariant{
+                        OrderItemID: orderItem.ID,
+                        VariantID:   variantItem.VariantID,
+                        OptionID:    variantItem.OptionID,
+                }
+                err = s.Repo.OrderRepository.AddOrderItemVariant(orderVariantItemInput)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error create order item variant", zap.Error(err))
+                        return err
+                }</span>
+        }
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (s *OrderService) UpdateOrderStatus(orderID, cartID int, orderStatus string) error <span class="cov0" title="0">{
+        err := s.Repo.OrderRepository.UpdateOrderStatus(orderID, orderStatus)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error update order status", zap.Error(err))
+                return err
+        }</span>
+
+        <span class="cov0" title="0">if orderStatus == "success" </span><span class="cov0" title="0">{
+                err = s.Repo.CartRepository.UpdateCartStatus(cartID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error delete cart after success order", zap.Error(err))
+                        return err
+                }</span>
+        }
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (s *OrderService) GetOrderByID(orderID int) (*model.Order, error) <span class="cov0" title="0">{
+        order, err := s.Repo.OrderRepository.GetByID(orderID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get order by id", zap.Error(err))
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">address, err := s.Repo.AddressRepository.GetByID(order.AddressID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get address by id", zap.Error(err))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">order.Address = *address
+        orderItems, err := s.GetOrderItems(order.ID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get order item by order id", zap.Error(err))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">order.OrderItems = orderItems
+        return &amp;order, nil</span>
+}
+
+func (s *OrderService) GetOrderByUser(userID string) ([]model.Order, error) <span class="cov0" title="0">{
+        orders, err := s.Repo.OrderRepository.GetByUserID(userID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get order by id", zap.Error(err))
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">var newOrders []model.Order
+        for _, order := range orders </span><span class="cov0" title="0">{
+                orderItems, err := s.GetOrderItems(order.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error get order item by order id", zap.Error(err))
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">order.OrderItems = orderItems
+                newOrders = append(newOrders, order)</span>
+        }
+
+        <span class="cov0" title="0">return newOrders, nil</span>
+}
+
+func (s *OrderService) GetOrderItems(orderID int) ([]model.OrderItem, error) <span class="cov0" title="0">{
+        orderItems, err := s.Repo.OrderRepository.GetOrderItems(orderID)
+        if err != nil </span><span class="cov0" title="0">{
+                s.Logger.Error("error get order item by order id", zap.Error(err))
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">var newOrderItems []model.OrderItem
+        for _, orderItem := range orderItems </span><span class="cov0" title="0">{
+                product, err := s.Repo.ProductRepository.GetByID(orderItem.ProductID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("error get product by id", zap.Error(err))
+                        return nil, err
+                }</span>
+                <span class="cov0" title="0">orderItem.Product = product
+                NewVariants := []model.OrderItemVariant{}
+                if product.HasVariant </span><span class="cov0" title="0">{
+                        for _, variantItem := range orderItem.Variants </span><span class="cov0" title="0">{
+                                variant, err := s.Repo.VariantRepository.GetVariantByID(int(variantItem.VariantID.Int64))
+                                if err != nil </span><span class="cov0" title="0">{
+                                        s.Logger.Error("error get variant by id", zap.Error(err))
+                                        return nil, err
+                                }</span>
+                                <span class="cov0" title="0">option, err := s.Repo.VariantRepository.GetVariantOptionByID(int(variantItem.OptionID.Int64))
+                                if err != nil </span><span class="cov0" title="0">{
+                                        s.Logger.Error("error get variant option by id", zap.Error(err))
+                                        return nil, err
+                                }</span>
+
+                                <span class="cov0" title="0">variantItem.Variant = variant
+                                variantItem.Option = option
+                                NewVariants = append(NewVariants, variantItem)</span>
+                        }
+                        <span class="cov0" title="0">orderItem.Variants = NewVariants</span>
+                }
+                <span class="cov0" title="0">newOrderItems = append(newOrderItems, orderItem)</span>
+        }
+        <span class="cov0" title="0">return newOrderItems, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file26" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/helper"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type ProductService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewProductService(repo repository.MainRepository, logger *zap.Logger) ProductService <span class="cov0" title="0">{
+        return ProductService{Repo: repo, Logger: logger}
+}</span>
+
+func (s ProductService) GetAllProduct(productFilter model.ProductDTO, pagination model.Pagination) ([]model.Product, model.Pagination, error) <span class="cov0" title="0">{
+        if pagination.Page == 0 </span><span class="cov0" title="0">{
+                pagination.Page = 1
+        }</span>
+
+        <span class="cov0" title="0">if pagination.PerPage == 0 </span><span class="cov0" title="0">{
+                pagination.PerPage = 5
+        }</span>
+
+        <span class="cov0" title="0">return s.Repo.ProductRepository.GetAll(productFilter, pagination)</span>
+}
+
+func (s ProductService) GetProductByID(id int) (*model.Product, error) <span class="cov0" title="0">{
+        product, err := s.Repo.ProductRepository.GetByID(id)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // get variant
+        <span class="cov0" title="0">if product.HasVariant </span><span class="cov0" title="0">{
+                variant, err := s.Repo.VariantRepository.GetByProductId(product.ID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("Error retrieving variant", zap.Error(err), zap.String("Service", "Product"), zap.String("Function", "GetProductByID"))
+                        return nil, err
+                }</span>
+
+                <span class="cov0" title="0">product.Variant = append(product.Variant, variant...)
+                return &amp;product, nil</span>
+        }
+
+        <span class="cov0" title="0">return &amp;product, nil</span>
+}
+
+func (s ProductService) GetPromoWeekly(paginationInput model.Pagination) ([]model.WeeklyPromo, model.Pagination, error) <span class="cov0" title="0">{
+        if paginationInput.Page == 0 </span><span class="cov0" title="0">{
+                paginationInput.Page = 1
+        }</span>
+
+        <span class="cov0" title="0">if paginationInput.PerPage == 0 </span><span class="cov0" title="0">{
+                paginationInput.PerPage = 5
+        }</span>
+
+        <span class="cov0" title="0">weeklyPromo, pagination, err := s.Repo.ProductRepository.GetWeeklyPromo(paginationInput)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, paginationInput, err
+        }</span>
+
+        <span class="cov0" title="0">var newWeeklyPromos []model.WeeklyPromo
+        for _, item := range weeklyPromo </span><span class="cov0" title="0">{
+                product, err := s.Repo.ProductRepository.GetByID(item.ProductID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("Error retrieving product", zap.Error(err), zap.String("Service", "Product"), zap.String("Function", "GetPromoWeekly"))
+                        return nil, paginationInput, err
+                }</span>
+                <span class="cov0" title="0">item.Product = product
+                item.PromoPrice = helper.CalculateDiscountPrice(product.PriceAfterDiscount, item.PromoDiscount)
+                newWeeklyPromos = append(newWeeklyPromos, item)
+                pagination.CountData++</span>
+        }
+        <span class="cov0" title="0">return newWeeklyPromos, pagination, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file27" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type RecommendationService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewRecommendationService(repo repository.MainRepository, logger *zap.Logger) RecommendationService <span class="cov0" title="0">{
+        return RecommendationService{Repo: repo, Logger: logger}
+}</span>
+
+func (s *RecommendationService) GetProductRecommendations(recommedFilter model.RecommendationDTO, pagination model.Pagination) ([]model.Recommendation, model.Pagination, error) <span class="cov0" title="0">{
+        if pagination.Page == 0 </span><span class="cov0" title="0">{
+                pagination.Page = 1
+        }</span>
+
+        <span class="cov0" title="0">if pagination.PerPage == 0 </span><span class="cov0" title="0">{
+                pagination.PerPage = 5
+        }</span>
+
+        <span class="cov0" title="0">return s.Repo.RecommendationRepository.GetRecommendations(recommedFilter, pagination)</span>
+}
+</pre>
+
+                <pre class="file" id="file28" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type MainService struct {
+        AddressService        AddressService
+        CategoryService       CategoryService
+        ProductService        ProductService
+        RecommendationService RecommendationService
+        UserService           UserService
+        WishlistService       WishlistService
+        CartService           CartService
+        OrderService          OrderService
+}
+
+func NewMainService(repo repository.MainRepository, log *zap.Logger) MainService <span class="cov0" title="0">{
+        return MainService{
+                AddressService:        NewAddressService(repo, log),
+                CategoryService:       NewCategoryService(repo, log),
+                ProductService:        NewProductService(repo, log),
+                RecommendationService: NewRecommendationService(repo, log),
+                UserService:           NewUserService(repo, log),
+                WishlistService:       NewWishlistService(repo, log),
+                CartService:           NewCartService(repo, log),
+                OrderService:          NewOrderService(repo, log),
+        }
+}</span>
+</pre>
+
+                <pre class="file" id="file29" style="display: none">package service
+
+import (
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/model"
+        "github.com/Safiramdhn/project-app-ecommerce-golang-safira/repository"
+        "go.uber.org/zap"
+)
+
+type WishlistService struct {
+        Repo   repository.MainRepository
+        Logger *zap.Logger
+}
+
+func NewWishlistService(repo repository.MainRepository, log *zap.Logger) WishlistService <span class="cov0" title="0">{
+        return WishlistService{Repo: repo, Logger: log}
+}</span>
+
+func (s *WishlistService) AddProductToWishlist(wishlistInput model.WishlistDTO) error <span class="cov0" title="0">{
+        return s.Repo.WishlistRepository.Create(wishlistInput)
+}</span>
+
+func (s *WishlistService) RemoveProductFromWishlist(userId string, wishlistId int) error <span class="cov0" title="0">{
+        return s.Repo.WishlistRepository.Delete(userId, wishlistId)
+}</span>
+
+func (s *WishlistService) GetWishlistByUserId(userId string, paginationInput model.Pagination) ([]model.Wishlist, model.Pagination, error) <span class="cov0" title="0">{
+        var newWishlist []model.Wishlist
+        if paginationInput.Page == 0 </span><span class="cov0" title="0">{
+                paginationInput.Page = 1
+        }</span>
+        <span class="cov0" title="0">if paginationInput.PerPage == 0 </span><span class="cov0" title="0">{
+                paginationInput.PerPage = 5
+        }</span>
+        <span class="cov0" title="0">wishlist, pagination, err := s.Repo.WishlistRepository.GetAll(userId, paginationInput)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, paginationInput, err
+        }</span>
+
+        <span class="cov0" title="0">for _, item := range wishlist </span><span class="cov0" title="0">{
+                product, err := s.Repo.ProductRepository.GetByID(item.ProductID)
+                if err != nil </span><span class="cov0" title="0">{
+                        s.Logger.Error("Error getting product", zap.Error(err))
+                        continue</span>
+                }
+                <span class="cov0" title="0">item.Product = product
+                newWishlist = append(newWishlist, item)</span>
+        }
+        <span class="cov0" title="0">return newWishlist, pagination, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file30" style="display: none">package util
+
+import (
+        "github.com/spf13/viper"
+)
+
+// Configuration holds the application configuration
+type Configuration struct {
+        AppName string    `mapstructure:"app_name"`
+        Port    string    `mapstructure:"port"`
+        Debug   bool      `mapstructure:"debug"`
+        Jwtkey  string    `mapstructure:"jwtkey"`
+        DB      DbConfig  `mapstructure:"db"`
+        Dir     DirConfig `mapstructure:"dir"`
+}
+
+// DbConfig holds the database configuration
+type DbConfig struct {
+        Host     string `mapstructure:"host"`
+        Name     string `mapstructure:"name"`
+        Username string `mapstructure:"username"`
+        Password string `mapstructure:"password"`
+}
+
+type DirConfig struct {
+        Uploads string `mapstructure:"uploads"`
+        Logs    string `mapstructure:"logs"`
+}
+
+// InitConfig initializes and reads configuration using Viper
+func InitConfig() (Configuration, error) <span class="cov0" title="0">{
+        // Set the file name and type for the .env file
+        viper.SetConfigName(".env")
+        viper.SetConfigType("env")
+        viper.AddConfigPath(".") // Look for .env in the current directory
+
+        // Set default values
+        viper.SetDefault("app_name", "MyApp")
+        viper.SetDefault("port", "8080")
+        viper.SetDefault("debug", true)
+        viper.SetDefault("jwtkey", "ec0mM3RceAPP")
+        viper.SetDefault("db.host", "localhost")
+        viper.SetDefault("db.name", "ecommerce-db")
+        viper.SetDefault("db.username", "postgres")
+        viper.SetDefault("db.password", "postgres")
+        viper.SetDefault("dir.uploads", "./uploads")
+        viper.SetDefault("dir.logs", "./logs")
+
+        // Read the .env file if it exists
+        err := viper.ReadInConfig()
+        if err != nil </span><span class="cov0" title="0">{
+                return Configuration{}, err
+        }</span>
+
+        // Bind environment variables
+        <span class="cov0" title="0">viper.AutomaticEnv()
+
+        // Unmarshal configuration into the Configuration struct
+        var config Configuration
+        if err := viper.Unmarshal(&amp;config); err != nil </span><span class="cov0" title="0">{
+                return Configuration{}, err
+        }</span>
+
+        <span class="cov0" title="0">return config, nil</span>
+}
+</pre>
+
+                <pre class="file" id="file31" style="display: none">package util
+
+import (
+        "fmt"
+        "os"
+        "time"
+
+        "go.uber.org/zap"
+        "go.uber.org/zap/zapcore"
+)
+
+func InitLog(config Configuration) *zap.Logger <span class="cov0" title="0">{
+        // Ensure the log folder exists
+        logFolder := config.Dir.Logs
+        if _, err := os.Stat(logFolder); os.IsNotExist(err) </span><span class="cov0" title="0">{
+                err := os.Mkdir(logFolder, os.ModePerm)
+                if err != nil </span><span class="cov0" title="0">{
+                        panic("Failed to create log folder: " + err.Error())</span>
+                }
+        }
+
+        // Get current date for log filenames
+        <span class="cov0" title="0">date := time.Now().Format("2006-01-02")
+
+        // Create log files for each level
+        infoLog, _ := os.OpenFile(fmt.Sprintf("%s/info-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+        errorLog, _ := os.OpenFile(fmt.S</span><span class="cov0" title="0">printf("%s/error-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+        debugLog, _ := os.OpenFile(fmt.Sprintf("%s/debug-%s.log", logFolder, date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+
+</span>        // Create WriteSyncers for each level
+        infoWS := zapcor</span><span class="cov0" title="0">e.AddSync(infoLog)
+        errorWS := zapcore.AddSync(errorLog)
+</span>        debugWS := zapcore.AddSync(debugLog)
+
+        // Add a console output for debug logs
+        consoleDebugWS := zapcore.AddSync(os.Stdout)
+
+        <span class="cov0" title="0">// Set encoder configurations
+        encoderConfig := zap.NewProductionEncoderConfig()
+        encoderConfig.TimeKey = "timestamp"
+        encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+
+        // Create cores for each level
+        infoCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), infoWS, zapcore.InfoLevel)
+        errorCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), errorWS, zapcore.ErrorLevel)
+
+        // Use Tee for debug logs to write to both file and console
+        debugCore := zapcore.NewTee(
+                zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), debugWS, zapcore.DebugLevel),
+                zapcore.NewCore(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig()), consoleDebugWS, zapcore.DebugLevel),
+        )
+
+        // Combine cores
+        core := zapcore.NewTee(infoCore, errorCore, debugCore)
+
+        // Create logger
+        logger := zap.New(core)
+        return logger
+}
+</pre>
+
+                <pre class="file" id="file32" style="display: none">package util
+
+import (
+        "fmt"
+        "time"
+
+        "github.com/golang-jwt/jwt/v5"
+)
+
+var secretKey = []byte("ec0mM3RceAPP")
+
+func GenerateToken(userId string, config Configuration) (string, error) <span class="cov0" title="0">{
+        claim := jwt.MapClaims{
+                "userId": userId,
+                "exp":    time.Now().Add(time.Hour * 12).Unix(),
+        }
+
+        token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
+        if config.Jwtkey != "" </span><span class="cov0" title="0">{
+                secretKey = []byte(config.Jwtkey)
+        }</span>
+        <span class="cov0" title="0">tokenString, err := token.SignedString(secretKey)
+        return tokenString, err</span>
+}
+
+func VerifyToken(tokenString string, config Configuration) (jwt.MapClaims, error) <span class="cov0" title="0">{
+        // Parse the token with the secret key
+        token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) </span><span class="cov0" title="0">{
+                // Ensure the signing method is what you expect
+                if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok </span><span class="cov0" title="0">{
+                        return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+                }</span>
+
+                <span class="cov0" title="0">var secretKey []byte
+                if config.Jwtkey != "" </span><span class="cov0" title="0">{
+                        secretKey = []byte(config.Jwtkey)
+                }</span>
+                <span class="cov0" title="0">return secretKey, nil</span>
+        })
+
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // Extract claims if the token is valid
+        <span class="cov0" title="0">claims, ok := token.Claims.(jwt.MapClaims)
+        if !ok || !token.Valid </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("invalid token")
+        }</span>
+
+        // Check the expiration time
+        <span class="cov0" title="0">if exp, ok := claims["exp"].(float64); ok </span><span class="cov0" title="0">{
+                expirationTime := time.Unix(int64(exp), 0)
+                if time.Now().After(expirationTime) </span><span class="cov0" title="0">{
+                        return nil, fmt.Errorf("token is expired")
+                }</span>
+        } else<span class="cov0" title="0"> {
+                return nil, fmt.Errorf("expiration claim (exp) is missing or invalid")
+        }</span>
+
+        <span class="cov0" title="0">return claims, nil</span>
+}
+</pre>
+
+        </div>
+</body>
+<script>
+        (function () {
+                var files = document.getElementById('files');
+                var visible;
+                files.addEventListener('change', onChange, false);
+                function select(part) {
+                        if (visible)
+                                visible.style.display = 'none';
+                        visible = document.getElementById(part);
+                        if (!visible)
+                                return;
+                        files.value = part;
+                        visible.style.display = 'block';
+                        location.hash = part;
+                }
+                function onChange() {
+                        select(files.value);
+                        window.scrollTo(0, 0);
+                }
+                if (location.hash != "") {
+                        select(location.hash.substr(1));
+                }
+                if (!visible) {
+                        select("file0");
+                }
+        })();
+</script>
+
+</html>

@@ -11,16 +11,26 @@ import (
 	"go.uber.org/zap"
 )
 
-type AddressRepository struct {
+type addressRepository struct {
 	DB     *sql.DB
 	Logger *zap.Logger
 }
 
-func NewAddressRepository(db *sql.DB, logger *zap.Logger) AddressRepository {
-	return AddressRepository{DB: db, Logger: logger}
+type AddressRepository interface {
+	Create(userID string, addressInput model.Address) error
+	GetDefaultAddress(userID string) (model.Address, error)
+	GetAll(userID string, pagination model.Pagination) ([]model.Address, model.Pagination, error)
+	GetByID(id int) (*model.Address, error)
+	Update(id int, userID string, addressInput model.Address) error
+	UpdateDefaultAddress(id int, userID string, setAsDefault bool) error
+	Delete(id int, userID string) error
 }
 
-func (repo AddressRepository) Create(userID string, addressInput model.Address) error {
+func NewAddressRepository(db *sql.DB, logger *zap.Logger) AddressRepository {
+	return addressRepository{DB: db, Logger: logger}
+}
+
+func (repo addressRepository) Create(userID string, addressInput model.Address) error {
 	tx, err := repo.DB.Begin()
 	if err != nil {
 		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository", "Address"), zap.String("Function", "Create"))
@@ -62,7 +72,7 @@ func (repo AddressRepository) Create(userID string, addressInput model.Address) 
 	return nil
 }
 
-func (repo AddressRepository) GetDefaultAddress(userID string) (model.Address, error) {
+func (repo addressRepository) GetDefaultAddress(userID string) (model.Address, error) {
 	var address model.Address
 	sqlStatement := `SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE user_id = $1 AND is_default = true AND status = 'active'`
 	err := repo.DB.QueryRow(sqlStatement, userID).Scan(&address.ID, &address.Name, &address.Street, &address.District, &address.City, &address.State, &address.PostalCode, &address.Country, &address.IsDefault)
@@ -79,7 +89,7 @@ func (repo AddressRepository) GetDefaultAddress(userID string) (model.Address, e
 	return address, nil
 }
 
-func (repo AddressRepository) GetAll(userID string, pagination model.Pagination) ([]model.Address, model.Pagination, error) {
+func (repo addressRepository) GetAll(userID string, pagination model.Pagination) ([]model.Address, model.Pagination, error) {
 	var addresses []model.Address
 	sqlStatement := `SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE user_id = $1 AND status = 'active' ORDER BY created_at DESC LIMIT $2 OFFSET $3`
 	limit := pagination.PerPage
@@ -106,7 +116,7 @@ func (repo AddressRepository) GetAll(userID string, pagination model.Pagination)
 	return addresses, pagination, nil
 }
 
-func (repo AddressRepository) GetByID(id int) (*model.Address, error) {
+func (repo addressRepository) GetByID(id int) (*model.Address, error) {
 	var address model.Address
 	sqlStatement := `SELECT id, name, street, district, city, state, postal_code, country, is_default FROM addresses WHERE id = $1 AND status = 'active'`
 
@@ -124,7 +134,7 @@ func (repo AddressRepository) GetByID(id int) (*model.Address, error) {
 	return &address, nil
 }
 
-func (repo AddressRepository) Update(id int, userID string, addressInput model.Address) error {
+func (repo addressRepository) Update(id int, userID string, addressInput model.Address) error {
 	tx, err := repo.DB.Begin()
 	if err != nil {
 		repo.Logger.Error("Failed to start transaction", zap.Error(err), zap.String("Repository",
@@ -209,7 +219,7 @@ func (repo AddressRepository) Update(id int, userID string, addressInput model.A
 	return nil
 }
 
-func (repo AddressRepository) UpdateDefaultAddress(id int, userID string, setAsDefault bool) error {
+func (repo addressRepository) UpdateDefaultAddress(id int, userID string, setAsDefault bool) error {
 	// Check if the address exists
 	tx, err := repo.DB.Begin()
 	if err != nil {
@@ -244,7 +254,7 @@ func (repo AddressRepository) UpdateDefaultAddress(id int, userID string, setAsD
 	return nil
 }
 
-func (repo AddressRepository) Delete(id int, userID string) error {
+func (repo addressRepository) Delete(id int, userID string) error {
 	tx, err := repo.DB.Begin()
 	if err != nil {
 		return err
