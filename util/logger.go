@@ -10,7 +10,7 @@ import (
 )
 
 func InitLog(config Configuration) *zap.Logger {
-	// Ensure the log folder exists
+	// Ensure the log root folder exists
 	logFolder := config.Dir.Logs
 	if _, err := os.Stat(logFolder); os.IsNotExist(err) {
 		err := os.Mkdir(logFolder, os.ModePerm)
@@ -22,7 +22,6 @@ func InitLog(config Configuration) *zap.Logger {
 	// Get current date for log filenames
 	date := time.Now().Format("2006-01-02")
 
-	// Create log files for each level
 	// Create folders for each log level
 	logLevels := []string{"info", "error", "debug"}
 	for _, level := range logLevels {
@@ -34,6 +33,7 @@ func InitLog(config Configuration) *zap.Logger {
 			}
 		}
 	}
+
 	// Create log files for each level, with filename based on date
 	infoLog, _ := os.OpenFile(fmt.Sprintf("%s/info/%s-%s.log", logFolder, "info", date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	errorLog, _ := os.OpenFile(fmt.Sprintf("%s/error/%s-%s.log", logFolder, "error", date), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -44,7 +44,7 @@ func InitLog(config Configuration) *zap.Logger {
 	errorWS := zapcore.AddSync(errorLog)
 	debugWS := zapcore.AddSync(debugLog)
 
-	// Add a console output for debug logs
+	// Add a console output for debug logs if DEBUG is true
 	consoleDebugWS := zapcore.AddSync(os.Stdout)
 
 	// Set encoder configurations
@@ -56,10 +56,9 @@ func InitLog(config Configuration) *zap.Logger {
 	infoCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), infoWS, zapcore.InfoLevel)
 	errorCore := zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), errorWS, zapcore.ErrorLevel)
 
-	// Use Tee for debug logs to write to both file and console
+	// Use Tee for debug logs to write to both file and console if DEBUG is true
 	debugCore := zapcore.NewTee(
 		zapcore.NewCore(zapcore.NewJSONEncoder(encoderConfig), debugWS, zapcore.DebugLevel),
-		zapcore.NewCore(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig()), consoleDebugWS, zapcore.DebugLevel),
 	)
 
 	if config.Debug {
